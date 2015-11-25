@@ -1,4 +1,26 @@
 
 class Action < ActiveRecord::Base
   belongs_to :player
+
+  PASS_TRUMP = "pass_trump"
+  ACCEPT_TRUMP = "accept_trump"
+  PICK_TRUMP = "play_trump"
+  PLAY_CARD = "play_card"
+
+  def pass_trump?
+    action_type == PASS_TRUMP
+  end
+
+  def accept_trump?
+    action_type == ACCEPT_TRUMP
+  end
+
+  def pick_trump?
+    action_type == PICK_TRUMP
+  end
+
+  def play_card?
+    action_type == PLAY_CARD
+  end
 end
+
