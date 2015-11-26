@@ -8,7 +8,7 @@ describe ApplyAction do
 
   context "passing trump" do
     subject {
-      -> { action.call(create_action(Action::PASS_TRUMP, "HEARTS", 10)) }
+      -> { action.call(create_action(0, Action::PASS_TRUMP, "HEARTS", 10)) }
     }
 
     it { is_expected.not_to change{game} }
@@ -16,7 +16,7 @@ describe ApplyAction do
 
   context "accepting a trump" do
     subject {
-      -> { action.call(create_action(Action::ACCEPT_TRUMP, "DIAMONDS")) }
+      -> { action.call(create_action(0, Action::ACCEPT_TRUMP, "DIAMONDS")) }
     }
 
     it { is_expected.to change{game.trump_suit}.to "DIAMONDS" }
@@ -24,10 +24,18 @@ describe ApplyAction do
 
   context "picking a trump" do
     subject {
-      -> { action.call(create_action(Action::PICK_TRUMP, "SPADES")) }
+      -> { action.call(create_action(0, Action::PICK_TRUMP, "SPADES")) }
     }
 
     it { is_expected.to change{game.trump_suit}.to "SPADES" }
+  end
+
+  context "playing a card" do
+    subject {
+      -> { action.call(create_action(3, Action::PLAY_CARD, "CLUBS", 10)) }
+    }
+
+    it { is_expected.to change{game.pile} }
   end
 
   context "when it encounters an unknown action type" do

@@ -13,7 +13,7 @@ class ApplyAction
     elsif action.play_card?
       player = @game.find_player(action.player_id)
 
-      card = player.hand.remove(action.card)
+      card = player.hand.delete(action.card)
       @game.pile << card
     else
       fail 'unknown action'
