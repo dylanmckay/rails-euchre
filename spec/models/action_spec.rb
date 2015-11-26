@@ -25,5 +25,16 @@ describe Action do
         expect(action.card).to be_a(Card)
       end
     end
+
+    context "when the card is being dealt" do
+      let(:action) {
+        Action.create!(action_type: Action::DEAL_CARD,
+                       suit: "SPADES", value: 11)
+      }
+
+      it "should have an associated card" do
+        expect(action.card).to be_a(Card)
+      end
+    end
   end
 end
