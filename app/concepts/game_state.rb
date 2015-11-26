@@ -17,4 +17,57 @@ class GameState
   def in_progress?
     @players.hand.each.none?(&:empty)
   end
+
+
+
+  def highest_scoring_card(subject, other, leading_suit)
+    if is_trump?(subject) && is_trump?(other)
+      highest_when_trump(subject,other)
+    elsif subject.suit == other.suit
+      highest_when_not_trump(subject,other)
+    elsif subject.suit != other.suit
+      highest_when_different_suit(subject,other,leading_suit)
+    end
+  end
+
+  private
+
+  def highest_when_not_trump(subject, other)
+    (subject > other && !other.ace?) || subject.ace?  ? subject : other
+  end
+
+  def highest_when_different_suit(subject, other, leading_suit)
+    if is_trump?(subject)
+      subject
+    elsif is_trump?(other)
+      other
+    elsif subject.suit == leading_suit
+      subject
+    elsif other.suit == leading_suit
+      other
+    else
+      subject
+    end
+  end
+
+  def is_trump?(card)
+    card.suit == trump_suit || (card.partner_suit == trump_suit && card.jack?)
+  end
+
+  def highest_when_trump(subject, other)
+    card_trump_value(subject) > card_trump_value(other) ? subject : other
+  end
+
+  def card_trump_value(card)
+    card_real_value = card_value(card)
+    if card.jack?
+      card_real_value = 16
+      card_real_value -=1 if card.suit != trump_suit
+    end
+    card_real_value
+  end
+
+  def card_value(card)
+    card.ace? ? 14 : card.rank
+  end
 end
