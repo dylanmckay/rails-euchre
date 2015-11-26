@@ -18,6 +18,10 @@ describe ApplyAction do
           create_card,
         ]
       },
+
+      {
+        id: 5,
+      },
     ])
   }
 
