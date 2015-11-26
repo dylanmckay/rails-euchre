@@ -1,4 +1,6 @@
 
+require_relative '../concepts/card'
+
 class Action < ActiveRecord::Base
   belongs_to :player
 
@@ -21,6 +23,14 @@ class Action < ActiveRecord::Base
 
   def play_card?
     action_type == PLAY_CARD
+  end
+
+  def card
+    if suit && value
+      Card.new(suit, value)
+    else
+      fail 'the action does not have an associated card'
+    end
   end
 end
 
