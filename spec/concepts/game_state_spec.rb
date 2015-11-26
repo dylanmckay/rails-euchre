@@ -30,7 +30,7 @@ describe GameState do
   describe "#best_card" do
     let(:game) { GameState.new(nil) }
     context "when an all non-trump trick is played" do
-      trick =  [Card.new(:hearts,9),
+      trick = [Card.new(:hearts,9),
         Card.new(:hearts,12),
         Card.new(:hearts,10),
         Card.new(:hearts,11)
@@ -43,7 +43,7 @@ describe GameState do
     context "when an all trump trick is played" do
       before { game.trump_suit = :hearts }
 
-      trick =  [Card.new(:hearts,9),
+      trick = [Card.new(:hearts,9),
         Card.new(:hearts,12),
         Card.new(:hearts,10),
         Card.new(:hearts,11)
@@ -56,7 +56,7 @@ describe GameState do
     context "when a leading suit wins the trick" do
       before { game.trump_suit = :hearts }
 
-      trick =  [Card.new(:diamonds,9),
+      trick = [Card.new(:diamonds,9),
         Card.new(:clubs,12),
         Card.new(:spades,10),
         Card.new(:diamonds,10)
@@ -64,6 +64,19 @@ describe GameState do
       subject { game.best_card(trick) }
 
       it { is_expected.to eq trick[3] }
+    end
+
+    context "when a leading suit wins the trick" do
+      before { game.trump_suit = :hearts }
+
+      trick = [Card.new(:diamonds,9),
+        Card.new(:clubs,12),
+        Card.new(:diamonds,12),
+        Card.new(:diamonds,10)
+      ]
+      subject { game.best_card(trick) }
+
+      it { is_expected.to eq trick[2] }
     end
 
     context "when a non-leading trump wins the trick" do

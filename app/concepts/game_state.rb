@@ -24,6 +24,24 @@ class GameState
     end
   end
 
+  #TODO currently basic point score based on tricks won in a round
+  def player_points
+    players.map do |player|
+      calculate_points(player)
+    end
+  end
+
+  def calculate_points(player)
+    if player.scored_cards == 5
+      2
+    elsif player.scored_cards >= 3
+      1
+    else
+      0
+    end
+  end
+
+
   def highest_scoring_card(subject, other, leading_suit)
     if is_trump?(subject) && is_trump?(other)
       highest_when_trump(subject,other)
