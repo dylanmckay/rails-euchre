@@ -10,7 +10,7 @@ class CompareCard
     if(is_trump?(subject,trump)&&is_trump?(other,trump))
       compare_value_trump(subject,other,trump)
     elsif (subject.suit == other.suit)
-      subject > other  ? subject : other unless other.ace?
+      (subject > other && !other.ace?) || subject.ace?  ? subject : other
     elsif(subject.suit != other.suit)
       compare_when_different_suit(subject,other,trump,leading_suit)
     end
