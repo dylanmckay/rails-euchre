@@ -28,13 +28,13 @@ describe ApplyAction do
   let(:action) { ApplyAction.new(game) }
 
   context "dealing a card" do
-    let(:hand) { game.find_hand(0) }
+    let(:hand) { game.find_player(0).hand }
 
     subject {
       -> { action.call(create_action(0, Action::DEAL_CARD, "SPADES", 13)) }
     }
 
-    it { is_expected.to change { hand.cards.length }.by 1 }
+    it { is_expected.to change { hand.length }.by 1 }
   end
 
   context "passing trump" do
@@ -66,11 +66,11 @@ describe ApplyAction do
       -> { action.call(create_action(1, Action::PLAY_CARD, "CLUBS", 10)) }
     }
 
-    let(:hand) { game.find_hand(1) }
+    let(:hand) { game.find_player(1).hand }
 
     it { is_expected.to change { game.pile.length }.by 1 }
 
-    it { is_expected.to change { hand.cards.length }.by -1 }
+    it { is_expected.to change { hand.length }.by -1 }
   end
 
   context "when it encounters an unknown action type" do
