@@ -18,7 +18,11 @@ class GameState
     @players.hand.each.none?(&:empty)
   end
 
-
+  def best_card(stack)
+    stack.inject do |best,curr|
+      best = highest_scoring_card(best,curr,stack.first.suit)
+    end
+  end
 
   def highest_scoring_card(subject, other, leading_suit)
     if is_trump?(subject) && is_trump?(other)
