@@ -17,10 +17,10 @@ class Card
   end
 
   def to_s
-    "(#{suit}, #{value})"
+    "#{@value} of #{@suit.capitalize}"
   end
 
   def inspect
-    "(#{suit}, #{value})"
+    to_s
   end
 end

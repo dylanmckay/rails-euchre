@@ -22,5 +22,21 @@ describe Card do
     it "is not equal to a card with a different suit and value" do
       expect(card1 == card4).to be false
     end
+
+    it "is not equal to things that aren't cards" do
+      expect(card1 == 10).to be false
+    end
+  end
+
+  describe "#to_s" do
+    it "prints '<value> of <suit>'" do
+      expect(card1.to_s).to eq "10 of Diamonds"
+    end
+  end
+
+  describe "#inspect" do
+    it "is equivalent to #to_s" do
+      expect(card1.inspect).to eq card1.to_s
+    end
   end
 end
