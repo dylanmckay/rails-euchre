@@ -8,8 +8,12 @@ class Card
   end
 
   def ==(other)
-    @suit == other.suit
-    @value == other.value
+    if other.is_a?(Card)
+      @suit == other.suit &&
+      @value == other.value
+    else
+      false
+    end
   end
 
   def to_s
