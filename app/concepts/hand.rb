@@ -8,4 +8,8 @@ class Hand
     @player_id = player_id
     @cards = cards
   end
+
+  def empty?
+    @cards.empty?
+  end
 end

@@ -13,4 +13,8 @@ class GameState
   def find_hand(player_id)
     @hands.find { |hand| hand.player_id == player_id }
   end
+
+  def in_progress?
+    @hands.each.none?(&:empty)
+  end
 end
