@@ -6,10 +6,10 @@ class ApplyAction
 
   def call(action)
 
-    player = @game.find_player(action.player_id)
+    hand = @game.find_hand(action.player_id)
 
     if action.deal_card?
-      player.hand << action.card
+      hand.cards << action.card
     elsif action.pass_trump?
       # this doesn't change the game state
     elsif action.accept_trump? || action.pick_trump?
@@ -17,7 +17,7 @@ class ApplyAction
       @game.trump_suit = action.suit
     elsif action.play_card?
 
-      card = player.hand.delete(action.card)
+      card = hand.cards.delete(action.card)
       fail 'the card must exist in the players hand' if !card
 
       @game.pile << card

@@ -1,30 +1,30 @@
 require_relative 'rails_helper'
 require_relative '../app/concepts/game_state'
-require_relative '../app/concepts/player_state'
+require_relative '../app/concepts/hand'
 require_relative '../app/concepts/card'
 require_relative '../app/models/action'
 
 
 def create_game_state(player_count)
-  players = player_count.times.map { |n| create_player_state(n) }
+  players = player_count.times.map { |n| create_hand(n) }
   GameState.new(players)
 end
 
-def create_custom_game_state(players)
-  GameState.new(players.each.with_index.map do |player,index|
+def create_custom_game_state(hands)
+  GameState.new(hands.each.with_index.map do |player,index|
 
-    hand = player.include?(:hand) ? player[:hand] : create_hand
-    id = player.include?(:id) ? player[:id] : index+1
+    id = player.include?(:id) ? player[:id] : index
+    cards = player.include?(:hand) ? player[:hand] : create_cards
 
-    create_player_state(index, hand)
+    create_hand(id, cards)
   end)
 end
 
-def create_player_state(player_id, hand=create_hand)
-  PlayerState.new(player_id, hand)
+def create_hand(player_id, cards=create_cards)
+  Hand.new(player_id, cards)
 end
 
-def create_hand
+def create_cards
   5.times.map { create_card }
 end
 

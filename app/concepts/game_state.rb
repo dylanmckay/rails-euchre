@@ -1,16 +1,16 @@
 
 class GameState
 
-  attr_reader :players
+  attr_reader :hands
   attr_accessor :trump_suit, :pile
 
-  def initialize(players)
+  def initialize(hands)
     @trump_suit = nil
     @pile = []
-    @players = players
+    @hands = hands
   end
 
-  def find_player(id)
-    @players.find { |player| player.id == id }
+  def find_hand(player_id)
+    @hands.find { |hand| hand.player_id == player_id }
   end
 end
