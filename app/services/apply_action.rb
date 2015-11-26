@@ -17,13 +17,30 @@ class ApplyAction
       @game.trump_suit = action.suit
     elsif action.play_card?
 
-      card = player.hand.delete(action.card)
-      fail 'the card must exist in the players hand' if !card
+      @game.pile << player.hand.delete(action.card)
 
-      @game.pile << card
+      finish_round if every_player_has_played?
     else
       fail 'unknown action'
     end
+  end
+
+  private
+
+  def finish_round
+    winner = find_round_winner
+
+    winner.scored_cards += @game.pile
+    @game.pile.clear
+  end
+
+  def find_round_winner
+    # TODO
+    fail
+  end
+
+  def every_player_has_played?
+    @game.pile.length == @game.players.length
   end
 end
 
