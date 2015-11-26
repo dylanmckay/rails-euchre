@@ -19,7 +19,7 @@ class Game < ActiveRecord::Base
   private
 
   def setup_state
-    @game = Game.new(initial_player_states)
+    @game = GameState.new(initial_player_states)
 
     # Apply the actions
     actions.each { |action| ApplyAction.new(self).call(action) }
