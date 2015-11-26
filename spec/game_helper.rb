@@ -10,16 +10,27 @@ def create_game_state(player_count)
   GameState.new(players)
 end
 
-def create_player_state(player_id)
-  PlayerState.new(player_id, create_hand)
+def create_custom_game_state(players)
+  GameState.new(players.each.with_index.map do |player,index|
+
+    hand = player.include?(:hand) ? player[:hand] : create_hand
+    id = player.include?(:id) ? player[:id] : index+1
+
+    create_player_state(index, hand)
+  end)
+end
+
+def create_player_state(player_id, hand=create_hand)
+  PlayerState.new(player_id, hand)
 end
 
 def create_hand
   5.times.map { create_card }
 end
 
-def create_card
-  Card.new(create_suit, create_value)
+def create_card(suit=create_suit,
+                value=create_value)
+  Card.new(suit, value)
 end
 
 def create_suit

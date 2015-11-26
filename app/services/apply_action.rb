@@ -18,6 +18,8 @@ class ApplyAction
     elsif action.play_card?
 
       card = player.hand.delete(action.card)
+      fail 'the card must exist in the players hand' if !card
+
       @game.pile << card
     else
       fail 'unknown action'
