@@ -9,6 +9,8 @@ class Game < ActiveRecord::Base
 
   def actions
     # TODO: optimize
+    # We must sort the actions by ID so that they are
+    # in chronological order, otherwise the game will break.
     players.all
            .flat_map { |player| player.actions }
            .sort_by { |action| action.id }
