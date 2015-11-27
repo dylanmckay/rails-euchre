@@ -25,16 +25,6 @@ class Card
     rank <=> other.rank
   end
 
-  # def <(other)
-  #   puts "I am #{to_s} and diff is#{other.rank - rank}"
-  #   rank - other.rank
-  # end
-  #
-  # def >(other)
-  #   puts "I am #{to_s} and diff is#{other.rank - rank}"
-  #   other.rank - rank
-  # end
-
   def partner_suit
     PARTNER_SUITS.fetch(suit)
   end
