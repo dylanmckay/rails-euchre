@@ -20,8 +20,6 @@ class ApplyAction
       @game.pile << player.hand.delete(action.card)
 
       finish_round if every_player_has_played?
-    else
-      fail 'unknown action'
     end
   end
 
