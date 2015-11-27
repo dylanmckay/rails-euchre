@@ -29,14 +29,14 @@ describe Card do
   end
 
   describe "#to_s" do
-    it "prints '<value> of <suit>'" do
-      expect(card1.to_s).to eq "10 of Diamonds"
+    it "prints the unicode character" do
+      expect(card1.to_s).to eq "🃊"
     end
   end
 
   describe "#inspect" do
-    it "is equivalent to #to_s" do
-      expect(card1.inspect).to eq card1.to_s
+    it "prints the rank and suit " do
+      expect(card1.inspect).to eq "(10 of Diamonds)"
     end
   end
 end

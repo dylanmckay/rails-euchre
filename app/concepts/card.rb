@@ -1,3 +1,4 @@
+require_relative 'unicode_lookup'
 
 class Card
   include Comparable
@@ -30,7 +31,7 @@ class Card
   end
 
   def to_s
-    "#{rank} of #{suit.to_s.capitalize}"
+    unicode_card
   end
 
   def ace?
@@ -42,6 +43,12 @@ class Card
   end
 
   def inspect
-    to_s
+    "(#{rank} of #{suit.to_s.capitalize})"
+  end
+
+  private
+
+  def unicode_card
+    UNICODE_CARDS[suit][rank-1]
   end
 end
