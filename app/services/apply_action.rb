@@ -9,7 +9,7 @@ class ApplyAction
     player = @game.find_player(action.player_id)
 
     if action.deal_card?
-      player.add_to_hand(action.card)
+      player.hand << action.card
     elsif action.pass_trump?
       # this doesn't change the game state
     elsif action.accept_trump? || action.pick_trump?
@@ -18,7 +18,10 @@ class ApplyAction
     elsif action.play_card?
 
       @game.pile << player.hand.delete(action.card)
+
       finish_round if every_player_has_played?
+    else
+      fail 'unknown action'
     end
   end
 
@@ -27,7 +30,7 @@ class ApplyAction
   def finish_round
     winner = @game.round_winner
 
-    winner.add_won_cards(@game.pile)
+    winner.scored_cards += @game.pile
     @game.pile.clear
   end
 

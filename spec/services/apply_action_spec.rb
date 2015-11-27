@@ -91,5 +91,14 @@ describe ApplyAction do
       it { is_expected.to change { game.pile.length }.to 0 }
     end
   end
+
+  context "when it encounters an unknown action type" do
+    subject {
+      -> { action.call(create_action("foo", "SPADES", 12)) }
+    }
+
+    it { is_expected.to raise_error(Exception) }
+  end
+
 end
 
