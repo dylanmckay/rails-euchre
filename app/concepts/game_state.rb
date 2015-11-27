@@ -16,7 +16,7 @@ class GameState
   end
 
   def in_progress?
-    @players.hand.each.none?(&:empty)
+    @players.each.any? { |player| !player.hand.empty? }
   end
 
   def best_card(stack = @pile.cards)

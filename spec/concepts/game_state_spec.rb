@@ -2,9 +2,9 @@ require_relative '../../app/concepts/game_state'
 require_relative '../game_helper'
 
 describe GameState do
-  let(:game) {
+  subject(:game) {
     GameState.new([
-      PlayerState.new(5, []),
+      PlayerState.new(5, create_hand),
       PlayerState.new(10, []),
     ])
   }
@@ -12,6 +12,12 @@ describe GameState do
   let(:empty_game) {
     create_game_state(0)
   }
+
+  describe "#in_progress" do
+    context "at the start of the game" do
+      it { is_expected.to be_in_progress }
+    end
+  end
 
   describe "#find_player" do
     context "when there is a player" do
