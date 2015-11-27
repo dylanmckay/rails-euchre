@@ -25,15 +25,10 @@ class ApplyAction
   private
 
   def finish_round
-    winner = find_round_winner
+    winner = @game.round_winner
 
     winner.add_won_cards(@game.pile)
     @game.pile.clear
-  end
-
-  def find_round_winner
-    # TODO
-    fail
   end
 
   def every_player_has_played?

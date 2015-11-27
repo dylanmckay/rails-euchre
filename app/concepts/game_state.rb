@@ -41,6 +41,10 @@ class GameState
     end
   end
 
+  def round_winner
+    winning_card = best_card(@pile)
+    find_player(winning_card.player_id)
+  end
 
   def highest_scoring_card(subject, other, leading_suit)
     if is_trump?(subject) && is_trump?(other)

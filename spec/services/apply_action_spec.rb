@@ -7,7 +7,7 @@ describe ApplyAction do
     create_custom_game_state([
       {
         hand: [
-          create_card,
+          create_card("HEARTS", 11),
           create_card,
         ]
       },
@@ -21,6 +21,10 @@ describe ApplyAction do
 
       {
         id: 5,
+        hand: [
+          create_card("DIAMONDS", 8),
+          create_card,
+        ]
       },
     ])
   }
@@ -71,6 +75,21 @@ describe ApplyAction do
     it { is_expected.to change { game.pile.length }.by 1 }
 
     it { is_expected.to change { hand.length }.by -1 }
+
+    context "finishing a round" do
+      before {
+        # there are three players - play the first card
+        action.call(create_action(1, Action::PLAY_CARD, "CLUBS", 10))
+        action.call(create_action(5, Action::PLAY_CARD, "DIAMONDS", 8))
+      }
+
+      subject {
+        # play the second card and finish the round.
+        -> { action.call(create_action(0, Action::PLAY_CARD, "HEARTS", 11)) }
+      }
+
+      it { is_expected.to change { game.pile.length }.to 0 }
+    end
   end
 end
 
