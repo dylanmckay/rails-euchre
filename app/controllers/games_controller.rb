@@ -1,3 +1,4 @@
+require_relative '../services/create_game'
 class GamesController < ApplicationController
 
   def new; end
@@ -9,7 +10,7 @@ class GamesController < ApplicationController
   def index; end
 
   def create
-    game = Game.create!
+    game = CreateGame.new.call(params[:player_number])
     redirect_to game
   end
 end
