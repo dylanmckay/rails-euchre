@@ -14,7 +14,7 @@ class ApplyAction
       # this doesn't change the game state
     elsif action.accept_trump? || action.pick_trump?
 
-      @game.trump_suit = action.suit
+      @game.trump_suit = action.suit.to_sym
     elsif action.play_card?
 
       @game.pile << player.hand.delete(action.card)

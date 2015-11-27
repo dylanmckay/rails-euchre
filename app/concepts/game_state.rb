@@ -43,6 +43,7 @@ class GameState
 
   def round_winner
     winning_card = best_card(@pile)
+    puts "winning card: #{winning_card.player_id}"
     find_player(winning_card.player_id)
   end
 

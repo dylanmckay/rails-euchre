@@ -34,7 +34,7 @@ def create_card(suit=create_suit,
 end
 
 def create_suit
-  ["HEARTS", "DIAMONDS", "SPADES", "CLUBS"].sample
+  [:hearts, :diamonds, :spades, :clubs].sample
 end
 
 def create_value

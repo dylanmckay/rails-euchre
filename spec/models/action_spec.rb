@@ -6,7 +6,7 @@ describe Action do
     context "when the action is passing a trump suit" do
       let(:action) {
         Action.create!(action_type: Action::PASS_TRUMP,
-                       suit: "DIAMONDS")
+                       suit: :diamonds)
       }
 
       it "should not have an associated card" do
@@ -18,7 +18,7 @@ describe Action do
     context "when the action is playing a card" do
       let(:action) {
         Action.create!(action_type: Action::PLAY_CARD,
-                       suit: "HEARTS", value: 10)
+                       suit: :hearts, value: 10)
       }
 
       it "should have an associated card" do
@@ -29,7 +29,7 @@ describe Action do
     context "when the card is being dealt" do
       let(:action) {
         Action.create!(action_type: Action::DEAL_CARD,
-                       suit: "SPADES", value: 11)
+                       suit: :spades, value: 11)
       }
 
       it "should have an associated card" do

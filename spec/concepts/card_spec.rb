@@ -1,10 +1,10 @@
 require_relative '../../app/concepts/card'
 
 describe Card do
-  let(:card1) { Card.new("DIAMONDS", 10) }
-  let(:card2) { Card.new("DIAMONDS", 10) }
-  let(:card3) { Card.new("HEARTS", 10) }
-  let(:card4) { Card.new("SPADES", 11) }
+  let(:card1) { Card.new(:diamonds, 10) }
+  let(:card2) { Card.new(:diamonds, 10) }
+  let(:card3) { Card.new(:hearts, 10) }
+  let(:card4) { Card.new(:spades, 11) }
 
   describe "#==" do
     it "is equal to itself" do
