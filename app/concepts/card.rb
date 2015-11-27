@@ -2,6 +2,7 @@
 class Card
   include Comparable
   attr_reader :suit, :rank
+  attr_accessor :player_id
 
   PARTNER_SUITS = {
     :hearts   => :diamonds,
@@ -10,9 +11,10 @@ class Card
     :clubs    => :spades
   }
 
-  def initialize(suit, rank)
+  def initialize(suit, rank, player_id=nil)
     @suit = suit.to_sym
     @rank = rank
+    @player_id = player_id
   end
 
   def ==(other)
