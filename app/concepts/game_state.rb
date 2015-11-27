@@ -27,9 +27,7 @@ class GameState
 
   #TODO currently basic point score based on tricks won in a round
   def player_points
-    players.map do |player|
-      calculate_points(player)
-    end
+    players.map { |p| calculate_points(p)}
   end
 
   def calculate_points(player)
@@ -85,12 +83,12 @@ class GameState
   end
 
   def card_trump_value(card)
-    card_real_value = card_value(card)
+    trump_card_value = card_value(card)
     if card.jack?
-      card_real_value = 16
-      card_real_value -=1 if card.suit != trump_suit
+      trump_card_value = 16
+      trump_card_value -=1 if card.suit != trump_suit
     end
-    card_real_value
+    trump_card_value
   end
 
   def card_value(card)

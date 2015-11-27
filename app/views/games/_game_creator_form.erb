@@ -1,9 +1,10 @@
 <%= form_for Game.new do |f| %>
-  <%= radio_button_tag(:players, "2") %>
+  <%= radio_button_tag(:player_number, 2) %>
   <%= label_tag(:players_two, "2 Players") %>
-  <%= radio_button_tag(:players, "4") %>
+  <br>
+  <%= radio_button_tag(:player_number, 4) %>
   <%= label_tag(:players_four, "4 Players") %>
   <br>
   <br>
-  <%= f.submit "Create Game!" %>
+  <%= f.submit "Start Game" %>
 <% end %>
