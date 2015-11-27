@@ -5,7 +5,7 @@ require_relative '../services/apply_action'
 class Game < ActiveRecord::Base
   has_many :players
 
-  after_initialize :setup_state
+  before_create :setup_state
 
   def actions
     # TODO: optimize
