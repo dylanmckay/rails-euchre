@@ -1,3 +1,4 @@
+require_relative 'pile'
 
 class GameState
 
@@ -6,7 +7,7 @@ class GameState
 
   def initialize(players)
     @trump_suit = nil
-    @pile = []
+    @pile = Pile.new
     @players = players
   end
 
@@ -18,7 +19,7 @@ class GameState
     @players.hand.each.none?(&:empty)
   end
 
-  def best_card(stack)
+  def best_card(stack = @pile.cards)
     stack.inject do |best,curr|
       best = highest_scoring_card(best,curr,stack.first.suit)
     end
@@ -42,9 +43,7 @@ class GameState
   end
 
   def round_winner
-    winning_card = best_card(@pile)
-    puts "winning card: #{winning_card.player_id}"
-    find_player(winning_card.player_id)
+    @pile.card_owner(best_card)
   end
 
   def highest_scoring_card(subject, other, leading_suit)

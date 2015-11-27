@@ -17,7 +17,7 @@ class ApplyAction
       @game.trump_suit = action.suit.to_sym
     elsif action.play_card?
 
-      @game.pile << player.hand.delete(action.card)
+      @game.pile.add(player.hand.delete(action.card), player)
 
       finish_round if every_player_has_played?
     end
@@ -28,7 +28,7 @@ class ApplyAction
   def finish_round
     winner = @game.round_winner
 
-    winner.scored_cards += @game.pile
+    winner.scored_cards += @game.pile.cards
     @game.pile.clear
   end
 
