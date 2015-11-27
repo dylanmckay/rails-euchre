@@ -14,7 +14,7 @@ describe GameState do
   }
 
   describe "#find_player" do
-        context "when there is a player" do
+    context "when there is a player" do
       it "should find the hand" do
         expect(game.find_player(5)).to be_a PlayerState
       end
@@ -24,6 +24,34 @@ describe GameState do
       it "should not find any hands" do
         expect(empty_game.find_player(5)).to be nil
       end
+    end
+  end
+
+  describe "#player_points" do
+    subject{ game.player_points }
+
+    context "when one player has won all 5 tricks in the round" do
+      tricks = 10.times.map{ Card.new(:hearts,1) }
+      let(:game) {
+        GameState.new([
+          PlayerState.new(5, [],tricks),
+          PlayerState.new(10, []),
+        ])
+      }
+
+        it { is_expected.to eq [2,0] }
+    end
+
+    context "when one player has won 3 of 5 tricks in the round" do
+      tricks = 10.times.map{ Card.new(:hearts,1) }
+      let(:game) {
+        GameState.new([
+          PlayerState.new(5, [],tricks[0..6]),
+          PlayerState.new(10, [],tricks[7..10]),
+        ])
+      }
+
+        it { is_expected.to eq [1,0] }
     end
   end
 

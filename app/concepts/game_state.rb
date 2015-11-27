@@ -32,9 +32,9 @@ class GameState
   end
 
   def calculate_points(player)
-    if player.scored_cards == 5
+    if player.scored_cards.length/players.length == 5
       2
-    elsif player.scored_cards >= 3
+    elsif player.scored_cards.length/players.length >= 3
       1
     else
       0
