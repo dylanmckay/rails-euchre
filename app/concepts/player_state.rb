@@ -9,8 +9,4 @@ class PlayerState
     @hand = hand
     @scored_cards = scored_cards
   end
-
-  def empty?
-    @hand.empty?
-  end
 end
