@@ -1,4 +1,8 @@
-
-<%= form_for Game.new do |f| %>
-  <%= f.submit "Create Game!" %>
-<% end %>
+<center>
+<div>
+  <%= render partial:"game_creator_form" %>
+</div>
+<font size="600">
+<%= Card.new(:hearts,1).to_s%>
+</font>
+</center>
