@@ -10,7 +10,7 @@ class GamesController < ApplicationController
   def index; end
 
   def create
-    game = CreateGame.new.call(params[:player_number])
+    game = CreateGame.new.call(params[:player_number].to_i)
     redirect_to game
   end
 end

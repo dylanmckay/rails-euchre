@@ -1,7 +1,7 @@
 #unicode_lookup.rb
 
 UNICODE_CARDS = {
-  spades:[
+  spades: [
     "🂡",
     "🂢",
     "🂣",
@@ -16,7 +16,7 @@ UNICODE_CARDS = {
     "🂭",
     "🂮"
   ],
-  hearts:[
+  hearts: [
     "🂱",
     "🂲",
     "🂳",
@@ -31,7 +31,7 @@ UNICODE_CARDS = {
     "🂽",
     "🂾"
   ],
-  diamonds:[
+  diamonds: [
     "🃁",
     "🃂",
     "🃃",
@@ -46,7 +46,7 @@ UNICODE_CARDS = {
     "🃍",
     "🃎",
   ],
-  clubs:[
+  clubs: [
     "🃑",
     "🃒",
     "🃓",
