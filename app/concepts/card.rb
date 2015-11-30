@@ -1,8 +1,25 @@
 require_relative 'unicode_lookup'
 
+
 class Card
   include Comparable
   attr_reader :suit, :rank
+
+  def initialize(suit, rank)
+    @suit = suit.to_sym
+    @rank = rank
+  end
+
+  SUITS = [
+    :hearts,
+    :diamonds,
+    :spades,
+    :clubs,
+  ]
+
+  DECK = SUITS.flat_map do |suit|
+    (1..13).map { |n| Card.new(suit, n) }
+  end
 
   PARTNER_SUITS = {
     :hearts   => :diamonds,
@@ -10,11 +27,6 @@ class Card
     :spades   => :clubs,
     :clubs    => :spades
   }
-
-  def initialize(suit, rank)
-    @suit = suit.to_sym
-    @rank = rank
-  end
 
   def ==(other)
     other.is_a?(Card) &&
