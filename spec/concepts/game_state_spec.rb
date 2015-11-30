@@ -4,8 +4,8 @@ require_relative '../game_helper'
 describe GameState do
   subject(:game) {
     GameState.new([
-      PlayerState.new(5, create_hand),
-      PlayerState.new(10, []),
+      PlayerState.new(id: 5, hand: create_hand),
+      PlayerState.new(id: 10),
     ])
   }
 
@@ -40,8 +40,8 @@ describe GameState do
       tricks = 10.times.map{ Card.new(:hearts,1) }
       let(:game) {
         GameState.new([
-          PlayerState.new(5, [],tricks),
-          PlayerState.new(10, []),
+          PlayerState.new(id: 5, scored_cards: tricks),
+          PlayerState.new(id: 10)
         ])
       }
 
@@ -52,8 +52,8 @@ describe GameState do
       tricks = 10.times.map{ Card.new(:hearts,1) }
       let(:game) {
         GameState.new([
-          PlayerState.new(5, [],tricks[0..6]),
-          PlayerState.new(10, [],tricks[7..10]),
+          PlayerState.new(id: 5, scored_cards: tricks[0..6]),
+          PlayerState.new(id: 10, scored_cards: tricks[7..10]),
         ])
       }
 
@@ -138,8 +138,8 @@ describe GameState do
         subject { game.highest_scoring_card(primary,other,primary.suit) }
 
         context "and the primary's value is higher" do
-          let(:primary) { Card.new(:hearts,9) }
-          let(:other)   { Card.new(:hearts,10)}
+          let(:primary) { Card.new(:hearts, 9) }
+          let(:other)   { Card.new(:hearts, 10)}
 
           it { is_expected.to eq other }
         end
@@ -147,16 +147,15 @@ describe GameState do
 
         context "and the primary is an ace" do
           before { game.trump_suit = :diamonds }
-          let(:primary) { Card.new(:hearts,1) }
-          let(:other)   { Card.new(:hearts,10)}
+          let(:primary) { Card.new(:hearts, 1) }
+          let(:other)   { Card.new(:hearts, 10)}
 
           it { is_expected.to eq primary }
         end
 
-
         context "and the primary is a queen and the other is a jack" do
-          let(:primary) { Card.new(:hearts,12) }
-          let(:other)   { Card.new(:hearts,11)}
+          let(:primary) { Card.new(:hearts, 12) }
+          let(:other)   { Card.new(:hearts, 11) }
 
           it { is_expected.to eq primary }
         end
@@ -167,16 +166,16 @@ describe GameState do
         subject { game.highest_scoring_card(primary, other, primary.suit) }
 
         context "and the other doesn't follow the leading suit" do
-          let(:primary) { Card.new(:hearts,11) }
-          let(:other)   { Card.new(:diamonds,12)}
+          let(:primary) { Card.new(:hearts, 11) }
+          let(:other)   { Card.new(:diamonds, 12) }
 
           it { is_expected.to eq primary }
         end
 
         context "when other follows leading suit and primary doesn't" do
           subject { game.highest_scoring_card(primary, other, :spades) }
-          let(:primary) { Card.new(:diamonds,12)}
-          let(:other)   { Card.new(:spades,9) }
+          let(:primary) { Card.new(:diamonds, 12) }
+          let(:other)   { Card.new(:spades, 9) }
 
           it { is_expected.to eq other }
         end
@@ -184,16 +183,16 @@ describe GameState do
         context "when the primary is trump and not-leading but other is leading" do
           before { game.trump_suit = :diamonds }
           subject { game.highest_scoring_card(primary, other, :hearts) }
-          let(:primary) { Card.new(:diamonds,9)}
-          let(:other)   { Card.new(:hearts,1) }
+          let(:primary) { Card.new(:diamonds, 9) }
+          let(:other)   { Card.new(:hearts, 1) }
 
           it { is_expected.to eq primary }
         end
 
         context "and neither follow the leading suit" do
           subject { game.highest_scoring_card(primary, other, :hearts) }
-          let(:primary) { Card.new(:diamonds,12)}
-          let(:other)   { Card.new(:clubs,9) }
+          let(:primary) { Card.new(:diamonds, 12) }
+          let(:other)   { Card.new(:clubs, 9) }
 
           it { is_expected.to eq primary }
         end
@@ -204,22 +203,22 @@ describe GameState do
         subject { game.highest_scoring_card(primary, other, primary.suit) }
 
         context "and the primary card is a jack" do
-          let(:primary) { Card.new(game.trump_suit,11) }
-          let(:other)   { Card.new(game.trump_suit,12)}
+          let(:primary) { Card.new(game.trump_suit, 11) }
+          let(:other)   { Card.new(game.trump_suit, 12) }
 
           it { is_expected.to eq primary }
         end
 
         context "and the primary is the trump pair's jack and other is non jack trump" do
-          let(:primary) { Card.new(trump_pair,11) }
-          let(:other) { Card.new(game.trump_suit,1)}
+          let(:primary) { Card.new(trump_pair, 11) }
+          let(:other)   { Card.new(game.trump_suit, 1) }
 
           it { is_expected.to eq primary }
         end
 
         context "and the primary and other are jack and pair jack" do
-          let(:primary) { Card.new(game.trump_suit,11) }
-          let(:other) { Card.new(trump_pair,11)}
+          let(:primary) { Card.new(game.trump_suit, 11) }
+          let(:other)   { Card.new(trump_pair, 11) }
 
           it { is_expected.to eq primary }
         end
@@ -228,22 +227,22 @@ describe GameState do
       context "when the cards suits are: varying" do
         subject { game.highest_scoring_card(primary, other, primary.suit) }
         context " and the other is trump and not leading" do
-          let(:primary) { Card.new(:hearts,1) }
-          let(:other) { Card.new(game.trump_suit,9) }
+          let(:primary) { Card.new(:hearts, 1) }
+          let(:other)   { Card.new(game.trump_suit, 9) }
 
           it { is_expected.to eq other}
         end
 
         context " primary is trump pair's jack and other is trump" do
-          let(:primary) { Card.new(trump_pair,11) }
-          let(:other) { Card.new(game.trump_suit,1) }
+          let(:primary) { Card.new(trump_pair, 11) }
+          let(:other)   { Card.new(game.trump_suit, 1) }
 
           it { is_expected.to eq primary}
         end
 
         context "and the primary is non-leading and other is trump" do
           let(:primary) { Card.new(:hearts,1) }
-          let(:other) { Card.new(game.trump_suit,9) }
+          let(:other)   { Card.new(game.trump_suit,9) }
 
           it { is_expected.to eq other}
         end

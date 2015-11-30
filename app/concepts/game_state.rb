@@ -1,7 +1,6 @@
 require_relative 'pile'
 
 class GameState
-
   attr_reader :players
   attr_accessor :trump_suit, :pile
 
@@ -21,7 +20,7 @@ class GameState
 
   def best_card(stack = @pile.cards)
     stack.inject do |best,curr|
-      best = highest_scoring_card(best,curr,stack.first.suit)
+      best = highest_scoring_card(best, curr, stack.first.suit)
     end
   end
 
@@ -31,9 +30,9 @@ class GameState
   end
 
   def calculate_points(player)
-    if player.scored_cards.length/players.length == 5
+    if won_tricks(player) == 5
       2
-    elsif player.scored_cards.length/players.length >= 3
+    elsif won_tricks(player) >= 3
       1
     else
       0
@@ -55,6 +54,10 @@ class GameState
   end
 
   private
+
+  def won_tricks(player)
+    player.scored_cards.length / players.length
+  end
 
   def highest_when_not_trump(subject, other)
     (subject > other && !other.ace?) || subject.ace?  ? subject : other

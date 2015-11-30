@@ -21,7 +21,7 @@ def create_custom_game_state(players)
 end
 
 def create_player_state(player_id, cards=create_hand)
-  PlayerState.new(player_id, cards)
+  PlayerState.new(id: player_id, hand: cards)
 end
 
 def create_hand
@@ -45,4 +45,3 @@ def create_action(player_id, type, suit, value=nil)
   Action.create!(player_id: player_id, action_type: type,
                 suit: suit, value: value)
 end
-
