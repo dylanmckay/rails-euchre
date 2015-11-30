@@ -1,10 +1,13 @@
 require_relative '../services/create_game'
+require_relative '../services/create_game_state'
+
 class GamesController < ApplicationController
 
   def new; end
 
   def show
     @game = Game.find(params[:id])
+    @game_state = CreateGameState.new.call(@game)
   end
 
   def index; end
