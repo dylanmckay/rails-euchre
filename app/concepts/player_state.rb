@@ -9,4 +9,8 @@ class PlayerState
     @hand = hand
     @scored_cards = scored_cards
   end
+
+  def has_card?(card)
+    @hand.include?(card) || @scored_cards.include?(card)
+  end
 end

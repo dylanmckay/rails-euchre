@@ -2,11 +2,12 @@ require_relative 'pile'
 
 class GameState
   attr_reader :players
-  attr_accessor :trump_suit, :pile
+  attr_accessor :trump_suit, :pile, :deck
 
   def initialize(players)
     @trump_suit = nil
     @pile = Pile.new
+    @deck = []
     @players = players
   end
 
