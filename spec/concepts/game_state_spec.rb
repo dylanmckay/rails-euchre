@@ -4,8 +4,8 @@ require_relative '../game_helper'
 describe GameState do
   subject(:game) {
     GameState.new([
-      PlayerState.new(id: 5, hand: create_hand),
-      PlayerState.new(id: 10),
+      PlayerState.new(id: 5, hand: create_hand, name: "Henry"),
+      PlayerState.new(id: 10, name: "Harold"),
     ])
   }
 
@@ -40,8 +40,8 @@ describe GameState do
       tricks = 10.times.map{ Card.new(:hearts,1) }
       let(:game) {
         GameState.new([
-          PlayerState.new(id: 5, scored_cards: tricks),
-          PlayerState.new(id: 10)
+          PlayerState.new(id: 5, scored_cards: tricks, name: "Phillipa"),
+          PlayerState.new(id: 10, name: "Jordan")
         ])
       }
 
@@ -52,8 +52,8 @@ describe GameState do
       tricks = 10.times.map{ Card.new(:hearts,1) }
       let(:game) {
         GameState.new([
-          PlayerState.new(id: 5, scored_cards: tricks[0..6]),
-          PlayerState.new(id: 10, scored_cards: tricks[7..10]),
+          PlayerState.new(id: 5, scored_cards: tricks[0..6], name: "Jeff"),
+          PlayerState.new(id: 10, scored_cards: tricks[7..10], name: "Ron"),
         ])
       }
 

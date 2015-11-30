@@ -20,8 +20,8 @@ def create_custom_game_state(players)
   end)
 end
 
-def create_player_state(player_id, cards=create_hand)
-  PlayerState.new(id: player_id, hand: cards)
+def create_player_state(player_id, cards=create_hand, name: "John")
+  PlayerState.new(id: player_id, name: name, hand: cards)
 end
 
 def create_hand

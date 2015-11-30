@@ -1,11 +1,12 @@
 
 class PlayerState
 
-  attr_reader :id
+  attr_reader :id, :name
   attr_accessor :hand, :scored_cards
 
-  def initialize(id:, hand: [], scored_cards: [])
+  def initialize(id:, name:, hand: [], scored_cards: [])
     @id = id
+    @name = name
     @hand = hand
     @scored_cards = scored_cards
   end
