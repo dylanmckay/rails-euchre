@@ -1,12 +1,15 @@
 <center>
-  <h2>
-    Euchre
-  </h2>
-  <font size="9001">
-    <%= Card.new(:spades,1).to_s%>
-  </font>
-  <div>
+  <div class="new_heading">
+    <h2 class="header">
+      Euchre
+    </h2>
+    <font class="card">
+      <%= Card.new(:spades, 1).to_s %>
+    </font>
+
+  <div class="selection_box">
     <%= render partial:"game_creator_form" %>
+  </div>
   </div>
 
 </center>

@@ -1,3 +1,73 @@
 // Place all the styles related to the games controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+.selection_box{
+  color: white;
+  opacity: 0.6;
+  background-color: #0D4052;
+  width: 100%
+}
+.selection_form{
+  color: black;
+  opacity: 1;
+  width:100%
+}
+.new_heading {
+  color: black;
+  opacity: 1;
+  width: 25% ;
+  background-color: #D5E3E8;
+}
+.header{
+    font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+    font-size: 40px
+}
+.card{
+  font-size: 100px;
+  color: black;
+
+}
+.new_heading{
+  padding-top: 10px ;
+}
+
+.selection_box{
+  padding-bot: 10px ;
+  padding-top: 10px ;
+}
+
+body{
+  background-color: #EEEEEE;
+}
+
+.hand{
+  /*
+  TODO put size of hand in here
+  */
+  width: 200px ;
+  height: 100px;
+  background-color: grey ;
+}
+.left_hand {
+  -webkit-transform: rotate(90deg);
+  float:left ;
+  margin-top: 10% ;
+}
+
+.opposite_hand{
+  -webkit-transform: rotate(180deg);
+  margin: 0px auto;
+}
+
+.right_hand{
+  -webkit-transform: rotate(-90deg);
+  float: right ;
+  margin: auto auto;
+  margin-top: 10% ;
+}
+.own_hand{
+  margin-top: 30%;
+  margin-left: auto ;
+  margin-right: auto ;
+  margin-bottom: 0px;
+}
