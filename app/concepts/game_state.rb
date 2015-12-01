@@ -25,6 +25,12 @@ class GameState
     end
   end
 
+  def worst_card(stack = @pile.cards)
+    stack.inject do |best,curr|
+      best = highest_scoring_card(best, curr, stack.first.suit) == best ? curr : best
+    end
+  end
+
   #TODO currently basic point score based on tricks won in a round
   def player_points
     players.map { |p| calculate_points(p)}
@@ -44,7 +50,7 @@ class GameState
     @pile.card_owner(best_card)
   end
 
-  def highest_scoring_card(subject, other, leading_suit)
+  def highest_scoring_card(subject, other, leading_suit = @pile.cards.first.suit)
     if is_trump?(subject) && is_trump?(other)
       highest_when_trump(subject,other)
     elsif subject.suit == other.suit

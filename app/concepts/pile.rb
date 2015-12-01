@@ -35,9 +35,12 @@ class Pile
   end
 
   def card_owner(card)
-    raise Exception, 'the pile is empty' if @infos.empty?
+    raise Exception, 'the pile is empty' if empty?
 
     @infos.each.find { |info| info.card == card }.player
   end
-end
 
+  def empty?
+    @infos.empty?
+  end
+end

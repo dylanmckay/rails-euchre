@@ -27,6 +27,7 @@
 
 <div class="hand own_hand">
   <%@game_state.players[0].hand.each do |card| %>
-    <a href=""class="hand_card"><%= card.to_s%></a>
+    <a href=""class="hand_card">
+      <%= card.to_s%></a>
   <%end%>
 </div>
