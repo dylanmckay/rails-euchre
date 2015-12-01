@@ -83,19 +83,16 @@ class GameState
   end
 
   def highest_when_trump(subject, other)
-    card_trump_value(subject) > card_trump_value(other) ? subject : other
-  end
-
-  def card_trump_value(card)
-    trump_card_value = card_value(card)
-    if card.jack?
-      trump_card_value = 16
-      trump_card_value -=1 if card.suit != trump_suit
-    end
-    trump_card_value
+    card_value(subject) > card_value(other) ? subject : other
   end
 
   def card_value(card)
-    card.ace? ? 14 : card.rank
+    if card.jack? && is_trump?(card)
+      trump_card_value = 16
+      trump_card_value -=1 if card.suit != trump_suit
+      trump_card_value
+    else
+      card.ace? ? 14 : card.rank
+    end
   end
 end
