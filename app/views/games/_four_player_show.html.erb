@@ -2,7 +2,12 @@
 <div class="hand opposite_hand">
 
   <%@game_state.players[2].hand.each do |card| %>
-    <span class="hand_card"><%= card.to_s%></span>
+    <span class="hand_card"
+          onclick="play_card(<%= @game.id %>,
+                             <%= @game_state.players[2].id %>,
+                             &quot;<%= card.suit %>&quot;,
+                             &quot;<%= card.rank %>&quot;)">
+    <%= card.to_s %>
   <%end%>
 </div>
 
