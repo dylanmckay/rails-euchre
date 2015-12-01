@@ -82,17 +82,21 @@ body{
   background-color: grey ;
 }
 
+.placed_card{
+  background-color: pink;
+  font-size: 85px ;
+}
 .hand_card{
-  font-size: 75px ;
+  font-size: 85px ;
+  float: right ;
   color:black;
-  transition-duration: 0.3s;
-  transform: translateZ(0);
-  transition-property: transform;
-  //transition-duration: 0.3s;
-//  transition-property: transform;
+  transition: transform 0.3s ease-out;
+  transform: translate(0em,0em)
 }
 .hand_card:hover{
-  font-size: 80px ;
-  transform: translateZ(10);
-//  transform: translateZ(10);
+  transform: translate(0em,-0.5em)
+}
+
+.player_name{
+  transform: rotate(-180deg);
 }
