@@ -9,6 +9,12 @@ class CreateGameState
 
     state.deck = new_deck(state)
 
+    game_model.players.each do |player_model|
+      player_model.actions.each do |action|
+        ApplyAction.new(state).call(action)
+      end
+    end
+
     state
   end
 

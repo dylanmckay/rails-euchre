@@ -15,5 +15,8 @@ It has <%= @game.players.size %> players.
 </div>
 
 <div class="hand own_hand">
+  <%@game_state.players.first.hand.each do |card| %>
+  <%= card.to_s   %>
+  <%end%>
   OWN
 </div>
