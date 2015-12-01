@@ -8,7 +8,27 @@
 </head>
 <body>
 
-<%= yield %>
+<% if rand(0..100) > 95 %>
+  <style>body { font-family: Comic Sans MS; }</style>
+<% end %>
+
+<div id="header">
+  <ul>
+    <li><a href="/">Home</a></li>
+    <li><a href="/">Placeholder</a></li>
+    <li><a href="/">Placeholder</a></li>
+    <li><a href="/">Placeholder</a></li>
+    <li><a href="/">Placeholder</a></li>
+  </ul>
+</div>
+
+<div id="content">
+  <%= yield %>
+</div>
+
+<div id="footer">
+  hello
+</div>
 
 </body>
 </html>
