@@ -1,6 +1,6 @@
-class CreateActions < ActiveRecord::Migration
+class CreateOperations < ActiveRecord::Migration
   def change
-    create_table :actions do |t|
+    create_table :operations do |t|
 
       t.integer :player_id
       t.references :player

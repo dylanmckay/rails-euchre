@@ -13,19 +13,19 @@
 
 ActiveRecord::Schema.define(version: 20151125221734) do
 
-  create_table "actions", force: :cascade do |t|
+  create_table "games", force: :cascade do |t|
+    t.integer  "initial_dealer_id"
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
+  end
+
+  create_table "operations", force: :cascade do |t|
     t.integer  "player_id"
     t.string   "action_type", null: false
     t.string   "suit"
     t.integer  "value"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
-  end
-
-  create_table "games", force: :cascade do |t|
-    t.integer  "initial_dealer_id"
-    t.datetime "created_at",        null: false
-    t.datetime "updated_at",        null: false
   end
 
   create_table "players", force: :cascade do |t|

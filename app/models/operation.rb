@@ -1,7 +1,7 @@
 
 require_relative '../concepts/card'
 
-class Action < ActiveRecord::Base
+class Operation < ActiveRecord::Base
   belongs_to :player
 
 

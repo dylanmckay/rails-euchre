@@ -1,11 +1,11 @@
 require_relative '../../app/models/action'
 
-describe Action do
+describe Operation do
 
   describe "#card" do
     context "when the action is passing a trump suit" do
       let(:action) {
-        Action.create!(action_type: :pass_trump,
+        Operation.create!(action_type: :pass_trump,
                        suit: :diamonds)
       }
 
@@ -17,7 +17,7 @@ describe Action do
 
     context "when the action is playing a card" do
       let(:action) {
-        Action.create!(action_type: :play_card,
+        Operation.create!(action_type: :play_card,
                        suit: :hearts, value: 10)
       }
 
@@ -28,7 +28,7 @@ describe Action do
 
     context "when the card is being dealt" do
       let(:action) {
-        Action.create!(action_type: :deal_card,
+        Operation.create!(action_type: :deal_card,
                        suit: :spades, value: 11)
       }
 
