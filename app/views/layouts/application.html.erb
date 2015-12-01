@@ -8,7 +8,9 @@
 </head>
 <body>
 
-<% if rand(0..100) > 95 %>
+<% admin_mode  = (rand(0..100) > 95) %>
+
+<% if admin_mode %>
   <style>body { font-family: Comic Sans MS; }</style>
 <% end %>
 
@@ -23,7 +25,15 @@
 </div>
 
 <div id="content">
+
+<% if admin_mode %>
+<marquee><blink>
+<% end %>
+
   <%= yield %>
+<% if admin_mode %>
+</blink></marquee>
+<% end %>
 </div>
 
 <div id="footer">
