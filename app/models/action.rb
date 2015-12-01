@@ -4,30 +4,29 @@ require_relative '../concepts/card'
 class Action < ActiveRecord::Base
   belongs_to :player
 
-  DEAL_CARD = "deal_card"
-  PASS_TRUMP = "pass_trump"
-  ACCEPT_TRUMP = "accept_trump"
-  PICK_TRUMP = "play_trump"
-  PLAY_CARD = "play_card"
 
   def deal_card?
-    action_type == DEAL_CARD
+    type == :deal_card
   end
 
   def pass_trump?
-    action_type == PASS_TRUMP
+    type == :pass_trump
   end
 
   def accept_trump?
-    action_type == ACCEPT_TRUMP
+    type == :accept_trump
   end
 
   def pick_trump?
-    action_type == PICK_TRUMP
+    type == :pick_trump
   end
 
   def play_card?
-    action_type == PLAY_CARD
+    type == :play_card
+  end
+
+  def type
+    action_type.to_sym
   end
 
   def card
@@ -38,4 +37,3 @@ class Action < ActiveRecord::Base
     end
   end
 end
-
