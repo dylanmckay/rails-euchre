@@ -3,7 +3,7 @@
 
 It has <%= @game.players.size %> players.
 <% if @game.players.size == 4 %>
-<%= render partial: "four_player_show" %>
+  <%= render partial: "four_player_show" %>
 <%else%>
-<%= render partial: "two_player_show" %>
+  <%= render partial: "two_player_show" %>
 <%end%>
