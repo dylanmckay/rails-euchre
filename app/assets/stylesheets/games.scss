@@ -39,12 +39,14 @@
 body{
   background-color: #EEEEEE;
 }
-
+.test{
+  color: pink ;
+}
 .hand{
   /*
   TODO put size of hand in here
   */
-  width: 200px ;
+  width: 300px ;
   height: 100px;
   background-color: grey ;
 }
@@ -55,7 +57,7 @@ body{
 }
 
 .opposite_hand{
-  -webkit-transform: rotate(180deg);
+  -webkit-transform: rotate(-180deg);
   margin: 0px auto;
 }
 
@@ -66,8 +68,31 @@ body{
   margin-top: 10% ;
 }
 .own_hand{
-  margin-top: 30%;
+  margin-top: 7%;
   margin-left: auto ;
   margin-right: auto ;
   margin-bottom: 0px;
+}
+.pile{
+  margin-top: 7%  ;
+  margin-left: auto;
+  margin-right: auto;
+  width:  200px ;
+  height: 200px ;
+  background-color: grey ;
+}
+
+.hand_card{
+  font-size: 80px ;
+  color:black;
+  transition-duration: 0.3s;
+  transform: translateZ(0);
+  transition-property: transform;
+  //transition-duration: 0.3s;
+//  transition-property: transform;
+}
+.hand_card:hover{
+  font-size: 80px ;
+  transform: translateZ(10);
+//  transform: translateZ(10);
 }

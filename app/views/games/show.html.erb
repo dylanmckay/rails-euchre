@@ -2,21 +2,33 @@
 <div>Game</div>
 
 It has <%= @game.players.size %> players.
+
 <div class="hand opposite_hand">
-  OPPOSITE
+  <%@game_state.players[2].hand.each do |card| %>
+    <span class="hand_card"><%= card.to_s%></span>
+  <%end%>
 </div>
 
 <div class="hand left_hand">
-  LEFT
+    <%@game_state.players[1].hand.each do |card| %>
+      <span class="hand_card"><%= card.to_s%></span>
+    <%end%>
 </div>
+
+
 
 <div class="hand right_hand">
-  RIGHT
-</div>
-
-<div class="hand own_hand">
-  <%@game_state.players.first.hand.each do |card| %>
-  <%= card.to_s   %>
+  <%@game_state.players[3].hand.each do |card| %>
+    <span class="hand_card"><%= card.to_s%></span>
   <%end%>
-  OWN
+</div>
+<div class="pile" >
+  <%@game_state.pile.cards.each do |card| %>
+  <%=card.to_s %>
+  <%end%>
+</div>
+<div class="hand own_hand">
+  <%@game_state.players[0].hand.each do |card| %>
+    <a href=""><span class="hand_card"><%= card.to_s%></span></a>
+  <%end%>
 </div>
