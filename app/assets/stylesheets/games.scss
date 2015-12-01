@@ -1,102 +1,96 @@
 // Place all the styles related to the games controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
-.selection_box{
+.selection_box {
   color: white;
   opacity: 0.6;
   background-color: #0D4052;
-  width: 100%
+  width: 100%;
 }
-.selection_form{
+.selection_form {
   color: black;
   opacity: 1;
-  width:100%
+  width: 100%;
 }
 .new_heading {
   color: black;
   opacity: 1;
-  width: 25% ;
+  width: 25%;
   background-color: #D5E3E8;
 }
-.header{
-    font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
-    font-size: 40px
+.header {
+  font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+  font-size: 40px;
 }
-.card{
+.card {
   font-size: 100px;
   color: black;
-
 }
-.new_heading{
-  padding-top: 10px ;
+.new_heading {
+  padding-top: 10px;
 }
-
-.selection_box{
-  padding-bot: 10px ;
-  padding-top: 10px ;
+.selection_box {
+  padding-bot: 10px;
+  padding-top: 10px;
 }
-
-body{
+body {
   background-color: #EEEEEE;
 }
-.test{
-  color: pink ;
+.test {
+  color: pink;
 }
-.hand{
-  /*
-  TODO put size of hand in here
-  */
-  width: 300px ;
+.hand {
+  width: 300px;
   height: 100px;
-  background-color: grey ;
+  background-color: grey;
 }
 .left_hand {
   -webkit-transform: rotate(90deg);
-  float:left ;
-  margin-top: 10% ;
+  float: left;
+  margin-top: 10%;
+  margin-left: 10%;
 }
-
-.opposite_hand{
+.opposite_hand {
   -webkit-transform: rotate(-180deg);
-  margin: 0px auto;
+  margin: 0 auto;
 }
-
-.right_hand{
+.right_hand {
   -webkit-transform: rotate(-90deg);
-  float: right ;
-  margin: auto auto;
-  margin-top: 10% ;
+  float: right;
+  margin-top: 10%;
+  margin-right: 10%;
 }
-.own_hand{
+.own_hand {
   margin-top: 7%;
-  margin-left: auto ;
-  margin-right: auto ;
-  margin-bottom: 0px;
-}
-.pile{
-  margin-top: 7%  ;
   margin-left: auto;
   margin-right: auto;
-  width:  200px ;
-  height: 200px ;
-  background-color: grey ;
+  margin-bottom: 0;
 }
-
-.placed_card{
+.pile {
+  margin-top: 7%;
+  margin-left: auto;
+  margin-right: auto;
+  width: 200px;
+  height: 200px;
+  background-color: grey;
+}
+.placed_card {
   background-color: pink;
-  font-size: 85px ;
+  font-size: 85px;
 }
-.hand_card{
-  font-size: 85px ;
-  float: right ;
-  color:black;
+.hand_card {
+  font-size: 85px;
+  float: right;
+  color: black;
   transition: transform 0.3s ease-out;
-  transform: translate(0em,0em)
+  transform: translate(0em,0em);
 }
-.hand_card:hover{
-  transform: translate(0em,-0.5em)
+.hand_card:hover {
+  transform: translate(0em,-1.1em);
 }
-
-.player_name{
+.player_name {
   transform: rotate(-180deg);
+}
+a:link, a:visited{
+  text-decoration: none;
 }
