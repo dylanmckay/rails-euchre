@@ -1,7 +1,6 @@
 
-<div>Game</div>
+<div class="title">Euchre</div>
 
-It has <%= @game.players.size %> players.
 <% if @game.players.size == 4 %>
   <%= render partial: "four_player_show" %>
 <%else%>
