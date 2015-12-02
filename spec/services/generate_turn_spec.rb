@@ -9,7 +9,7 @@ RSpec.describe "GenerateTurn" do
       Card.new(:hearts, 1 ),
       Card.new(:hearts, 13)
     ]
-    player_state = PlayerState.new(id: 10, name: "jojo", hand: hand)
+    player_state = PlayerState.new(id: 10, name: "Jojo", hand: hand)
     game = GameState.new([player_state])
     game.trump_suit = :hearts
 

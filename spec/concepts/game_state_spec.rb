@@ -45,7 +45,7 @@ describe GameState do
         ])
       }
 
-        it { is_expected.to eq [2,0] }
+      it { is_expected.to eq [2,0] }
     end
 
     context "when one player has won 3 of 5 tricks in the round" do
@@ -57,7 +57,7 @@ describe GameState do
         ])
       }
 
-        it { is_expected.to eq [1,0] }
+      it { is_expected.to eq [1,0] }
     end
   end
 
