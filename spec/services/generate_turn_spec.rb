@@ -1,4 +1,4 @@
-require_relative '../../app/services/generate_turn'
+require 'rails_helper'
 
 RSpec.describe "GenerateTurn" do
   describe "#card_to_play"do

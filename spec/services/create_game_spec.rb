@@ -1,4 +1,4 @@
-require_relative '../../app/services/create_game'
+require 'rails_helper'
 
 describe CreateGame do
 

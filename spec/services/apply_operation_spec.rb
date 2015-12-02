@@ -1,5 +1,4 @@
-require_relative '../../app/services/apply_operation'
-require_relative '../game_helper'
+require 'rails_helper'
 
 describe ApplyOperation do
 

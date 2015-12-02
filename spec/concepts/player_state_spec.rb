@@ -1,4 +1,4 @@
-require_relative '../../app/concepts/player_state'
+require 'rails_helper'
 
 describe PlayerState do
 

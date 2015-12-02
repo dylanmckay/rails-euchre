@@ -1,4 +1,4 @@
-require_relative '../../app/models/operation'
+require 'rails_helper'
 
 describe Operation do
 

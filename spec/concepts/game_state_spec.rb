@@ -1,4 +1,4 @@
-require_relative '../../app/concepts/game_state'
+require 'rails_helper'
 require_relative '../game_helper'
 
 describe GameState do
@@ -103,18 +103,13 @@ describe GameState do
       it { is_expected.to eq trick[3] }
     end
 
-    context "when a leading suit wins the trick" do
+    context "best card when other is leading" do
       before { game.trump_suit = :hearts }
+      subject = Card.new(:clubs, 12)
+      other = Card.new(:diamonds, 9)
+      subject { game.highest_scoring_card(subject,other,:diamonds) }
 
-      trick = [
-        Card.new(:diamonds, 9),
-        Card.new(:clubs, 12),
-        Card.new(:diamonds, 12),
-        Card.new(:diamonds, 10)
-      ]
-      subject { game.best_card(trick) }
-
-      it { is_expected.to eq trick[2] }
+      it { is_expected.to eq other }
     end
 
     context "when a non-leading trump wins the trick" do

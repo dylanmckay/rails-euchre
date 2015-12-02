@@ -1,4 +1,4 @@
-require_relative '../../app/services/create_game_state'
+require 'rails_helper'
 
 describe CreateGameState do
   context "when using a game model with two players" do
