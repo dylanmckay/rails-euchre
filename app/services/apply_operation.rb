@@ -20,9 +20,6 @@ class ApplyOperation
     elsif @operation.play_card?
       @game.pile.add(player.hand.delete(@operation.card), player)
 
-    elsif operation.play_card?
-      @game.pile.add(player.hand.delete(operation.card), player)
-      
       finish_round if every_player_has_played?
     end
   end
