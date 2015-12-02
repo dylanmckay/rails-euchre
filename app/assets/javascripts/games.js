@@ -3,10 +3,10 @@ function play_card(game, player, suit, rank) {
 
   $.ajax({
     type: "POST",
-    url: "/games/" + game + "/players/" + player + "/actions",
+    url: "/games/" + game + "/players/" + player + "/operations",
     data: {
-      action: {
-        action_type: "play_card",
+      operation: {
+        operation_type: "play_card",
         suit: suit,
         rank: rank,
       },
