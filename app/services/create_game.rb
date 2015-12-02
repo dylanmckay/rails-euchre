@@ -8,11 +8,14 @@ class CreateGame
     'Joseph',
   ]
 
-  # TODO: services should have data in initializers
-  def call(player_count)
+  def initialize(player_count)
+    @player_count = player_count
+  end
+
+  def call
     game = Game.create!
 
-    player_count.times do
+    @player_count.times do
       game.players.create!(:name => AI_NAMES.sample)
     end
 
@@ -40,13 +43,6 @@ class CreateGame
   end
 
   def new_deck
-    Card::DECK.select { |card| is_card_used?(card) }.shuffle
+    Card::DECK.shuffle
   end
-
-  # TODO: Only place valid cards insode CARD::DECK
-  # Don't over-genericise
-  def is_card_used?(card)
-    card.rank >= 9 || card.ace?
-  end
-
 end

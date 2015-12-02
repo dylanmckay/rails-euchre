@@ -2,6 +2,10 @@ require 'rails_helper'
 
 describe ApplyOperation do
 
+  def operation(op)
+    ApplyOperation.new(game, op).call
+  end
+
   subject(:game) {
     create_custom_game_state([
       {
@@ -28,13 +32,11 @@ describe ApplyOperation do
     ])
   }
 
-  let(:operation) { ApplyOperation.new(game) }
-
   context "dealing a card" do
     let(:hand) { game.find_player(0).hand }
 
     subject {
-      -> { operation.call(create_operation(0, :deal_card, :spades, 13)) }
+      -> { operation(create_operation(0, :deal_card, :spades, 13)) }
     }
 
     it { is_expected.to change { hand.length }.by 1 }
@@ -42,7 +44,7 @@ describe ApplyOperation do
 
   context "passing trump" do
     subject {
-      -> { operation.call(create_operation(1, :pass_trump, :hearts, 10)) }
+      -> { operation(create_operation(1, :pass_trump, :hearts, 10)) }
     }
 
     it { is_expected.not_to change { game } }
@@ -50,7 +52,7 @@ describe ApplyOperation do
 
   context "accepting a trump" do
     subject {
-      -> { operation.call(create_operation(2, :accept_trump, :diamonds)) }
+      -> { operation(create_operation(2, :accept_trump, :diamonds)) }
     }
 
     it { is_expected.to change{game.trump_suit}.to :diamonds }
@@ -58,7 +60,7 @@ describe ApplyOperation do
 
   context "picking a trump" do
     subject {
-      -> { operation.call(create_operation(1, :pick_trump, :spades)) }
+      -> { operation(create_operation(1, :pick_trump, :spades)) }
     }
 
     it { is_expected.to change{game.trump_suit}.to :spades }
@@ -66,7 +68,7 @@ describe ApplyOperation do
 
   context "playing a card" do
     subject {
-      -> { operation.call(create_operation(1, :play_card, :clubs, 10)) }
+      -> { operation(create_operation(1, :play_card, :clubs, 10)) }
     }
 
     let(:hand) { game.find_player(1).hand }
@@ -78,13 +80,13 @@ describe ApplyOperation do
     context "finishing a round" do
       before {
         # there are three players - play the first card
-        operation.call(create_operation(1, :play_card, :clubs, 10))
-        operation.call(create_operation(5, :play_card, :diamonds, 8))
+        operation(create_operation(1, :play_card, :clubs, 10))
+        operation(create_operation(5, :play_card, :diamonds, 8))
       }
 
       subject {
         # play the second card and finish the round.
-        -> { operation.call(create_operation(0, :play_card, :hearts, 11)) }
+        -> { operation(create_operation(0, :play_card, :hearts, 11)) }
       }
 
       it { is_expected.to change { game.pile.length }.to 0 }

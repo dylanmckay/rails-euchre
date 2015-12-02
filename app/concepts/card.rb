@@ -1,4 +1,5 @@
 
+# TODO: Move to a presenter
 UNICODE_CARDS = {
   spades: [
     "🂡",
@@ -82,7 +83,8 @@ class Card
   ]
 
   DECK = SUITS.flat_map do |suit|
-    (1..13).map { |n| Card.new(suit, n) }
+    (1..13).select { |n| n >= 9 || n == 1 }
+           .map { |n| Card.new(suit, n) }
   end
 
   PARTNER_SUITS = {

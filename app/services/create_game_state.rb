@@ -1,18 +1,24 @@
 class CreateGameState
 
-  def call(game_model)
-    players = make_player_states(game_model.players)
-    state = GameState.new(players)
+  def initialize(game_model)
+    @game_model = game_model
+  end
 
-    state.deck = new_deck(state)
 
-    game_model.players.each do |player_model|
+  def call
+    players = make_player_states(@game_model.players)
+    @state = GameState.new(players)
+
+    @state.deck = new_deck
+
+    # FIXME: Will this apply operations in order?
+    @game_model.players.each do |player_model|
       player_model.operations.each do |operation|
         ApplyOperation.new(state).call(operation)
       end
     end
 
-    state
+    @state
   end
 
   private
@@ -24,13 +30,16 @@ class CreateGameState
     end
   end
 
-  def new_deck(game)
-    full_deck.reject do |card|
-      # Reject all cards that have already been used
-      # TODO: move next line into separate function
-      # TODO: split into several functions
-      game.players.any? { |player| player.has_card?(card) }
-    end.shuffle
+  def new_deck
+    new_unshuffled_deck.shuffle
+  end
+
+  def new_unshuffled_deck
+    full_deck.reject { |card| any_player_has_card?(card) }
+  end
+
+  def any_player_has_card?(card)
+    @state.players.any? { |player| player.has_card?(card) }
   end
 
   def full_deck

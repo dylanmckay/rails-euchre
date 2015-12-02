@@ -10,7 +10,7 @@ describe CreateGameState do
       ])
     }
 
-    subject(:state) { CreateGameState.new.call(model) }
+    subject(:state) { CreateGameState.new(model).call }
 
     it "creates a state with two players" do
       expect(state.players.length).to eq 2

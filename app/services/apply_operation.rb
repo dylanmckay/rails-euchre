@@ -1,23 +1,24 @@
 
 class ApplyOperation
-  def initialize(game)
+  def initialize(game, operation)
     @game = game
+    @operation = operation
   end
 
-  def call(operation)
-    player = @game.find_player(operation.player_id)
+  def call
+    player = @game.find_player(@operation.player_id)
 
-    if operation.deal_card?
-      player.hand << operation.card
+    if @operation.deal_card?
+      player.hand << @operation.card
 
-    elsif operation.pass_trump?
+    elsif @operation.pass_trump?
       # this doesn't change the game state
 
-    elsif operation.accept_trump? || operation.pick_trump?
-      @game.trump_suit = operation.suit.to_sym
+    elsif @operation.accept_trump? || @operation.pick_trump?
+      @game.trump_suit = @operation.suit.to_sym
 
-    elsif operation.play_card?
-      @game.pile.add(player.hand.delete(operation.card), player)
+    elsif @operation.play_card?
+      @game.pile.add(player.hand.delete(@operation.card), player)
 
       finish_round if every_player_has_played?
     end

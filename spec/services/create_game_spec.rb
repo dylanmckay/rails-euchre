@@ -3,11 +3,11 @@ require 'rails_helper'
 describe CreateGame do
 
   it "creates a game object" do
-    expect(CreateGame.new.call(2)).to be_a Game
+    expect(CreateGame.new(2).call).to be_a Game
   end
 
   context "when creating the game with four players" do
-    let(:game) { CreateGame.new.call(4) }
+    let(:game) { CreateGame.new(4).call }
 
     it "creates four players" do
       expect(game.players.size).to eq 4
