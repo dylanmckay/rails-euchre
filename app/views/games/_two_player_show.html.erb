@@ -1,6 +1,6 @@
 <div class="hand opposite_hand">
   <%@game_state.players[1].hand.each do |card| %>
-    <span class="hand_card"><%= card.to_s%></span>
+    <span class="hand_card"><%= Card::UNICODE_CARDS[:back].first%></span>
   <%end%>
 </div>
 

@@ -82,11 +82,11 @@ body {
   font-size: 85px;
   float: right;
   color: black;
-  transition: transform 0.3s ease-out;
+  transition: transform 0.26s ease-out;
   transform: translate(0em,0em);
 }
 .hand_card:hover {
-  transform: translate(0em,-0.3em);
+  transform: translate(0em,-0.26em);
 }
 .player_name {
   transform: rotate(-180deg);

@@ -1,6 +1,5 @@
 
 class Pile
-
   # Internal helper class to store card and player
   class CardInfo
 

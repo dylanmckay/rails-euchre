@@ -6,20 +6,20 @@
                              <%= @game_state.players[2].id %>,
                              &quot;<%= card.suit %>&quot;,
                              &quot;<%= card.rank %>&quot;)">
-    <%= card.to_s %>
+    <%= Card::UNICODE_CARDS[:back].first %>
     </span>
   <%end%>
 </div>
 
 <div class="hand left_hand">
     <%@game_state.players[1].hand.each do |card| %>
-      <span class="hand_card"><%= card.to_s%></span>
+      <span class="hand_card"><%= Card::UNICODE_CARDS[:back].first%></span>
     <%end%>
 </div>
 
 <div class="hand right_hand">
   <%@game_state.players[3].hand.each do |card| %>
-    <span class="hand_card"><%= card.to_s%></span>
+    <span class="hand_card"><%= Card::UNICODE_CARDS[:back].first%></span>
   <%end%>
 </div>
 

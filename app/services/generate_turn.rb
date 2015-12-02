@@ -1,3 +1,4 @@
+
 class GenerateTurn
   def initialize(player_state, game_state)
     @player  = player_state
@@ -6,14 +7,9 @@ class GenerateTurn
 
   def card_to_play
     if @game.pile.empty?
-
       best_card_in_hand
     else
-      if hand_contains_better_card_than_pile?
-        return best_card_in_hand
-      else
-        return worst_card_in_hand
-      end
+      hand_contains_better_card_than_pile? ? best_card_in_hand : worst_card_in_hand
     end
   end
 
