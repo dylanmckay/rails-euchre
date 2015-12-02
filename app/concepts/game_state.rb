@@ -19,13 +19,17 @@ class GameState
     @players.each.any? { |player| !player.hand.empty? }
   end
 
-  def best_card(stack = @pile.cards)
+  def best_card_in_stack(stack)
     stack.inject do |best,curr|
       best = highest_scoring_card(best, curr, stack.first.suit)
     end
   end
 
-  def worst_card(stack = @pile.cards)
+  def best_card_in_pile
+    best_card_in_stack(@pile.cards)
+  end
+
+  def worst_card_in_stack(stack = @pile.cards)
     stack.inject do |best,curr|
       best = highest_scoring_card(best, curr, stack.first.suit) == best ? curr : best
     end
@@ -47,7 +51,7 @@ class GameState
   end
 
   def round_winner
-    @pile.card_owner(best_card)
+    @pile.card_owner(best_card_in_pile)
   end
 
   def highest_scoring_card(subject, other, leading_suit = @pile.cards.first.suit)

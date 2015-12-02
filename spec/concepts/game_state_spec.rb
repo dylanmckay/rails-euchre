@@ -61,7 +61,7 @@ describe GameState do
     end
   end
 
-  describe "#best_card" do
+  describe "#best_card_in_stack" do
     let(:game) { GameState.new(nil) }
     context "when an all non-trump trick is played" do
       trick = [
@@ -70,7 +70,7 @@ describe GameState do
         Card.new(:hearts, 10),
         Card.new(:hearts, 11)
       ]
-      subject { game.best_card(trick) }
+      subject { game.best_card_in_stack(trick) }
 
       it { is_expected.to eq trick[1] }
     end
@@ -84,7 +84,7 @@ describe GameState do
         Card.new(:hearts, 10),
         Card.new(:hearts, 11)
       ]
-      subject { game.best_card(trick) }
+      subject { game.best_card_in_stack(trick) }
 
       it { is_expected.to eq trick[3] }
     end
@@ -98,7 +98,7 @@ describe GameState do
         Card.new(:spades, 10),
         Card.new(:diamonds, 10)
       ]
-      subject { game.best_card(trick) }
+      subject { game.best_card_in_stack(trick) }
 
       it { is_expected.to eq trick[3] }
     end
@@ -121,7 +121,7 @@ describe GameState do
         Card.new(:hearts, 11),
         Card.new(:clubs, 10)
       ]
-      subject { game.best_card(trick) }
+      subject { game.best_card_in_stack(trick) }
 
       it { is_expected.to eq trick[2] }
     end
