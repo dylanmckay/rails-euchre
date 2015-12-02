@@ -64,6 +64,10 @@ class GameState
     end
   end
 
+  def is_trump?(card)
+    card.suit == trump_suit || (card.partner_suit == trump_suit && card.jack?)
+  end
+
   private
 
   def won_tricks(player)
@@ -86,10 +90,6 @@ class GameState
     else
       subject
     end
-  end
-
-  def is_trump?(card)
-    card.suit == trump_suit || (card.partner_suit == trump_suit && card.jack?)
   end
 
   def highest_when_trump(subject, other)
