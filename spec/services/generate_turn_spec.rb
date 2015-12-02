@@ -45,29 +45,4 @@ RSpec.describe "GenerateTurn" do
       it { is_expected.to eq hand[1]}
     end
   end
-
-  describe "#sort_stack" do #TODO remove sort_stack and its tests from generate_turn
-    hand = [
-      Card.new(:hearts, 10 ),
-      Card.new(:diamonds, 12),
-      Card.new(:hearts, 12),
-      Card.new(:hearts, 1 ),
-      Card.new(:hearts, 13)
-    ]
-    sorted_hand = [
-      hand[3],
-      hand[4],
-      hand[2],
-      hand[0],
-      hand[1]
-    ]
-    let (:player_state) { PlayerState.new(id: 10, name: "Jojo", hand: hand) }
-    let (:game) { GameState.new([player_state]) }
-    before { game.trump_suit = :hearts }
-    subject { GenerateTurn.new(player_state,game).sort_stack(hand) }
-
-    context "sort a hand" do
-      it { is_expected.to eq sorted_hand}
-    end
-  end
 end

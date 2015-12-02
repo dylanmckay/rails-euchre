@@ -68,6 +68,15 @@ class GameState
     card.suit == trump_suit || (card.partner_suit == trump_suit && card.jack?)
   end
 
+  def sort_stack(stack)
+    sorted = []
+    while stack.length != sorted.length
+      card = best_card_in_stack(stack-sorted)
+      sorted << card
+    end
+    sorted
+  end
+
   private
 
   def won_tricks(player)

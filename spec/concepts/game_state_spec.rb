@@ -13,6 +13,30 @@ describe GameState do
     create_game_state(0)
   }
 
+  describe "#sort_stack" do
+    hand = [
+      Card.new(:hearts, 10 ),
+      Card.new(:diamonds, 12),
+      Card.new(:hearts, 12),
+      Card.new(:hearts, 1 ),
+      Card.new(:hearts, 13)
+    ]
+    sorted_hand = [
+      hand[3],
+      hand[4],
+      hand[2],
+      hand[0],
+      hand[1]
+    ]
+    let (:player_state) { PlayerState.new(id: 10, name: "Jojo", hand: hand) }
+    before { game.trump_suit = :hearts }
+    subject { game.sort_stack(hand) }
+
+    context "sort a hand" do
+      it { is_expected.to eq sorted_hand}
+    end
+  end
+
   describe "#in_progress" do
     context "at the start of the game" do
       it { is_expected.to be_in_progress }

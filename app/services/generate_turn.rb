@@ -15,15 +15,6 @@ class GenerateTurn
     end
   end
 
-  def sort_stack(stack)
-    sorted = []
-    while stack.length != sorted.length
-      card = @game_state.best_card_in_stack(stack-sorted)
-      sorted << card
-    end
-    sorted
-  end
-
   private
 
   def hand_contains_better_leading_suit?
