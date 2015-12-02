@@ -7,7 +7,7 @@ class GamesController < ApplicationController
 
   def show
     @game = Game.find(params[:id])
-    @game_state = CreateGameState.new.call(@game)
+    @game_state = CreateGameState.new(@game).call
   end
 
   def index; end

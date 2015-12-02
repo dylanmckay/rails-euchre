@@ -14,7 +14,7 @@ class CreateGameState
     # FIXME: Will this apply operations in order?
     @game_model.players.each do |player_model|
       player_model.operations.each do |operation|
-        ApplyOperation.new(state).call(operation)
+        ApplyOperation.new(@state, operation).call
       end
     end
 
@@ -50,3 +50,4 @@ class CreateGameState
     card.rank >= 9 || card.ace?
   end
 end
+
