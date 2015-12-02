@@ -23,7 +23,7 @@ ActiveRecord::Schema.define(version: 20151125221734) do
     t.integer  "player_id"
     t.string   "operation_type", null: false
     t.string   "suit"
-    t.integer  "value"
+    t.integer  "rank"
     t.datetime "created_at",     null: false
     t.datetime "updated_at",     null: false
   end

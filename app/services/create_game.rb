@@ -30,7 +30,7 @@ class CreateGame
     game.players.each do |player|
       deck.pop(HAND_SIZE).each do |card|
         player.operations.create!(operation_type: :deal_card,
-                               suit: card.suit, value: card.rank)
+                               suit: card.suit, rank: card.rank)
       end
     end
   end

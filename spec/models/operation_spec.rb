@@ -18,7 +18,7 @@ describe Operation do
     context "when the operation is playing a card" do
       let(:operation) {
         Operation.create!(operation_type: :play_card,
-                       suit: :hearts, value: 10)
+                       suit: :hearts, rank: 10)
       }
 
       it "should have an associated card" do
@@ -29,7 +29,7 @@ describe Operation do
     context "when the card is being dealt" do
       let(:operation) {
         Operation.create!(operation_type: :deal_card,
-                       suit: :spades, value: 11)
+                       suit: :spades, rank: 11)
       }
 
       it "should have an associated card" do

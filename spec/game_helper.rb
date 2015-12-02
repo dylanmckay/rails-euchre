@@ -29,19 +29,19 @@ def create_hand
 end
 
 def create_card(suit=create_suit,
-                value=create_value)
-  Card.new(suit, value)
+                rank=create_rank)
+  Card.new(suit, rank)
 end
 
 def create_suit
   [:hearts, :diamonds, :spades, :clubs].sample
 end
 
-def create_value
+def create_rank
   rand(0..13)
 end
 
-def create_operation(player_id, type, suit, value=nil)
+def create_operation(player_id, type, suit, rank=nil)
   Operation.create!(player_id: player_id, operation_type: type,
-                suit: suit, value: value)
+                suit: suit, rank: rank)
 end

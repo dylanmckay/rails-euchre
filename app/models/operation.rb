@@ -30,8 +30,8 @@ class Operation < ActiveRecord::Base
   end
 
   def card
-    if suit && value
-      Card.new(suit, value)
+    if suit && rank
+      Card.new(suit, rank)
     else
       fail 'the operation does not have an associated card'
     end

@@ -7,7 +7,7 @@ class CreateOperations < ActiveRecord::Migration
 
       t.string :operation_type, null: false
       t.string :suit
-      t.integer :value
+      t.integer :rank
 
       t.timestamps null: false
     end
