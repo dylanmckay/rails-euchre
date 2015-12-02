@@ -1,6 +1,6 @@
 
 <div class="title">Euchre</div>
-
+Points: <%= @game_state.player_points %>
 <% if @game.players.size == 4 %>
   <%= render partial: "four_player_show" %>
 <%else%>

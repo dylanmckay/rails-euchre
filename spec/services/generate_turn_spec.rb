@@ -44,6 +44,5 @@ RSpec.describe "GenerateTurn" do
 
       it { is_expected.to eq hand[1]}
     end
-
   end
 end

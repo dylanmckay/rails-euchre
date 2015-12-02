@@ -1,9 +1,9 @@
 <div class="selection_form">
   <%= form_for Game.new do |f| %>
-    <%= radio_button_tag(:player_number, 2) %>
+    <%= radio_button_tag(:player_number, 2, checked: false) %>
     <%= label_tag(:players_two, "2 Players") %>
     <br>
-    <%= radio_button_tag(:player_number, 4) %>
+    <%= radio_button_tag(:player_number, 4, checked: true) %>
     <%= label_tag(:players_four, "4 Players") %>
     <br>
     <br>
