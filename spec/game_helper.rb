@@ -2,7 +2,7 @@ require_relative 'rails_helper'
 require_relative '../app/concepts/game_state'
 require_relative '../app/concepts/player_state'
 require_relative '../app/concepts/card'
-require_relative '../app/models/action'
+require_relative '../app/models/operation'
 
 
 def create_game_state(player_count)
@@ -41,7 +41,7 @@ def create_value
   rand(0..13)
 end
 
-def create_action(player_id, type, suit, value=nil)
-  Action.create!(player_id: player_id, action_type: type,
+def create_operation(player_id, type, suit, value=nil)
+  Operation.create!(player_id: player_id, operation_type: type,
                 suit: suit, value: value)
 end

@@ -1,19 +1,19 @@
 require_relative '../concepts/game_state'
 require_relative '../concepts/player_state'
-require_relative '../services/apply_action'
+require_relative '../services/apply_operation'
 
 class Game < ActiveRecord::Base
   has_many :players
 
   before_create :setup_state
 
-  def actions
+  def operations
     # TODO: optimize
-    # We must sort the actions by ID so that they are
+    # We must sort the operations by ID so that they are
     # in chronological order, otherwise the game will break.
     players.all
-           .flat_map { |player| player.actions }
-           .sort_by { |action| action.id }
+           .flat_map { |player| player.operations }
+           .sort_by { |operation| operation.id }
   end
 
   private
@@ -21,8 +21,8 @@ class Game < ActiveRecord::Base
   def setup_state
     @game = GameState.new(initial_player_states)
 
-    # Apply the actions
-    actions.each { |action| ApplyAction.new(self).call(action) }
+    # Apply the operations
+    operations.each { |operation| ApplyOperation.new(self).call(operation) }
   end
 
   def initial_player_states

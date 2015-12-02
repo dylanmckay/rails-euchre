@@ -26,14 +26,14 @@ class Operation < ActiveRecord::Base
   end
 
   def type
-    action_type.to_sym
+    operation_type.to_sym
   end
 
   def card
     if suit && value
       Card.new(suit, value)
     else
-      fail 'the action does not have an associated card'
+      fail 'the operation does not have an associated card'
     end
   end
 end

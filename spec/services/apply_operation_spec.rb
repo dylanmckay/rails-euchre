@@ -1,7 +1,7 @@
-require_relative '../../app/services/apply_action'
+require_relative '../../app/services/apply_operation'
 require_relative '../game_helper'
 
-describe ApplyAction do
+describe ApplyOperation do
 
   subject(:game) {
     create_custom_game_state([
@@ -29,13 +29,13 @@ describe ApplyAction do
     ])
   }
 
-  let(:action) { ApplyAction.new(game) }
+  let(:operation) { ApplyOperation.new(game) }
 
   context "dealing a card" do
     let(:hand) { game.find_player(0).hand }
 
     subject {
-      -> { action.call(create_action(0, :deal_card, :spades, 13)) }
+      -> { operation.call(create_operation(0, :deal_card, :spades, 13)) }
     }
 
     it { is_expected.to change { hand.length }.by 1 }
@@ -43,7 +43,7 @@ describe ApplyAction do
 
   context "passing trump" do
     subject {
-      -> { action.call(create_action(1, :pass_trump, :hearts, 10)) }
+      -> { operation.call(create_operation(1, :pass_trump, :hearts, 10)) }
     }
 
     it { is_expected.not_to change { game } }
@@ -51,7 +51,7 @@ describe ApplyAction do
 
   context "accepting a trump" do
     subject {
-      -> { action.call(create_action(2, :accept_trump, :diamonds)) }
+      -> { operation.call(create_operation(2, :accept_trump, :diamonds)) }
     }
 
     it { is_expected.to change{game.trump_suit}.to :diamonds }
@@ -59,7 +59,7 @@ describe ApplyAction do
 
   context "picking a trump" do
     subject {
-      -> { action.call(create_action(1, :pick_trump, :spades)) }
+      -> { operation.call(create_operation(1, :pick_trump, :spades)) }
     }
 
     it { is_expected.to change{game.trump_suit}.to :spades }
@@ -67,7 +67,7 @@ describe ApplyAction do
 
   context "playing a card" do
     subject {
-      -> { action.call(create_action(1, :play_card, :clubs, 10)) }
+      -> { operation.call(create_operation(1, :play_card, :clubs, 10)) }
     }
 
     let(:hand) { game.find_player(1).hand }
@@ -79,13 +79,13 @@ describe ApplyAction do
     context "finishing a round" do
       before {
         # there are three players - play the first card
-        action.call(create_action(1, :play_card, :clubs, 10))
-        action.call(create_action(5, :play_card, :diamonds, 8))
+        operation.call(create_operation(1, :play_card, :clubs, 10))
+        operation.call(create_operation(5, :play_card, :diamonds, 8))
       }
 
       subject {
         # play the second card and finish the round.
-        -> { action.call(create_action(0, :play_card, :hearts, 11)) }
+        -> { operation.call(create_operation(0, :play_card, :hearts, 11)) }
       }
 
       it { is_expected.to change { game.pile.length }.to 0 }

@@ -5,7 +5,7 @@ class CreateOperations < ActiveRecord::Migration
       t.integer :player_id
       t.references :player
 
-      t.string :action_type, null: false
+      t.string :operation_type, null: false
       t.string :suit
       t.integer :value
 

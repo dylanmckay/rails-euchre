@@ -2,7 +2,7 @@ Rails.application.routes.draw do
 
   resources :games do
     resources :players do
-      resources :actions
+      resources :operations
     end
   end
 
