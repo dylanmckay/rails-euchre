@@ -1,44 +1,45 @@
 // Place all the styles related to the games controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
 .game {
   margin-top: 40px;
 }
+
 .selection_box {
   color: white;
   opacity: 0.6;
   background-color: #0D4052;
   width: 100%;
 }
+
 .selection_form {
   color: black;
   opacity: 1;
   width: 100%;
 }
+
 .new_heading {
   color: black;
   opacity: 1;
   width: 25%;
   background-color: #D5E3E8;
 }
-.header {
-  font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
-  font-size: 40px;
-}
+
 .card {
   font-size: 100px;
   color: black;
 }
+
 .new_heading {
   padding-top: 10px;
 }
+
 .selection_box {
   padding-bot: 10px;
   padding-top: 10px;
 }
-body {
-  background-color: #EEEEEE;
-}
+
 .player_space {
   display: block;
   width: 300px;
@@ -46,6 +47,7 @@ body {
   margin-left: auto;
   margin-right: auto;
 }
+
 .hand {
   width: 100%;
   height: 100px;
@@ -53,28 +55,33 @@ body {
   border: 2px green solid;
   border-radius: 10px 10px 0 0;
 }
+
 .left_player_space {
   -webkit-transform: rotate(90deg);
   float: left;
   margin-top: 10%;
   margin-left: 10%;
 }
+
 .opposite_player_space {
   -webkit-transform: rotate(-180deg);
   margin: 0 auto;
 }
+
 .right_player_space {
   -webkit-transform: rotate(-90deg);
   float: right;
   margin-top: 10%;
   margin-right: 10%;
 }
+
 .own_player_space {
   margin-top: 7%;
   margin-left: auto;
   margin-right: auto;
   margin-bottom: 0;
 }
+
 .won_cards {
   width: 250px;
   text-align: center;
@@ -83,6 +90,7 @@ body {
   margin-right: auto;
   background-color: grey;
 }
+
 .pile {
   margin-top: 7%;
   margin-left: auto;
@@ -92,10 +100,12 @@ body {
   background-color: grey;
   border-radius: 20px;;
 }
+
 .player_name {
   width: 100%;
   text-align: center;
 }
+
 .opposite_player_space .player_name {
   transform: rotate(180deg);
 }
@@ -104,6 +114,7 @@ body {
   background-color: #D5E3E8;
   font-size: 85px;
 }
+
 .hand_card {
   font-size: 85px;
   float: right;
@@ -111,15 +122,19 @@ body {
   transition: transform 0.26s ease-out;
   transform: translate(0em,0em);
 }
+
 .hand_card:hover {
   transform: translate(0em,-0.26em);
 }
-a:link, a:visited{
+
+a:link, a:visited {
   text-decoration: none;
 }
+
 .restart_button {
   height: 30px;
   width: 100px;
   display: block;
   margin: 10px auto 10px auto;
 }
+
