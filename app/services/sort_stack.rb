@@ -6,12 +6,12 @@ class SortStack
   end
 
   def call
-    @stack.sort {|x,y| compare(x, y)}
+    @stack.sort {|x,y| compare_cards(x, y)}
   end
 
   private
 
-  def compare(x, y)
+  def compare_cards(x, y)
     card_value(y) <=> card_value(x)
   end
 

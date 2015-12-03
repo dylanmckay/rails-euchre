@@ -20,7 +20,7 @@ class GenerateTurn
   def hand_contains_better_leading_suit?
     if hand_contains_any_leading_suit?
       best_leading = best_leading_card_in_hand
-      best_leading == @game_state.best_card_in_stack(@game_state.pile.cards + [best_leading])
+      best_leading == SortStack.new(@game_state, @game_state.pile.cards + [best_leading]).call.first
     else
       false
     end
@@ -39,11 +39,11 @@ class GenerateTurn
   end
 
   def best_card_in_hand
-    @game_state.best_card_in_stack(@player_state.hand)
+    SortStack.new(@game_state, @player_state.hand).call.first
   end
 
   def best_leading_card_in_hand
-    @game_state.best_card_in_stack(leading_cards_in_hand)
+    SortStack.new(@game_state, leading_cards_in_hand).call.first
   end
 
   def leading_cards_in_hand
@@ -51,10 +51,10 @@ class GenerateTurn
   end
 
   def worst_leading_card_in_hand
-    @game_state.worst_card_in_stack(leading_cards_in_hand)
+    SortStack.new(@game_state, leading_cards_in_hand).call.last
   end
 
   def worst_card_in_hand
-    @game_state.worst_card_in_stack(@player_state.hand)
+    SortStack.new(@game_state, @player_state.hand).call.last
   end
 end
