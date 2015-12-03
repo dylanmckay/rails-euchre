@@ -13,6 +13,23 @@ describe GameState do
     create_game_state(0)
   }
 
+  describe "#valid_play_card_turn?" do
+    hand = [
+      Card.new(:hearts, 10 ),
+      Card.new(:diamonds, 12),
+      Card.new(:hearts, 12),
+      Card.new(:hearts, 1 ),
+      Card.new(:hearts, 13)
+    ]
+    leading_card =  Card.new(:diamonds, 1)
+
+    let (:player) { PlayerState.new(id: 5, hand: hand, name: "Jacob") }
+    before { game.pile.add(leading_card, game.players.last) }
+
+    it { is_expected.to be_valid_play_card_turn(player,hand[1],:diamonds) }
+    it { is_expected.to_not be_valid_play_card_turn(player,hand[1],:hearts) }
+  end
+
   describe "#sort_stack" do
     hand = [
       Card.new(:hearts, 10 ),

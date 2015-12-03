@@ -77,6 +77,11 @@ class GameState
     sorted
   end
 
+  #TODO refactor, rename, and split logic once game_state gets refactored
+  def valid_play_card_turn?(player_state, card, leading_suit)
+    card.suit == leading_suit || player_state.hand.none? { |c| c.suit == leading_suit }
+  end
+
   private
 
   def won_tricks(player)
