@@ -20,7 +20,7 @@ class ApplyOperation
     elsif @operation.play_card?
       @game_state.pile.add(player.hand.delete(@operation.card), player)
       play_computer_turns if player == @game_state.players.first
-      finish_round if every_player_has_played?
+      finish_trick if every_player_has_played?
     end
   end
 
@@ -35,19 +35,30 @@ class ApplyOperation
   def play_computer_turn(player)
     card = player.hand.first#GenerateTurn.new(player,@game_state).call
     @game_state.pile.add(card,player)
-   player.hand.delete(card)
+     player.hand.delete(card)
+  end
+
+  def finish_trick
+    winner = @game_state.trick_winner
+    winner.scored_cards += @game_state.pile.cards
+    @game_state.pile.clear
+
+    finish_round if every_player_has_no_cards?
   end
 
   def finish_round
-    winner = @game_state.round_winner
 
-    winner.scored_cards += @game_state.pile.cards
-    winner.total_score += @game_state.calculate_points(winner)
-
-    @game_state.pile.clear
+    @game_state.players.each do |player|
+      player.total_score += @game_state.calculate_points(player)
+      player.scored_cards.clear
+    end
   end
 
   def every_player_has_played?
     @game_state.pile.length == @game_state.players.length
+  end
+
+  def every_player_has_no_cards?
+    @game_state.players.map(&:hand).all?(&:empty?)
   end
 end

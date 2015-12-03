@@ -32,7 +32,7 @@ class GameState
     end
   end
 
-  def round_winner
+  def trick_winner
     @pile.card_owner(best_card_in_pile)
   end
 
