@@ -1,8 +1,14 @@
 
 <div class="title">Euchre</div>
+
+<% if !@game_state.round_in_progress? %>
+<a href=""><button type="button" class="restart_button" >Restart</button></a>
+<% end %>
+
 Points: <%= @game_state.player_points %>
 <% if @game.players.size == 4 %>
   <%= render partial: "four_player_show" %>
 <%else%>
   <%= render partial: "two_player_show" %>
 <%end%>
+
