@@ -12,15 +12,10 @@ class CreateGameState
     @state.deck = new_deck
 
     # FIXME: Come up with a nicer way to do this
-    oprs = @game_model.players.flat_map do |player_model|
-      # player_model.operations.map do |operation|
-      #   ApplyOperation.new(@state, operation).call
-      # end
-      player_model.operations
-    end.sort
+    operations = @game_model.players.flat_map(&:operations).sort
 
-    oprs.each do |o|
-      ApplyOperation.new(@state, o).call
+    operations.each do |operation|
+      ApplyOperation.new(@state, operation).call
     end
     @state
   end
