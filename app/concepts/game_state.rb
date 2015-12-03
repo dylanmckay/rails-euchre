@@ -22,11 +22,6 @@ class GameState
     SortStack.new(self, @pile.cards).call.first
   end
 
-  #TODO currently basic point score based on tricks won in a round
-  def player_points
-    players.map { |p| calculate_points(p)}
-  end
-
   def calculate_points(player)
     if won_tricks(player) == 5
       2

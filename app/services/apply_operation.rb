@@ -42,6 +42,8 @@ class ApplyOperation
     winner = @game_state.round_winner
 
     winner.scored_cards += @game_state.pile.cards
+    winner.total_score += @game_state.calculate_points(winner)
+
     @game_state.pile.clear
   end
 
