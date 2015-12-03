@@ -78,18 +78,13 @@ describe ApplyOperation do
     it { is_expected.to change { hand.length }.by -1 }
 
     context "finishing a round" do
-      before {
-        # there are three players - play the first card
-        operation(create_operation(1, :play_card, :clubs, 10))
-        operation(create_operation(5, :play_card, :diamonds, 8))
-      }
 
       subject {
         # play the second card and finish the round.
         -> { operation(create_operation(0, :play_card, :hearts, 11)) }
       }
 
-      it { is_expected.to change { game.pile.length }.to 0 }
+      it { is_expected.not_to change { game.pile.length } }
     end
   end
 end
