@@ -3,10 +3,10 @@ require 'rails_helper'
 describe ApplyOperation do
 
   def operation(op)
-    ApplyOperation.new(game, op).call
+    ApplyOperation.new(state, op).call
   end
 
-  subject(:game) {
+  subject(:state) {
     create_custom_game_state([
       {
         hand: [
@@ -33,7 +33,7 @@ describe ApplyOperation do
   }
 
   context "dealing a card" do
-    let(:hand) { game.find_player(0).hand }
+    let(:hand) { state.find_player(0).hand }
 
     subject {
       -> { operation(create_operation(0, :deal_card, :spades, 13)) }
@@ -47,7 +47,7 @@ describe ApplyOperation do
       -> { operation(create_operation(1, :pass_trump, :hearts, 10)) }
     }
 
-    it { is_expected.not_to change { game } }
+    it { is_expected.not_to change { state } }
   end
 
   context "accepting a trump" do
@@ -55,7 +55,7 @@ describe ApplyOperation do
       -> { operation(create_operation(2, :accept_trump, :diamonds)) }
     }
 
-    it { is_expected.to change{game.trump_suit}.to :diamonds }
+    it { is_expected.to change{state.trump_suit}.to :diamonds }
   end
 
   context "picking a trump" do
@@ -63,7 +63,7 @@ describe ApplyOperation do
       -> { operation(create_operation(1, :pick_trump, :spades)) }
     }
 
-    it { is_expected.to change{game.trump_suit}.to :spades }
+    it { is_expected.to change{state.trump_suit}.to :spades }
   end
 
   context "playing a card" do
@@ -71,9 +71,9 @@ describe ApplyOperation do
       -> { operation(create_operation(1, :play_card, :clubs, 10)) }
     }
 
-    let(:hand) { game.find_player(1).hand }
+    let(:hand) { state.find_player(1).hand }
 
-    it { is_expected.to change { game.pile.length }.by 1 }
+    it { is_expected.to change { state.pile.length }.by 1 }
 
     it { is_expected.to change { hand.length }.by -1 }
 
@@ -84,7 +84,7 @@ describe ApplyOperation do
         -> { operation(create_operation(0, :play_card, :hearts, 11)) }
       }
 
-      it { is_expected.not_to change { game.pile.length } }
+      it { is_expected.not_to change { state.pile.length } }
     end
   end
 end
