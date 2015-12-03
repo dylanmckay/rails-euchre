@@ -1,6 +1,9 @@
 // Place all the styles related to the games controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+.game {
+  margin-top: 40px;
+}
 .selection_box {
   color: white;
   opacity: 0.6;
@@ -93,7 +96,7 @@ body {
   width: 100%;
   text-align: center;
 }
-.opposite_hand .player_name {
+.opposite_player_space .player_name {
   transform: rotate(180deg);
 }
 
