@@ -11,13 +11,17 @@ class CreateGameState
 
     @state.deck = new_deck
 
-    # FIXME: Will this apply operations in order?
-    @game_model.players.each do |player_model|
-      player_model.operations.each do |operation|
-        ApplyOperation.new(@state, operation).call
-      end
-    end
+    # FIXME: Come up with a nicer way to do this
+    oprs = @game_model.players.flat_map do |player_model|
+      # player_model.operations.map do |operation|
+      #   ApplyOperation.new(@state, operation).call
+      # end
+      player_model.operations
+    end.sort
 
+    oprs.each do |o|
+      ApplyOperation.new(@state, o).call
+    end
     @state
   end
 
@@ -50,4 +54,3 @@ class CreateGameState
     card.rank >= 9 || card.ace?
   end
 end
-

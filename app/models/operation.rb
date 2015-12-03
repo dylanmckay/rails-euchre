@@ -1,7 +1,7 @@
 class Operation < ActiveRecord::Base
   belongs_to :player
 
-  scope :ordered, -> { order(:created_at, :id) }
+  scope :ordered, -> { order(:id) }
 
   def deal_card?
     type == :deal_card

@@ -2,13 +2,14 @@ class OperationsController < ApplicationController
   def create
     operation = Operation.create!(create_params)
     p = Player.find(operation.player_id)
-    redirect_to Player.last.game
+    redirect_to p.game
   end
 
   def new
     operation = Operation.create!(create_params)
     p = Player.find(operation.player_id)
-    redirect_to Player.last.game
+
+    redirect_to p.game
   end
 
   def show

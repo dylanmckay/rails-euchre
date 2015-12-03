@@ -1,8 +1,12 @@
 class Game < ActiveRecord::Base
   has_many :players
-  has_many :operations, through: :players
+  #has_many :operations, through: :players
 
   before_create :setup_state
+
+  # def operations
+  #   Operation.all.select { |op| op.player.game.id == id }.sort
+  # end
 
   private
 
@@ -17,4 +21,3 @@ class Game < ActiveRecord::Base
     players.all.map { |player| PlayerState.new(player.id) }
   end
 end
-
