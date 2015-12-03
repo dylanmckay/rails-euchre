@@ -45,12 +45,12 @@ class GameState
   end
 
   def valid_play_card_turn?(player_state, card, leading_suit)
-    card == leading_suit || !player_has_leading_cards?(player_state)
+    card.suit == leading_suit || !player_has_leading_cards?(player_state, leading_suit)
   end
 
   private
 
-  def player_has_leading_cards?(player_state)
+  def player_has_leading_cards?(player_state, leading_suit)
     player_state.hand.any? { |c| c.suit == leading_suit }
   end
 
