@@ -5,6 +5,11 @@ class CreateGame
     'Sally',
     'Andy',
     'Joseph',
+    "Tony",
+    "Jim",
+    "Ella",
+    "Amy",
+    "Eric",
   ]
 
   def initialize(player_count)
