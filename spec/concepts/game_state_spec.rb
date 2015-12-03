@@ -64,8 +64,10 @@ describe GameState do
     end
   end
 
-  describe "#player_points" do
-    subject{ state.player_points }
+  describe "#calculate_points" do
+    subject {
+      state.players.map { |player| state.calculate_points(player) }
+    }
 
     context "when one player has won all 5 tricks in the round" do
       tricks = 10.times.map{ Card.new(:hearts,1) }
