@@ -13,13 +13,6 @@ describe CreateGame do
       expect(game.players.size).to eq 4
     end
 
-    it "deals each player five cards" do
-      game.players.each do |player|
-        deals = player.operations.select(&:deal_card?)
-        expect(deals.size).to eq 5
-      end
-    end
-
     it "deals each player unique cards" do
       dealt_cards = game.players.flat_map do |player|
         deals = player.operations.select(&:deal_card?)
