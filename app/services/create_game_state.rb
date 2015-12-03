@@ -6,6 +6,8 @@ class CreateGameState
 
 
   def call
+    # TODO: state does not need to be '@'.
+
     players = make_player_states(@game_model.players)
     @state = GameState.new(players)
 
@@ -17,6 +19,11 @@ class CreateGameState
     operations.each do |operation|
       ApplyOperation.new(@state, operation).call
     end
+
+    if !@state.round_in_progress?
+      DealCards.new(@game_model, @state).call
+    end
+
     @state
   end
 

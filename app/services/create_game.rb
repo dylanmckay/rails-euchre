@@ -18,8 +18,6 @@ class CreateGame
       game.players.create!(:name => AI_NAMES.sample)
     end
 
-    DealCards.new(game).call
-
     game
   end
 end

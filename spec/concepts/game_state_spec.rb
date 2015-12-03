@@ -41,6 +41,17 @@ describe GameState do
     context "at the start of the game" do
       it { is_expected.to be_round_in_progress }
     end
+
+    context "in an empty game" do
+      subject {
+        GameState.new([
+          PlayerState.new(id: 5,  name: "Henry"),
+          PlayerState.new(id: 10, name: "Harold"),
+        ])
+
+        it { is_expected.to not_be_round_in_progress }
+      }
+    end
   end
 
   describe "#find_player" do

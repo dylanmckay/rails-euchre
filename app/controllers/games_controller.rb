@@ -14,6 +14,7 @@ class GamesController < ApplicationController
 
   def create
     game = CreateGame.new(params[:player_number].to_i).call
+    CreateGameState.new(game).call
     redirect_to game
   end
 end

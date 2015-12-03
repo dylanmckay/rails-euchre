@@ -1,25 +1,30 @@
 class DealCards
   HAND_SIZE = 5
 
-  def initialize(game)
-    @game = game
+  def initialize(game_model, game_state)
+    @game_model = game_model
+    @game_state = game_state
   end
 
   def call
     deck = new_deck
 
-    @game.players.each { |player| deal_cards_to_player(deck, player) }
+    @game_model.players.each do |player_model|
+      deal_cards_to_player(deck, player_model)
+    end
   end
 
   private
 
   def deal_cards_to_player(deck, player)
     deck.pop(HAND_SIZE).each do |card|
-      player.operations.create!(
+      operation = player.operations.create!(
         operation_type: :deal_card,
         suit: card.suit,
         rank: card.rank
       )
+
+      ApplyOperation.new(@game_state, operation)
     end
   end
 
