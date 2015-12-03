@@ -68,6 +68,10 @@ class GameState
     card.suit == trump_suit || (card.partner_suit == trump_suit && card.jack?)
   end
 
+  def is_leading_suit?(card)
+    !pile.empty? && card.suit == pile.cards.first.suit
+  end
+
   def sort_stack(stack)
     sorted = []
     while stack.length != sorted.length
