@@ -6,7 +6,6 @@ class ApplyOperation
   end
 
   def call
-    puts "Operation ID: #{@operation.id}"
     player = @game_state.find_player(@operation.player_id)
 
     if @operation.deal_card?
@@ -28,14 +27,12 @@ class ApplyOperation
   private
 
   def play_computer_turns
-    puts "GENERATING COMPUTER TURNS"
     @game_state.players[1..-1].each do |ai_player|
       play_computer_turn(ai_player)
     end
   end
 
   def play_computer_turn(player)
-    puts player.inspect
     card = player.hand.first#GenerateTurn.new(player,@game_state).call
     @game_state.pile.add(card,player)
    player.hand.delete(card)
