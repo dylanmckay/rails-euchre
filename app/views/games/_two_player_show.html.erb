@@ -18,7 +18,7 @@
   <div class="player_space own_player_space">
     <div class="hand">
       <%@game_state.players[0].hand.each do |card| %>
-        <a href=""class="hand_card"><%= card.to_s%></a>
+        <a href="<%=play_card_operation_url(card.suit, card.rank)%>"class="hand_card"><%= card.to_s%></a>
       <%end%>
     </div>
     <div class="won_cards">
