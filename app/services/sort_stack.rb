@@ -6,6 +6,16 @@ class SortStack
   end
 
   def call
-    @stack.sort {|x,y| CalculateCardValue.new(@game_state, y).call <=> CalculateCardValue.new(@game_state, x).call}
+    @stack.sort {|x,y| compare(x, y)}
+  end
+
+  private
+
+  def compare(x, y)
+    card_value(y) <=> card_value(x)
+  end
+
+  def card_value(card)
+    CalculateCardValue.new(@game_state, card).call
   end
 end
