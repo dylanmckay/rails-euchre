@@ -27,7 +27,10 @@ describe GameState do
     before { game.pile.add(leading_card, game.players.last) }
 
     it { is_expected.to be_valid_play_card_turn(player,hand[1],:diamonds) }
+    
     it { is_expected.to_not be_valid_play_card_turn(player,hand[1],:hearts) }
+
+    it { is_expected.to be_valid_play_card_turn(player,hand[1],:clubs) }
   end
 
   describe "#sort_stack" do
