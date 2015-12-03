@@ -3,18 +3,21 @@
   <%@game_state.players[2].hand.each do |card| %>
     <span class="hand_card"><%= Card::UNICODE_CARDS[:back].first %></span>
   <%end%>
+  <div class="player_name"><%= @game_state.players[2].name %></div>
 </div>
 
 <div class="hand left_hand">
     <%@game_state.players[1].hand.each do |card| %>
       <span class="hand_card"><%= Card::UNICODE_CARDS[:back].first%></span>
     <%end%>
+  <div class="player_name"><%= @game_state.players[1].name %></div>
 </div>
 
 <div class="hand right_hand">
   <%@game_state.players[3].hand.each do |card| %>
     <span class="hand_card"><%= Card::UNICODE_CARDS[:back].first%></span>
   <%end%>
+  <div class="player_name"><%= @game_state.players[3].name %></div>
 </div>
 
 <%= render partial: "card_pile_show" %>
@@ -25,4 +28,5 @@
       <%= card.to_s%>
     </a>
   <%end%>
+  <div class="player_name"><%= @game_state.players.first.name %></div>
 </div>

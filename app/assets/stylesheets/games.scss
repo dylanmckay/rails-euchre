@@ -74,6 +74,14 @@ body {
   background-color: grey;
   border-radius: 20px;;
 }
+.player_name {
+  width: 100%;
+  text-align: center;
+}
+.opposite_hand .player_name {
+  transform: rotate(180deg);
+}
+
 .placed_card {
   background-color: #D5E3E8;
   font-size: 85px;
@@ -87,9 +95,6 @@ body {
 }
 .hand_card:hover {
   transform: translate(0em,-0.26em);
-}
-.player_name {
-  transform: rotate(-180deg);
 }
 a:link, a:visited{
   text-decoration: none;

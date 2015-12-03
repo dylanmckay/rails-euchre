@@ -2,6 +2,7 @@
   <%@game_state.players[1].hand.each do |card| %>
     <span class="hand_card"><%= Card::UNICODE_CARDS[:back].first%></span>
   <%end%>
+  <div class="player_name"><%= @game_state.players[1].name %></div>
 </div>
 
 <%= render partial: "card_pile_show" %>
@@ -10,4 +11,5 @@
   <%@game_state.players[0].hand.each do |card| %>
     <a href=""class="hand_card"><%= card.to_s%></a>
   <%end%>
+  <div class="player_name"><%= @game_state.players[0].name %></div>
 </div>
