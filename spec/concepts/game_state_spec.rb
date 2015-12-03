@@ -37,9 +37,9 @@ describe GameState do
     end
   end
 
-  describe "#in_progress" do
+  describe "#round_in_progress?" do
     context "at the start of the game" do
-      it { is_expected.to be_in_progress }
+      it { is_expected.to be_round_in_progress }
     end
   end
 

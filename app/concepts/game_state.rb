@@ -15,7 +15,7 @@ class GameState
     @players.find { |player| player.id == id }
   end
 
-  def in_progress?
+  def round_in_progress?
     @players.each.any? { |player| !player.hand.empty? }
   end
 
