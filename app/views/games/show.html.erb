@@ -5,7 +5,8 @@
 <a href=""><button type="button" class="restart_button" >Restart</button></a>
 <% end %>
 
-Points: <%= @game_state.players.map(&:total_score) %>
+Points: <%= @game_state.players.map(&:total_score) %><br />
+Dealer: <%= @game_state.dealer.name %><br />
 
 <% if @game.players.size == 4 %>
   <%= render partial: "four_player_show" %>
