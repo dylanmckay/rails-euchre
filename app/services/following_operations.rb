@@ -7,13 +7,12 @@ class FollowingOperations
   end
 
   def call
-    operations = []
-
     if last_operation && last_operation.play_card?
       #make an operation based on the computer's decision
-      operations += ai_operations if player_operation?(last_operation)
+      ai_operations
+    else
+      []
     end
-    operations
   end
 
   private
@@ -27,6 +26,14 @@ class FollowingOperations
   end
 
   def ai_operations
+    if player_operation?(last_operation)
+      create_ai_operation_set
+    else
+      []
+    end
+  end
+
+  def create_ai_operation_set
     @game.players[1..-1].map do |ai|
       create_ai_operation(ai)
     end
