@@ -1,7 +1,7 @@
 require 'rails_helper'
 
-RSpec.describe "GenerateTurn" do
-  subject { GenerateTurn.new(player_state,state).call }
+RSpec.describe AI::DecidePlay do
+  subject { AI::DecidePlay.new(player_state,state).call }
   describe "#call"do
     let(:hand) {[
       Card.new(:hearts, 10 ),
