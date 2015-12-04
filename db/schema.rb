@@ -14,7 +14,7 @@
 ActiveRecord::Schema.define(version: 20151125221734) do
 
   create_table "games", force: :cascade do |t|
-    t.integer  "initial_dealer_id"
+    t.integer  "initial_dealer_id", null: false
     t.datetime "created_at",        null: false
     t.datetime "updated_at",        null: false
   end

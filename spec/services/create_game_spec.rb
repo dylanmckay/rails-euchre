@@ -21,5 +21,9 @@ describe CreateGame do
 
       expect(dealt_cards.uniq).to eq dealt_cards
     end
+
+    it "chooses a dealer" do
+      expect(game.initial_dealer_id).not_to be nil
+    end
   end
 end
