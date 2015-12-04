@@ -41,14 +41,16 @@ describe GameState do
     end
 
     context "in an empty game" do
-      subject {
-        GameState.new([
-          PlayerState.new(id: 5,  name: "Henry"),
-          PlayerState.new(id: 10, name: "Harold"),
-        ])
+      let(:players) {[
+        PlayerState.new(id: 5,  name: "Henry"),
+        PlayerState.new(id: 10, name: "Harold"),
+      ]}
 
-        it { is_expected.to not_be_round_in_progress }
+      subject {
+        GameState.new(players, players.first)
       }
+
+      it { is_expected.not_to be_round_in_progress }
     end
   end
 

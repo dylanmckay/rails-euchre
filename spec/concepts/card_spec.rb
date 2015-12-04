@@ -5,6 +5,7 @@ describe Card do
   let(:card2) { Card.new(:diamonds, 10) }
   let(:card3) { Card.new(:hearts, 10) }
   let(:card4) { Card.new(:spades, 11) }
+  let(:card5) { Card.new(:spades, 13) }
 
   describe "#==" do
     it "is equal to itself" do
@@ -25,6 +26,32 @@ describe Card do
 
     it "is not equal to things that aren't cards" do
       expect(card1 == 10).to be false
+    end
+  end
+
+  describe "#<=>" do
+    context "when comparing a worse card with a better card" do
+      subject { card3 <=> card4 }
+
+      it { is_expected.to be < 0 }
+    end
+
+    context "when comparing a better card with a worse card" do
+      subject { card5 <=> card1 }
+
+      it { is_expected.to be > 0}
+    end
+
+    context "when comparing two cards of the same rank" do
+      subject { card2 <=> card3 }
+
+      it { is_expected.to be 0 }
+    end
+
+    context "when comparing two identical cards" do
+      subject { card5 <=> card5 }
+
+      it { is_expected.to be 0 }
     end
   end
 
