@@ -19,24 +19,11 @@ class ApplyOperation
 
     elsif @operation.play_card?
       @game_state.pile.add(player.hand.delete(@operation.card), player)
-      play_computer_turns if player == @game_state.players.first
       finish_trick if every_player_has_played?
     end
   end
 
   private
-
-  def play_computer_turns
-    @game_state.players[1..-1].each do |ai_player|
-      play_computer_turn(ai_player)
-    end
-  end
-
-  def play_computer_turn(player)
-    card = player.hand.first#GenerateTurn.new(player,@game_state).call
-    @game_state.pile.add(card,player)
-     player.hand.delete(card)
-  end
 
   def finish_trick
     winner = @game_state.trick_winner
