@@ -52,6 +52,23 @@ class ApplyOperation
       player.total_score += @game_state.calculate_points(player)
       player.scored_cards.clear
     end
+
+    assign_next_dealer
+  end
+
+  def assign_next_dealer
+    index = current_dealer_index
+
+    # get the next player, wrapping the index back to the start
+    next_index = (index+1) % @game_state.players.length
+
+    @game_state.dealer = @game_state.players[next_index]
+  end
+
+  def current_dealer_index
+    @game_state.players.find_index do |player|
+      player == @game_state.dealer
+    end
   end
 
   def every_player_has_played?

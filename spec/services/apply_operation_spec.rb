@@ -11,14 +11,14 @@ describe ApplyOperation do
       {
         hand: [
           create_card(:hearts, 11),
-          create_card,
+          create_card(:spades, 8),
         ]
       },
 
       {
         hand: [
           create_card(:clubs, 10),
-          create_card,
+          create_card(:clubs, 9),
         ]
       },
 
@@ -26,7 +26,7 @@ describe ApplyOperation do
         id: 5,
         hand: [
           create_card(:diamonds, 8),
-          create_card,
+          create_card(:hearts, 12),
         ]
       },
     ])
@@ -77,7 +77,7 @@ describe ApplyOperation do
 
     it { is_expected.to change { hand.length }.by -1 }
 
-    context "finishing a round" do
+    context "finishing a trick" do
 
       subject {
         # play the second card and finish the round.
@@ -87,4 +87,18 @@ describe ApplyOperation do
       it { is_expected.not_to change { state.pile.length } }
     end
   end
+
+  # context "finishing a round" do
+  #   subject {
+  #     operation(create_operation(1, :play_card, :clubs, 10))
+  #     operation(create_operation(5, :play_card, :diamonds, 8))
+  #     operation(create_operation(0, :play_card, :hearts, 11))
+  #
+  #     operation(create_operation(1, :play_card, :clubs, 9))
+  #     operation(create_operation(5, :play_card, :hearts, 12))
+  #     -> { operation(create_operation(0, :play_card, :spades, 8)) }
+  #   }
+  #
+  #   it { is_expected.to change { state.dealer } }
+  # end
 end
