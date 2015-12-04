@@ -26,4 +26,12 @@ describe CreateGame do
       expect(game.initial_dealer_id).not_to be nil
     end
   end
+
+  context "when creating a game with an unspecified player name" do
+    let(:game) { CreateGame.new(4).call }
+
+    it "chooses a name for the player" do
+      expect(!game.players.first.name.empty?)
+    end
+  end
 end
