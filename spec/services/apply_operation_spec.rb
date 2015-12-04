@@ -84,7 +84,7 @@ describe ApplyOperation do
         -> { operation(create_operation(0, :play_card, :hearts, 11)) }
       }
 
-      it { is_expected.not_to change { state.pile.length } }
+      it { is_expected.to change { state.pile.length }.by 1 }
     end
   end
 
