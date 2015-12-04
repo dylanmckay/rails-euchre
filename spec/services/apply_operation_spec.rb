@@ -23,7 +23,6 @@ describe ApplyOperation do
       },
 
       {
-        id: 5,
         hand: [
           create_card(:diamonds, 8),
           create_card(:hearts, 12),
@@ -81,24 +80,30 @@ describe ApplyOperation do
 
       subject {
         # play the second card and finish the round.
-        -> { operation(create_operation(0, :play_card, :hearts, 11)) }
+          operation(create_operation(0, :play_card, :hearts, 11))
+          operation(create_operation(1, :play_card, :clubs, 10))
+          -> {
+            operation(create_operation(2, :play_card, :hearts, 12))
+          }
       }
 
-      it { is_expected.to change { state.pile.length }.by 1 }
+      it { is_expected.to change { state.pile.length }.to 0 }
+
+      # TODO: check that the winners score is incremented
     end
   end
 
-  # context "finishing a round" do
-  #   subject {
-  #     operation(create_operation(1, :play_card, :clubs, 10))
-  #     operation(create_operation(5, :play_card, :diamonds, 8))
-  #     operation(create_operation(0, :play_card, :hearts, 11))
-  #
-  #     operation(create_operation(1, :play_card, :clubs, 9))
-  #     operation(create_operation(5, :play_card, :hearts, 12))
-  #     -> { operation(create_operation(0, :play_card, :spades, 8)) }
-  #   }
-  #
-  #   it { is_expected.to change { state.dealer } }
-  # end
+  context "finishing a round" do
+    subject {
+      operation(create_operation(1, :play_card, :clubs, 10))
+      operation(create_operation(2, :play_card, :diamonds, 8))
+      operation(create_operation(0, :play_card, :hearts, 11))
+
+      operation(create_operation(1, :play_card, :clubs, 9))
+      operation(create_operation(5, :play_card, :hearts, 12))
+      -> { operation(create_operation(0, :play_card, :spades, 8)) }
+    }
+
+    it { is_expected.to change { state.dealer } }
+  end
 end

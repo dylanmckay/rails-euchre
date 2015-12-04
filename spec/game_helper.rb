@@ -7,21 +7,23 @@ require_relative '../app/models/operation'
 
 def create_game_state(player_count, initial_dealer=nil)
   players = player_count.times.map { |n| create_hand(n) }
-  initial_dealer ||= players.sample
+  initial_dealer ||= players.first
 
   GameState.new(players, initial_dealer)
 end
 
 def create_custom_game_state(players, initial_dealer=nil)
-  initial_dealer ||= players.sample
 
-  GameState.new(players.each.with_index.map do |player,index|
-
+  players = players.each.with_index.map do |player,index|
     id = player.include?(:id) ? player[:id] : index
     hand = player.include?(:hand) ? player[:hand] : create_hand
 
     create_player_state(id, hand)
-  end, initial_dealer)
+  end
+
+  initial_dealer ||= players.first
+
+  GameState.new(players, initial_dealer)
 end
 
 def create_player_state(player_id, cards=create_hand, name: "John")

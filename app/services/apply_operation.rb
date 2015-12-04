@@ -53,6 +53,7 @@ class ApplyOperation
   end
 
   def current_dealer_index
+    puts "dealer: #{@game_state.dealer.id}"
     @game_state.players.find_index do |player|
       player == @game_state.dealer
     end
