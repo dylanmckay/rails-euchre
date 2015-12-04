@@ -65,7 +65,7 @@
 
 .opposite_player_space {
   -webkit-transform: rotate(-180deg);
-  margin: 0 auto;
+  margin: auto auto;
 }
 
 .right_player_space {
@@ -138,3 +138,8 @@ a:link, a:visited {
   margin: 10px auto 10px auto;
 }
 
+table{
+  margin: auto;
+  border: 0px;
+  padding: 0px;
+}

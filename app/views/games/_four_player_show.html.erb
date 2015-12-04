@@ -1,62 +1,79 @@
-
-<div class="game">
-  <div class="player_space opposite_player_space">
-    <div class="hand">
-      <%@game_state.players[2].hand.each do |card| %>
-        <span class="hand_card"><%= Card::UNICODE_CARDS[:back].first %></span>
-      <%end%>
-    </div>
-    <div class="won_cards">
-      <% @game_state.players[2].scored_cards.each do |card| %>
-        <%= card.to_s %>
-      <% end %>
-    </div>
-    <div class="player_name"><%= @game_state.players[2].name %></div>
-  </div>
-
-  <div class="player_space left_player_space">
-    <div class="hand">
-        <%@game_state.players[1].hand.each do |card| %>
-          <span class="hand_card"><%= Card::UNICODE_CARDS[:back].first%></span>
-        <%end%>
-    </div>
-    <div class="won_cards">
-      <% @game_state.players[1].scored_cards.each do |card| %>
-        <%= card.to_s %>
-      <% end %>
-    </div>
-    <div class="player_name"><%= @game_state.players[1].name %></div>
-  </div>
-
-  <div class="player_space right_player_space">
-    <div class="hand">
-      <%@game_state.players[3].hand.each do |card| %>
-        <span class="hand_card"><%= Card::UNICODE_CARDS[:back].first%></span>
-      <%end%>
-    </div>
-    <div class="won_cards">
-      <% @game_state.players[3].scored_cards.each do |card| %>
-        <%= card.to_s %>
-      <% end %>
-    </div>
-    <div class="player_name"><%= @game_state.players[3].name %></div>
-  </div>
-
-  <%= render partial: "card_pile_show" %>
-
-  <div class="player_space own_player_space">
-    <div class="hand">
-      <%@game_state.players[0].hand.each do |card| %>
-        <a class="hand_card" href="<%=play_card_operation_url(card.suit, card.rank)%>">
-          <%= card.to_s%>
-        </a>
-      <%end%>
-    </div>
-    <div class="won_cards">
-      <% @game_state.players[0].scored_cards.each do |card| %>
-        <%= card.to_s %>
-      <% end %>
-    </div>
-    <div class="player_name"><%= @game_state.players[0].name %></div>
-  </div>
-</div>
+<table>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <div class="game">
+        <div class="player_space opposite_player_space">
+          <div class="hand">
+            <%@game_state.players[2].hand.each do |card| %>
+            <span class="hand_card"><%= Card::UNICODE_CARDS[:back].first %></span>
+            <%end%>
+          </div>
+          <div class="won_cards">
+            <% @game_state.players[2].scored_cards.each do |card| %>
+            <%= card.to_s %>
+            <% end %>
+          </div>
+          <div class="player_name"><%= @game_state.players[2].name %></div>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <div class="player_space left_player_space">
+          <div class="hand">
+            <%@game_state.players[1].hand.each do |card| %>
+            <span class="hand_card"><%= Card::UNICODE_CARDS[:back].first%></span>
+            <%end%>
+          </div>
+          <div class="won_cards">
+            <% @game_state.players[1].scored_cards.each do |card| %>
+            <%= card.to_s %>
+            <% end %>
+          </div>
+          <div class="player_name"><%= @game_state.players[1].name %></div>
+        </div>
+      </td>
+      <td>
+        <%= render partial: "card_pile_show" %>
+      </td>
+      <td>
+        <div class="player_space right_player_space">
+          <div class="hand">
+            <%@game_state.players[3].hand.each do |card| %>
+            <span class="hand_card"><%= Card::UNICODE_CARDS[:back].first%></span>
+            <%end%>
+          </div>
+          <div class="won_cards">
+            <% @game_state.players[3].scored_cards.each do |card| %>
+            <%= card.to_s %>
+            <% end %>
+          </div>
+          <div class="player_name"><%= @game_state.players[3].name %></div>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td>
+      </td>
+      <td>
+        <div class="player_space own_player_space">
+          <div class="hand">
+            <%@game_state.players[0].hand.each do |card| %>
+            <a class="hand_card" href="<%=play_card_operation_url(card.suit, card.rank)%>">
+              <%= card.to_s%>
+            </a>
+            <%end%>
+          </div>
+          <div class="won_cards">
+            <% @game_state.players[0].scored_cards.each do |card| %>
+            <%= card.to_s %>
+            <% end %>
+          </div>
+          <div class="player_name"><%= @game_state.players[0].name %></div>
+        </div>
+      </div>
+    </td>
+  </tr>
+</table>
