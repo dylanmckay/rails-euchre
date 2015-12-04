@@ -1,5 +1,5 @@
 RSpec.describe CalculateCardValue do
-  let(:game_state) { GameState.new([]) }
+  let(:game_state) { GameState.new([],nil) }
   card = Card.new(:hearts, 1)
   subject { CalculateCardValue.new(game_state,card).call }
 

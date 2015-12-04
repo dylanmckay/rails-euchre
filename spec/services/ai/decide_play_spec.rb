@@ -11,7 +11,7 @@ RSpec.describe AI::DecidePlay do
       Card.new(:hearts, 13)
     ]}
     let (:player_state) { PlayerState.new(id: 10, name: "Jojo", hand: hand) }
-    let (:state) { GameState.new([player_state]) }
+    let (:state) { GameState.new([player_state], player_state.id) }
     before { state.trump_suit = :hearts }
 
     context "when the pile is empty" do

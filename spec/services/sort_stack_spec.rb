@@ -1,6 +1,6 @@
 
 RSpec.describe SortStack do
-  subject(:state) { GameState.new([]) }
+  subject(:state) { GameState.new([], nil) }
   describe "#call" do
     context "when sorting entire hands" do
       subject { SortStack.new(state,hand).call }

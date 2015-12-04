@@ -2,11 +2,13 @@ require 'rails_helper'
 require_relative '../game_helper'
 
 describe GameState do
-  subject(:state) {
-    GameState.new([
+  let(:players) {[
       PlayerState.new(id: 5, hand: create_hand, name: "Henry"),
       PlayerState.new(id: 10, name: "Harold"),
-    ])
+  ]}
+
+  subject(:state) {
+    GameState.new(players, players.sample)
   }
 
   let(:empty_state) {
@@ -71,11 +73,13 @@ describe GameState do
 
     context "when one player has won all 5 tricks in the round" do
       tricks = 10.times.map{ Card.new(:hearts,1) }
-      let(:state) {
-        GameState.new([
+      let(:players) { [
           PlayerState.new(id: 5, scored_cards: tricks, name: "Phillipa"),
-          PlayerState.new(id: 10, name: "Jordan")
-        ])
+          PlayerState.new(id: 10, name: "Jordan"),
+      ] }
+
+      let(:state) {
+        GameState.new(players, players.sample)
       }
 
       it { is_expected.to eq [2,0] }
@@ -83,11 +87,13 @@ describe GameState do
 
     context "when one player has won 3 of 5 tricks in the round" do
       tricks = 10.times.map{ Card.new(:hearts, 1) }
-      let(:state) {
-        GameState.new([
+      let(:players) {[
           PlayerState.new(id: 5, scored_cards: tricks[0..6], name: "Jeff"),
           PlayerState.new(id: 10, scored_cards: tricks[7..10], name: "Ron"),
-        ])
+      ]}
+
+      let(:state) {
+        GameState.new(players, players.sample)
       }
 
       it { is_expected.to eq [1,0] }

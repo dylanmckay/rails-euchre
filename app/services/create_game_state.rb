@@ -9,7 +9,9 @@ class CreateGameState
     # TODO: state does not need to be '@'.
 
     players = make_player_states(@game_model.players)
-    @state = GameState.new(players)
+    dealer = players.find { |player| player.id == @game_model.initial_dealer_id }
+
+    @state = GameState.new(players, dealer)
 
     @state.deck = new_deck
 

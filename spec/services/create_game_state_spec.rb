@@ -8,13 +8,18 @@ describe CreateGameState do
         Player.create!(id: 0, name: "Rob"),
         Player.create!(id: 1, name: "Jim"),
       ],
-      initial_dealer_id: 0,)
+      initial_dealer_id: 0)
     }
 
     subject(:state) { CreateGameState.new(model).call }
 
     it "creates a state with two players" do
       expect(state.players.length).to eq 2
+    end
+
+    it "sets the initial dealer" do
+      puts "state.dealer: #{state.dealer}"
+      expect(state.dealer.id).to eq 0
     end
   end
 end
