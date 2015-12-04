@@ -100,7 +100,7 @@ describe ApplyOperation do
       operation(create_operation(0, :play_card, :hearts, 11))
 
       operation(create_operation(1, :play_card, :clubs, 9))
-      operation(create_operation(5, :play_card, :hearts, 12))
+      operation(create_operation(2, :play_card, :hearts, 12))
       -> { operation(create_operation(0, :play_card, :spades, 8)) }
     }
 
