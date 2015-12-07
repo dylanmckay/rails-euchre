@@ -19,17 +19,18 @@ class CreateGame
 
   def call
 
-    players = [ Player.create!(:name => player_name) ]
+    Game.transaction do
 
-    ai_count = @player_count - 1
-    players += ai_count.times.map do
-      Player.create!(:name => AI_NAMES.sample)
+      players = [ Player.create!(:name => player_name) ]
+
+      ai_count = @player_count - 1
+      players += ai_count.times.map do
+        Player.create!(:name => AI_NAMES.sample)
+      end
+
+      Game.create!(:players => players,
+                   :initial_dealer_id => choose_dealer(players).id)
     end
-
-    game = Game.create!(:players => players,
-                        :initial_dealer_id => choose_dealer(players).id)
-
-    game
   end
 
   private
