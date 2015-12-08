@@ -37,6 +37,14 @@ class GameState
     end
   end
 
+  def main_player
+    @players.first
+  end
+
+  def ai_players
+    @players[1..-1]
+  end
+
   def trick_winner
     @pile.card_owner(best_card_in_pile)
   end

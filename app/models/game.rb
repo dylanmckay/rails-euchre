@@ -6,4 +6,12 @@ class Game < ActiveRecord::Base
     #       this is really hurting performance
     Operation.all.select { |op| op.player.game.id == id }.sort
   end
+
+  def main_player
+    players.first
+  end
+
+  def ai_players
+    players[1..-1]
+  end
 end

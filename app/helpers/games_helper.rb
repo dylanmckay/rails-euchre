@@ -1,7 +1,7 @@
 module GamesHelper
   def card_onclick_handler(card)
     "play_card(#{@game.id},
-               #{@game_state.players[0].id},
+               #{@game_state.main_player.id},
                \"#{card.suit}\",
                #{card.rank})"
   end

@@ -7,14 +7,10 @@ module AI
     end
 
     def call
-      ai_players.map { |ai| decide_operation(ai) }
+      @game.ai_players.map { |ai| decide_operation(ai) }
     end
 
     private
-
-    def ai_players
-      @game.players[1..-1]
-    end
 
     def decide_operation(ai)
       ai_state = @game_state.find_player(ai.id)
