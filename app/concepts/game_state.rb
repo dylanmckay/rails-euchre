@@ -50,7 +50,8 @@ class GameState
   end
 
   def is_trump?(card)
-    card.suit == trump_suit || (card.partner_suit == trump_suit && card.jack?)
+    card.suit == trump_suit ||
+      (card.partner_suit == trump_suit && card.jack?)
   end
 
   def is_leading_suit?(card)

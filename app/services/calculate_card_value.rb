@@ -1,6 +1,9 @@
 
+ACE_VALUE = 14
+TRUMP_JACK_VALUE = 16
+
 class CalculateCardValue
-  def initialize(game_state,card)
+  def initialize(game_state, card)
     @game_state = game_state
     @card = card
   end
@@ -23,11 +26,17 @@ class CalculateCardValue
 
   def card_value
     if @card.jack? && @game_state.is_trump?(@card)
-      trump_card_value = 16
-      trump_card_value -=1 if @card.suit != @game_state.trump_suit
-      trump_card_value
+      trump_jack_value
     else
-      @card.ace? ? 14 : @card.rank
+      @card.ace? ? ACE_VALUE : @card.rank
+    end
+  end
+
+  def trump_jack_value
+    if @card.suit == @game_state.trump_suit
+      TRUMP_JACK_VALUE
+    else
+      TRUMP_JACK_VALUE - 1
     end
   end
 end
