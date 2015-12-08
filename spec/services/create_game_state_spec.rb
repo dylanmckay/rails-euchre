@@ -19,7 +19,6 @@ describe CreateGameState do
     end
 
     it "sets the initial dealer" do
-      puts "state.dealer: #{state.dealer}"
       expect(state.dealer.id).to eq 0
     end
   end
