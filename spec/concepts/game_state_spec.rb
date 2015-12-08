@@ -101,7 +101,6 @@ describe GameState do
         GameState.new(players: players, dealer: players.sample,
                       trump_suit: :hearts)
       }
-
       it { is_expected.to eq [1,0] }
     end
   end
