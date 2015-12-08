@@ -1,8 +1,12 @@
 
 <div class="title">Euchre</div>
 
+<% if @game_state.in_trump_selection? %>
+  Select trump!
+<% end %>
+
 <% if !@game_state.round_in_progress? %>
-<a href=""><button type="button" class="restart_button" >Restart</button></a>
+  <a href=""><button type="button" class="restart_button" >Restart</button></a>
 <% end %>
 
 <div class="status">

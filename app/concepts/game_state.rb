@@ -1,14 +1,14 @@
 
 class GameState
   attr_reader :players
-  attr_accessor :trump_suit, :dealer, :pile, :deck
+  attr_accessor :trump_state, :dealer, :pile, :deck
 
   def initialize(players, dealer)
-    @trump_suit = nil
     @dealer = dealer
     @pile = Pile.new
     @deck = []
     @players = players
+    @trump_state = TrumpState.new(@players, @dealer)
   end
 
   def find_player(id)
@@ -17,6 +17,10 @@ class GameState
 
   def round_in_progress?
     @players.each.any? { |player| !player.hand.empty? }
+  end
+
+  def in_trump_selection?
+    @trump_suit == nil
   end
 
   def best_card_in_pile
@@ -47,6 +51,14 @@ class GameState
 
   def valid_play_card_turn?(player_state, card, leading_suit)
     card.suit == leading_suit || !player_has_leading_cards?(player_state, leading_suit)
+  end
+
+  def trump_suit
+    @trump_state.suit
+  end
+
+  def trump_suit=(suit)
+    @trump_state.suit = suit
   end
 
   private
