@@ -6,22 +6,22 @@ class CreateGameState
 
 
   def call
-    # TODO: state does not need to be '@'.
-
-    players = make_player_states(@game_model.players)
-    dealer = players.find { |player| player.id == @game_model.initial_dealer_id }
-
+    @player_states = make_player_states(@game_model.players)
+    dealer_state = find_player_from_id(@game_model.initial_dealer_id)
     initial_trump = @game_model.initial_trump.to_sym
-    @state = GameState.new(players: players, dealer: dealer,
+
+    @state = GameState.new(players: @player_states,
+                           dealer: dealer_state,
                            trump_suit: initial_trump)
 
-    @state.deck = new_deck
-
-    operations = @game_model.players.flat_map(&:operations).sort
-
-    operations.each do |operation|
+    @game_model.operations.each do |operation|
       ApplyOperation.new(@state, operation).call
     end
+
+    # we need to generate a new deck after every
+    # operation is applied so we know what cards
+    # haven't been used yet
+    @state.deck = new_deck
 
     if !@state.round_in_progress?
       DealCards.new(@game_model, @state).call
@@ -44,18 +44,14 @@ class CreateGameState
   end
 
   def new_unshuffled_deck
-    full_deck.reject { |card| any_player_has_card?(card) }
+    Card::DECK.reject { |card| any_player_has_card?(card) }
   end
 
   def any_player_has_card?(card)
-    @state.players.any? { |player| player.has_card?(card) }
+    @player_states.any? { |player| player.has_card?(card) }
   end
 
-  def full_deck
-    Card::DECK.select { |card| is_card_used?(card) }
-  end
-
-  def is_card_used?(card)
-    card.rank >= 9 || card.ace?
+  def find_player_from_id(id)
+    @player_states.find { |player| player.id == id }
   end
 end
