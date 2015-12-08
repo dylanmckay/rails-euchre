@@ -26,7 +26,7 @@ module AI
     end
 
     def decide_play(ai, ai_state)
-      card = AI::DecidePlay.new(ai_state, @game_state).call
+      card = AI::DecidePlay.new(@game_state, ai_state).call
 
       ai.operations.create!(
         operation_type: "play_card",
