@@ -1,5 +1,6 @@
 class Operation < ActiveRecord::Base
   belongs_to :player
+  has_one :game, through: :player
 
   scope :ordered, -> { order(:id) }
 

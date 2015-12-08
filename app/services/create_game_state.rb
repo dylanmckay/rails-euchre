@@ -22,12 +22,6 @@ class CreateGameState
       ApplyOperation.new(@state, operation).call
     end
 
-    ActiveRecord::Base.transaction do
-      FollowingOperations.new(@game_model, @state).call.each do |operation|
-        ApplyOperation.new(@state, operation).call
-      end
-    end
-
     if !@state.round_in_progress?
       DealCards.new(@game_model, @state).call
     end

@@ -1,15 +1,14 @@
 class OperationsController < ApplicationController
-  def create
-    operation = Operation.create!(create_params)
-    p = Player.find(operation.player_id)
-    redirect_to p.game
-  end
-
   def new
     operation = Operation.create!(create_params)
-    p = Player.find(operation.player_id)
+    game = operation.game
 
-    redirect_to p.game
+    if operation.play_card?
+      game_state = CreateGameState.new(game).call
+      AI::DecideOperations.new(game, game_state).call
+    end
+
+    redirect_to game
   end
 
   def show
