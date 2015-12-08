@@ -12,7 +12,8 @@ class CreateGameState
     dealer = players.find { |player| player.id == @game_model.initial_dealer_id }
 
     initial_trump = @game_model.initial_trump.to_sym
-    @state = GameState.new(players, dealer, initial_trump)
+    @state = GameState.new(players: players, dealer: dealer,
+                           trump_suit: initial_trump)
 
     @state.deck = new_deck
 

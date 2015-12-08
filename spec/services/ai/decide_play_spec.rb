@@ -15,7 +15,10 @@ RSpec.describe AI::DecidePlay do
     ]}
 
     let (:ai_state) { PlayerState.new(id: 10, name: "Jojo", hand: hand) }
-    let (:game_state) { GameState.new([ai_state], ai_state.id, :hearts) }
+    let (:game_state) {
+      GameState.new(players: [ai_state], dealer: ai_state,
+                    trump_suit: :hearts)
+    }
 
     before { game_state.trump_suit = :hearts }
 

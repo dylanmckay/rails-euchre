@@ -1,6 +1,10 @@
 
 RSpec.describe SortStack do
-  subject(:state) { GameState.new([], nil, :hearts) }
+  subject(:state) {
+    GameState.new(players: [], dealer: nil,
+                  trump_suit: :hearts)
+  }
+
   describe "#call" do
     context "when sorting entire hands" do
       subject { SortStack.new(state,hand).call }

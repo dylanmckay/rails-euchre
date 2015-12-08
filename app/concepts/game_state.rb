@@ -1,14 +1,13 @@
-
 class GameState
   attr_reader :players
   attr_accessor :trump_state, :dealer, :pile, :deck
 
-  def initialize(players, dealer, selection_suit)
+  def initialize(players:, dealer:, trump_suit:)
     @dealer = dealer
     @pile = Pile.new
     @deck = []
     @players = players
-    @trump_state = TrumpState.new(@players, @dealer, selection_suit)
+    @trump_state = TrumpState.new(@players, @dealer, trump_suit)
   end
 
   def find_player(id)

@@ -10,7 +10,8 @@ def create_game_state(player_count, initial_dealer=nil, initial_trump=nil)
   initial_dealer ||= players.first
   initial_trump ||= :hearts
 
-  GameState.new(players, initial_dealer, initial_trump)
+  GameState.new(players: players, dealer: initial_dealer,
+                trump_suit: initial_trump)
 end
 
 def create_custom_game_state(players, initial_dealer=nil, initial_trump=nil)
@@ -25,7 +26,8 @@ def create_custom_game_state(players, initial_dealer=nil, initial_trump=nil)
   initial_dealer ||= players.first
   initial_trump ||= :hearts
 
-  GameState.new(players, initial_dealer, initial_trump)
+  GameState.new(players: players, dealer: initial_dealer,
+                trump_suit: initial_trump)
 end
 
 def create_player_state(player_id, cards=create_hand, name: "John")
