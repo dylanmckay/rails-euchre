@@ -18,10 +18,10 @@ module AI
     private
 
     def should_accept
-      hand_value > HAND_VALUE_SELECTION_THRESHOLD
+      calculate_hand_value > HAND_VALUE_SELECTION_THRESHOLD
     end
 
-    def hand_value
+    def calculate_hand_value
       @ai_state.hand.inject do |sum, card|
         sum += CalculateCardValue.new(@game_state, card).call
       end
