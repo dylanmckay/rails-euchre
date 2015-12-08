@@ -8,7 +8,20 @@
     </font>
 
     <div class="selection_box">
-      <%= render partial:"game_creator_form" %>
+      <div class="selection_form">
+        <%= form_for Game.new do |f| %>
+          <%= radio_button_tag(:player_number, 2, checked: false) %>
+          <%= label_tag(:players_two, "2 Players") %>
+          <br>
+          <%= radio_button_tag(:player_number, 4, checked: true) %>
+          <%= label_tag(:players_four, "4 Players") %>
+          <br>
+          <%= label_tag "Username:" %>
+          <%= text_field_tag(:player_name) %>
+          <br>
+          <%= f.submit "Start Game" %>
+        <% end %>
+      </div>
     </div>
   </div>
 
