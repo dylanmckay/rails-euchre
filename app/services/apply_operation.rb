@@ -14,9 +14,13 @@ class ApplyOperation
     elsif @operation.pass_trump?
       @game_state.trump_state.selection_operations << :pass
 
-    elsif @operation.accept_trump? || @operation.pick_trump?
-      @game_state.trump_state.selection_operations << :pick
+    elsif @operation.accept_trump?
+      @game_state.trump_state.selection_operations << :accept
       @game_state.trump_state.suit = @game_state.trump_state.selection_suit
+
+    elsif @operation.pick_trump?
+      @game_state.trump_state.selection_operations << :pick
+      @game_state.trump_state.suit = @operation.suit.to_sym
 
     elsif @operation.play_card?
       @game_state.pile.add(player.hand.delete(@operation.card), player)

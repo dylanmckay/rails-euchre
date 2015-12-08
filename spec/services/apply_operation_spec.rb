@@ -28,7 +28,7 @@ describe ApplyOperation do
           create_card(:hearts, 12),
         ]
       },
-    ])
+    ], nil, :diamonds)
   }
 
   context "dealing a card" do
@@ -51,7 +51,7 @@ describe ApplyOperation do
 
   context "accepting a trump" do
     subject {
-      -> { operation(create_operation(2, :accept_trump, :diamonds)) }
+      -> { operation(create_operation(2, :accept_trump)) }
     }
 
     it { is_expected.to change{state.trump_suit}.to :diamonds }

@@ -5,14 +5,15 @@ require_relative '../app/concepts/card'
 require_relative '../app/models/operation'
 
 
-def create_game_state(player_count, initial_dealer=nil)
+def create_game_state(player_count, initial_dealer=nil, initial_trump=nil)
   players = player_count.times.map { |n| create_hand(n) }
   initial_dealer ||= players.first
+  initial_trump ||= :hearts
 
-  GameState.new(players, initial_dealer, :hearts)
+  GameState.new(players, initial_dealer, initial_trump)
 end
 
-def create_custom_game_state(players, initial_dealer=nil)
+def create_custom_game_state(players, initial_dealer=nil, initial_trump=nil)
 
   players = players.each.with_index.map do |player,index|
     id = player.include?(:id) ? player[:id] : index
@@ -22,8 +23,9 @@ def create_custom_game_state(players, initial_dealer=nil)
   end
 
   initial_dealer ||= players.first
+  initial_trump ||= :hearts
 
-  GameState.new(players, initial_dealer, :hearts)
+  GameState.new(players, initial_dealer, initial_trump)
 end
 
 def create_player_state(player_id, cards=create_hand, name: "John")
@@ -47,7 +49,7 @@ def create_rank
   rand(0..13)
 end
 
-def create_operation(player_id, type, suit, rank=nil)
+def create_operation(player_id, type, suit=nil, rank=nil)
   Operation.create!(player_id: player_id, operation_type: type,
                 suit: suit, rank: rank)
 end
