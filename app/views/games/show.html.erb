@@ -9,14 +9,4 @@
   <a href=""><button type="button" class="restart_button" >Restart</button></a>
 <% end %>
 
-<div class="status">
-  Points: <%= @game_state.players.map(&:total_score) %><br />
-  Dealer: <%= @game_state.dealer.name %><br />
-</div>
-
-<% if @game.players.size == 4 %>
-  <%= render partial: "four_player_show" %>
-<%else%>
-  <%= render partial: "two_player_show" %>
-<%end%>
-
+<%= render partial: 'table' %>
