@@ -28,9 +28,9 @@ class GameState
   end
 
   def calculate_points(player)
-    if won_tricks(player) == 5
+    if won_trick_count_for_player(player) == 5
       2
-    elsif won_tricks(player) >= 3
+    elsif won_trick_count_for_player(player) >= 3
       1
     else
       0
@@ -58,6 +58,7 @@ class GameState
     !pile.empty? && card.suit == pile.cards.first.suit
   end
 
+  # FIXME: this is unused
   def valid_play_card_turn?(player_state, card, leading_suit)
     card.suit == leading_suit || !player_has_leading_cards?(player_state, leading_suit)
   end
@@ -76,7 +77,7 @@ class GameState
     player_state.hand.any? { |c| c.suit == leading_suit }
   end
 
-  def won_tricks(player)
+  def won_trick_count_for_player(player)
     player.scored_cards.length / players.length
   end
 end
