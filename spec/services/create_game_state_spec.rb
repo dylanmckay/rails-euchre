@@ -8,7 +8,8 @@ describe CreateGameState do
         Player.create!(id: 0, name: "Rob"),
         Player.create!(id: 1, name: "Jim"),
       ],
-      initial_dealer_id: 0)
+      initial_dealer_id: 0,
+      initial_trump: "hearts")
     }
 
     subject(:state) { CreateGameState.new(model).call }

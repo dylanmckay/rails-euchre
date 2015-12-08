@@ -8,7 +8,7 @@ describe GameState do
   ]}
 
   subject(:state) {
-    GameState.new(players, players.sample)
+    GameState.new(players, players.sample, :hearts)
   }
 
   let(:empty_state) {
@@ -47,7 +47,7 @@ describe GameState do
       ]}
 
       subject {
-        GameState.new(players, players.first)
+        GameState.new(players, players.first, :diamonds)
       }
 
       it { is_expected.not_to be_round_in_progress }
@@ -81,7 +81,7 @@ describe GameState do
       ] }
 
       let(:state) {
-        GameState.new(players, players.sample)
+        GameState.new(players, players.sample, :clubs)
       }
 
       it { is_expected.to eq [2,0] }
@@ -95,7 +95,7 @@ describe GameState do
       ]}
 
       let(:state) {
-        GameState.new(players, players.sample)
+        GameState.new(players, players.sample, :hearts)
       }
 
       it { is_expected.to eq [1,0] }

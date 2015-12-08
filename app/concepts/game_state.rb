@@ -3,12 +3,12 @@ class GameState
   attr_reader :players
   attr_accessor :trump_state, :dealer, :pile, :deck
 
-  def initialize(players, dealer)
+  def initialize(players, dealer, selection_suit)
     @dealer = dealer
     @pile = Pile.new
     @deck = []
     @players = players
-    @trump_state = TrumpState.new(@players, @dealer)
+    @trump_state = TrumpState.new(@players, @dealer, selection_suit)
   end
 
   def find_player(id)
@@ -20,7 +20,7 @@ class GameState
   end
 
   def in_trump_selection?
-    @trump_suit == nil
+    !@trump_state.selected?
   end
 
   def best_card_in_pile

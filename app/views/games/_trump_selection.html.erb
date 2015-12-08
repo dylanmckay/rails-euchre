@@ -1,0 +1,15 @@
+
+<h4>Trump Selection</h4>
+
+<div class="center_card">
+  <%= unicode_suit(@game_state.trump_state.selection_suit) %>
+</div>
+
+<div>
+  <a href="<%= accept_trump_operation_url %>">
+    <button type="button" >Accept</button>
+  </a>
+  <a href="<%= pass_trump_operation_url %>">
+    <button type="button" >Pass</button>
+  </a>
+</div>

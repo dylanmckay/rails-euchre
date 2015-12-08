@@ -9,7 +9,7 @@ def create_game_state(player_count, initial_dealer=nil)
   players = player_count.times.map { |n| create_hand(n) }
   initial_dealer ||= players.first
 
-  GameState.new(players, initial_dealer)
+  GameState.new(players, initial_dealer, :hearts)
 end
 
 def create_custom_game_state(players, initial_dealer=nil)
@@ -23,7 +23,7 @@ def create_custom_game_state(players, initial_dealer=nil)
 
   initial_dealer ||= players.first
 
-  GameState.new(players, initial_dealer)
+  GameState.new(players, initial_dealer, :hearts)
 end
 
 def create_player_state(player_id, cards=create_hand, name: "John")

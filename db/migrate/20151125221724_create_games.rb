@@ -3,6 +3,7 @@ class CreateGames < ActiveRecord::Migration
     create_table :games do |t|
 
       t.references :initial_dealer, references: :players, null: false
+      t.string :initial_trump, null: false
 
       t.timestamps null: false
     end

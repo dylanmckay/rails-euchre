@@ -29,7 +29,8 @@ class CreateGame
       end
 
       Game.create!(:players => players,
-                   :initial_dealer_id => choose_dealer(players).id)
+                   :initial_dealer_id => random_player(players).id,
+                   :initial_trump => random_suit)
     end
   end
 
@@ -43,7 +44,11 @@ class CreateGame
     end
   end
 
-  def choose_dealer(players)
+  def random_player(players)
     players.sample
+  end
+
+  def random_suit
+    Card::SUITS.sample
   end
 end

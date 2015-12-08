@@ -1,6 +1,7 @@
 <div class="status">
   Points: <%= @game_state.players.map(&:total_score) %><br />
   Dealer: <%= @game_state.dealer.name %><br />
+  Trump: <%= @game_state.trump_suit.capitalize %><br />
 </div>
 
 <% if @game.players.size == 4 %>

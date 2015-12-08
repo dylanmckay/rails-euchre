@@ -1,71 +1,4 @@
 
-# TODO: Move to a presenter
-UNICODE_CARDS = {
-  spades: [
-    "🂡",
-    "🂢",
-    "🂣",
-    "🂤",
-    "🂥",
-    "🂦",
-    "🂧",
-    "🂨",
-    "🂩",
-    "🂪",
-    "🂫",
-    "🂭",
-    "🂮"
-  ],
-  hearts: [
-    "🂱",
-    "🂲",
-    "🂳",
-    "🂴",
-    "🂵",
-    "🂶",
-    "🂷",
-    "🂸",
-    "🂹",
-    "🂺",
-    "🂻",
-    "🂽",
-    "🂾"
-  ],
-  diamonds: [
-    "🃁",
-    "🃂",
-    "🃃",
-    "🃄",
-    "🃅",
-    "🃆",
-    "🃇",
-    "🃈",
-    "🃉",
-    "🃊",
-    "🃋",
-    "🃍",
-    "🃎",
-  ],
-  clubs: [
-    "🃑",
-    "🃒",
-    "🃓",
-    "🃔",
-    "🃕",
-    "🃖",
-    "🃗",
-    "🃘",
-    "🃙",
-    "🃚",
-    "🃛",
-    "🃝",
-    "🃞",
-  ],
-  back: [
-    "🂠"
-  ],
-}
-
 class Card
   include Comparable
   attr_reader :suit, :rank
@@ -109,7 +42,7 @@ class Card
   end
 
   def to_s
-    unicode_card
+    "(#{rank} of #{suit.to_s.capitalize})"
   end
 
   def ace?
@@ -121,12 +54,6 @@ class Card
   end
 
   def inspect
-    "(#{rank} of #{suit.to_s.capitalize})"
-  end
-
-  private
-
-  def unicode_card
-    UNICODE_CARDS[suit][rank-1]
+    to_s
   end
 end
