@@ -7,7 +7,7 @@
     </div>
     <div class="won_cards">
       <% @game_state.players[1].scored_cards.each do |card| %>
-        <%= card.to_s %>
+        <%= unicode_card(card) %>
       <% end %>
     </div>
     <div class="player_name"><%= @game_state.players[1].name %></div>
@@ -18,12 +18,13 @@
   <div class="player_space own_player_space">
     <div class="hand">
       <%@game_state.players[0].hand.each do |card| %>
-        <a href="<%=play_card_operation_url(card.suit, card.rank)%>"class="hand_card"><%= card.to_s%></a>
+        <a href="<%=play_card_operation_url(card.suit, card.rank)%>"
+           class="hand_card"><%= unicode_card(card) %></a>
       <%end%>
     </div>
     <div class="won_cards">
       <% @game_state.players[0].scored_cards.each do |card| %>
-        <%= card.to_s %>
+        <%= unicode_card(card) %>
       <% end %>
     </div>
     <div class="player_name"><%= @game_state.players[0].name %></div>

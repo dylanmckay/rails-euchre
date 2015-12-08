@@ -1,6 +1,6 @@
 
 <div id="pile" class="pile placed_card" >
   <%@game_state.pile.cards.each do |card| %>
-    <%=card.to_s %>
+    <%= unicode_card(card) %>
   <%end%>
 </div>
