@@ -2,12 +2,12 @@ require 'rails_helper'
 
 describe ApplyOperation do
 
-  def operation(op)
+  def operation(player_id, type, suit=nil, rank=nil)
+    op = create_operation(player_id, type, suit, rank)
     ApplyOperation.new(state, op).call
   end
 
   subject(:state) {
-
     create_custom_game_state(
       players: [
         {
@@ -38,7 +38,7 @@ describe ApplyOperation do
     let(:hand) { state.find_player(0).hand }
 
     subject {
-      -> { operation(create_operation(0, :deal_card, :spades, 13)) }
+      -> { operation(0, :deal_card, :spades, 13) }
     }
 
     it { is_expected.to change { hand.length }.by 1 }
@@ -46,7 +46,7 @@ describe ApplyOperation do
 
   context "passing trump" do
     subject {
-      -> { operation(create_operation(1, :pass_trump, :hearts, 10)) }
+      -> { operation(1, :pass_trump, :hearts, 10) }
     }
 
     it { is_expected.not_to change { state } }
@@ -54,7 +54,7 @@ describe ApplyOperation do
 
   context "accepting a trump" do
     subject {
-      -> { operation(create_operation(2, :accept_trump)) }
+      -> { operation(2, :accept_trump) }
     }
 
     it { is_expected.to change{state.trump_suit}.to :diamonds }
@@ -62,7 +62,7 @@ describe ApplyOperation do
 
   context "picking a trump" do
     subject {
-      -> { operation(create_operation(1, :pick_trump, :spades)) }
+      -> { operation(1, :pick_trump, :spades) }
     }
 
     it { is_expected.to change{state.trump_suit}.to :spades }
@@ -70,7 +70,7 @@ describe ApplyOperation do
 
   context "playing a card" do
     subject {
-      -> { operation(create_operation(1, :play_card, :clubs, 10)) }
+      -> { operation(1, :play_card, :clubs, 10) }
     }
 
     let(:hand) { state.find_player(1).hand }
@@ -83,10 +83,10 @@ describe ApplyOperation do
 
       subject {
         # play the second card and finish the round.
-          operation(create_operation(0, :play_card, :hearts, 11))
-          operation(create_operation(1, :play_card, :clubs, 10))
+          operation(0, :play_card, :hearts, 11)
+          operation(1, :play_card, :clubs, 10)
           -> {
-            operation(create_operation(2, :play_card, :hearts, 12))
+            operation(2, :play_card, :hearts, 12)
           }
       }
 
@@ -98,13 +98,13 @@ describe ApplyOperation do
 
   context "finishing a round" do
     subject {
-      operation(create_operation(1, :play_card, :clubs, 10))
-      operation(create_operation(2, :play_card, :diamonds, 8))
-      operation(create_operation(0, :play_card, :hearts, 11))
+      operation(1, :play_card, :clubs, 10)
+      operation(2, :play_card, :diamonds, 8)
+      operation(0, :play_card, :hearts, 11)
 
-      operation(create_operation(1, :play_card, :clubs, 9))
-      operation(create_operation(2, :play_card, :hearts, 12))
-      -> { operation(create_operation(0, :play_card, :spades, 8)) }
+      operation(1, :play_card, :clubs, 9)
+      operation(2, :play_card, :hearts, 12)
+      -> { operation(0, :play_card, :spades, 8) }
     }
 
     it { is_expected.to change { state.dealer } }

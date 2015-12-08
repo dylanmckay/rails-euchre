@@ -51,7 +51,7 @@ def create_suit
 end
 
 def create_rank
-  rand(0..13)
+  ([1] + (8..13).to_a).sample
 end
 
 def create_operation(player_id, type, suit=nil, rank=nil)
