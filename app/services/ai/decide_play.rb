@@ -1,5 +1,7 @@
 module AI
   class DecidePlay
+    # FIXME: should be `game_state, player_state` for
+    # consistency with DecideTrump
     def initialize(player_state, game_state)
       @player_state  = player_state
       @game_state = game_state
