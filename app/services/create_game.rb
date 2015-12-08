@@ -18,7 +18,6 @@ class CreateGame
   end
 
   def call
-
     Game.transaction do
 
       players = [ Player.create!(:name => player_name) ]
