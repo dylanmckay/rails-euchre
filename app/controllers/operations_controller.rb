@@ -3,10 +3,7 @@ class OperationsController < ApplicationController
     operation = Operation.create!(create_params)
     game = operation.game
 
-    if operation.play_card?
-      game_state = CreateGameState.new(game).call
-      AI::DecideOperations.new(game, game_state).call
-    end
+    AdvanceGame.new(game).call
 
     redirect_to game
   end
