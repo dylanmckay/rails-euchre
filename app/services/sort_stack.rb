@@ -12,10 +12,6 @@ class SortStack
   private
 
   def compare_cards(x, y)
-    card_value(y) <=> card_value(x)
-  end
-
-  def card_value(card)
-    CalculateCardValue.new(@game_state, card).call
+    CompareCards.new(@game_state,x,y).call
   end
 end
