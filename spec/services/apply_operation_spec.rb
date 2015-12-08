@@ -7,28 +7,31 @@ describe ApplyOperation do
   end
 
   subject(:state) {
-    create_custom_game_state([
-      {
-        hand: [
-          create_card(:hearts, 11),
-          create_card(:spades, 8),
-        ]
-      },
 
-      {
-        hand: [
-          create_card(:clubs, 10),
-          create_card(:clubs, 9),
-        ]
-      },
+    create_custom_game_state(
+      players: [
+        {
+          hand: [
+            create_card(:hearts, 11),
+            create_card(:spades, 8),
+          ]
+        },
 
-      {
-        hand: [
-          create_card(:diamonds, 8),
-          create_card(:hearts, 12),
-        ]
-      },
-    ], nil, :diamonds)
+        {
+          hand: [
+            create_card(:clubs, 10),
+            create_card(:clubs, 9),
+          ]
+        },
+
+        {
+          hand: [
+            create_card(:diamonds, 8),
+            create_card(:hearts, 12),
+          ]
+        },
+      ],
+      trump_suit: :diamonds)
   }
 
   context "dealing a card" do

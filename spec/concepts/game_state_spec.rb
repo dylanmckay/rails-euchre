@@ -13,7 +13,7 @@ describe GameState do
   }
 
   let(:empty_state) {
-    create_game_state(0)
+    GameState.new(players: [], dealer: nil, trump_suit: :hearts)
   }
 
   describe "#valid_play_card_turn?" do
