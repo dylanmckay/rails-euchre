@@ -2,6 +2,9 @@
 ACE_VALUE = 14
 TRUMP_JACK_VALUE = 16
 
+ADDITIONAL_TRUMP_POINTS = 100
+ADDITIONAL_LEADING_SUIT_POINTS = 50
+
 class CalculateCardValue
   def initialize(game_state, card)
     @game_state = game_state
@@ -16,9 +19,9 @@ class CalculateCardValue
 
   def additional_points
     if @game_state.is_trump? @card
-      100
+      ADDITIONAL_TRUMP_POINTS
     elsif @game_state.is_leading_suit? @card
-      50
+      ADDITIONAL_LEADING_SUIT_POINTS
     else
       0
     end
