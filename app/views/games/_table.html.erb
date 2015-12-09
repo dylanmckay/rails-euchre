@@ -7,8 +7,8 @@
 </div>
 
 <% if @game.players.size == 4 %>
-  <%= render partial: "games/tables/four_player" %>
+  <%= render partial: "games/table/four_player" %>
 <%else%>
-  <%= render partial: "games/tables/two_player" %>
+  <%= render partial: "games/table/two_player" %>
 <%end%>
 

@@ -1,0 +1,16 @@
+<div class="player_space">
+  <div class="hand">
+    <% player.hand.each do |card| %>
+      <a class="hand_card"
+        href="<%= play_card_operation_url(card.suit, card.rank)%>">
+      <%= unicode_card(card) %>
+    </a>
+    <%end%>
+  </div>
+  <div class="won_cards">
+    <% player.scored_cards.each do |card| %>
+    <%= unicode_card(card) %>
+    <% end %>
+  </div>
+  <div class="player_name"><%= player.name %></div>
+</div>
