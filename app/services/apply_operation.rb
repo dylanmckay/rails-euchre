@@ -40,6 +40,7 @@ class ApplyOperation
     winner = @game_state.trick_winner
     winner.scored_cards += @game_state.pile.cards
     @game_state.pile.clear
+    @game_state.trick_counter += 1
 
     finish_round if every_player_has_no_cards?
   end
@@ -57,6 +58,7 @@ class ApplyOperation
       player.scored_cards.clear
     end
 
+    @game_state.trick_counter = 0
     assign_next_dealer
   end
 

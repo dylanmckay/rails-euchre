@@ -1,6 +1,7 @@
 class GameState
   attr_reader :players
-  attr_accessor :trump_state, :dealer, :pile, :deck
+  attr_accessor :trump_state, :dealer, :pile, :deck,
+    :trick_counter
 
   def initialize(players:, dealer:, trump_suit:,
                  deck: [], pile: Pile.new)
@@ -9,6 +10,8 @@ class GameState
     @deck = deck
     @players = players
     @trump_state = TrumpState.new(@players, @dealer, trump_suit)
+
+    @trick_counter = 0
   end
 
   def player_index(id)
