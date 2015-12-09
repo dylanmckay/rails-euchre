@@ -45,6 +45,7 @@ class ApplyOperation
   end
 
   def play_card
+    fail "CARD|#{@operation.card}| is BAD " if @player.hand.exclude? @operation.card
     @game_state.pile.add(@player.hand.delete(@operation.card), @player)
     finish_trick if every_player_has_played?
   end

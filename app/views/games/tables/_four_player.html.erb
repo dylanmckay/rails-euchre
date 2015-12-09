@@ -6,23 +6,6 @@
       <div class="game">
         <div class="player_space opposite_player_space">
           <div class="hand">
-            <%@game_state.ai_players[0].hand.each do |card| %>
-            <span class="hand_card"><%= unicode_card_back %></span>
-            <%end%>
-          </div>
-          <div class="won_cards">
-            <% @game_state.ai_players[0].scored_cards.each do |card| %>
-            <%= unicode_card(card) %>
-            <% end %>
-          </div>
-          <div class="player_name"><%= @game_state.ai_players[0].name %></div>
-        </div>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <div class="player_space left_player_space">
-          <div class="hand">
             <%@game_state.ai_players[1].hand.each do |card| %>
             <span class="hand_card"><%= unicode_card_back %></span>
             <%end%>
@@ -33,6 +16,23 @@
             <% end %>
           </div>
           <div class="player_name"><%= @game_state.ai_players[1].name %></div>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <div class="player_space left_player_space">
+          <div class="hand">
+            <%@game_state.ai_players[0].hand.each do |card| %>
+            <span class="hand_card"><%= unicode_card_back %></span>
+            <%end%>
+          </div>
+          <div class="won_cards">
+            <% @game_state.ai_players[0].scored_cards.each do |card| %>
+            <%= unicode_card(card) %>
+            <% end %>
+          </div>
+          <div class="player_name"><%= @game_state.ai_players[0].name %></div>
         </div>
       </td>
       <td>

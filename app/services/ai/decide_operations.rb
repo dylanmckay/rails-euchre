@@ -1,13 +1,16 @@
 module AI
   class DecideOperations
 
-    def initialize(game, game_state)
+    def initialize(game, game_state, ai_player)
+      @ai = ai_player
       @game = game
       @game_state = game_state
     end
 
     def call
-      @game.ai_players.map { |ai| decide_operation(ai) }
+      # dealer_index = @game_state.player_index(@game_state.dealer.id)
+      # @game.players[dealer_index+1..-1].each { |ai| decide_operation(ai) }
+      decide_operation(@ai)
     end
 
     private
@@ -18,19 +21,23 @@ module AI
       case @game.operations.last.type
       when :play_card then decide_play(ai, ai_state)
       when :pass_trump then decide_trump(ai, ai_state)
+      when :accept_trump then decide_play(ai, ai_state)
+      when :deal_card then decide_play(ai, ai_state)
+      else
+        puts "SOMETHING IS ODD #{@game.operations.last.type}"
       end
     end
 
     def decide_play(ai, ai_state)
       card = AI::DecidePlay.new(@game_state, ai_state).call
-
+      return if ai_state.hand.empty?
       ai.operations.play_card!(card)
     end
 
     def decide_trump(ai, ai_state)
       case AI::DecideTrump.new(@game_state, ai_state)
-      when :accept then ai.operations.accept_trump!
-      when :pass then ai.operations.pass_trump!
+      when :accept then ai.operations.create!(operation_type: "accept_trump")
+      when :pass then ai.operations.create!(operation_type: "pass_trump")
       end
     end
   end

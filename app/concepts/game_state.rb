@@ -11,6 +11,10 @@ class GameState
     @trump_state = TrumpState.new(@players, @dealer, trump_suit)
   end
 
+  def player_index(id)
+    @players.index { |player| player.id == id }
+  end
+
   def find_player(id)
     @players.find { |player| player.id == id }
   end

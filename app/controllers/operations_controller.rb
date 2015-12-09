@@ -2,9 +2,9 @@ class OperationsController < ApplicationController
   def new
     operation = Operation.create!(create_params)
     game = operation.game
-
+    puts "STARTED OPERATION "
     AdvanceGame.new(game).call
-
+    puts "ENDED OPERATION AND REDIRECTING"
     redirect_to game
   end
 
