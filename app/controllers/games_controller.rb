@@ -13,8 +13,10 @@ class GamesController < ApplicationController
   def index; end
 
   def create
-    game = CreateGame.new(params[:player_number].to_i,
-                          params[:player_name]).call
+    game = CreateGame.new(
+      params[:player_number].to_i,
+      params[:player_name]
+    ).call
     CreateGameState.new(game).call
     redirect_to game
   end

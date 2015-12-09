@@ -1,6 +1,6 @@
 class OperationsController < ApplicationController
   def new
-    operation = Operation.create!(create_params)
+    operation = Operation.create!(operation_params)
     game = operation.game
     AdvanceGame.new(game).call
     redirect_to game
@@ -13,7 +13,7 @@ class OperationsController < ApplicationController
 
   private
 
-  def create_params
-    params.permit(:operation_type, :player_id, :suit, :rank)
+  def operation_params
+    params.permit(:operation_type, :player_id, :suit, :rank, :game_id)
   end
 end

@@ -1,6 +1,6 @@
 
 class CompareCards
-  def initialize(game_state,card_a,card_b)
+  def initialize(game_state, card_a, card_b)
     @game_state = game_state
     @card_a = card_a
     @card_b = card_b

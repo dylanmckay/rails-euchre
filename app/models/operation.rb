@@ -2,6 +2,8 @@ class Operation < ActiveRecord::Base
   belongs_to :player
   has_one :game, through: :player
 
+  scope :pass_trump, -> { where(operation_type: "pass_trump") }
+
   scope :deal_card!, ->(card) {
     create!(operation_type: "deal_card",
             suit: card.suit,

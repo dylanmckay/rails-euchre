@@ -23,7 +23,7 @@ describe CreateGame do
     end
 
     it "chooses a dealer" do
-      expect(game.initial_dealer_id).not_to be nil
+      expect(game.initial_dealer).not_to be nil
     end
   end
 
