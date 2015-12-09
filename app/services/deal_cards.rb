@@ -18,12 +18,7 @@ class DealCards
 
   def deal_cards_to_player(deck, player)
     deck.pop(HAND_SIZE).each do |card|
-      operation = player.operations.create!(
-        operation_type: :deal_card,
-        suit: card.suit,
-        rank: card.rank
-      )
-
+      operation = player.operations.deal_card!(card)
       ApplyOperation.new(@game_state, operation)
     end
   end

@@ -24,17 +24,13 @@ module AI
     def decide_play(ai, ai_state)
       card = AI::DecidePlay.new(@game_state, ai_state).call
 
-      ai.operations.create!(
-        operation_type: "play_card",
-        suit: card.suit,
-        rank: card.rank
-      )
+      ai.operations.play_card!(card)
     end
 
     def decide_trump(ai, ai_state)
       case AI::DecideTrump.new(@game_state, ai_state)
-      when :accept then ai.operations.create!(operation_type: "accept_trump")
-      when :pass then ai.operations.create!(operation_type: "pass_trump")
+      when :accept then ai.operations.accept_trump!
+      when :pass then ai.operations.pass_trump!
       end
     end
   end
