@@ -1,5 +1,8 @@
 <div class="hand">
   <% player.hand.each do |card| %>
-  <span class="hand_card"><%= unicode_card_back %></span>
+    <a class="hand_card"
+      href="<%= play_card_operation_url(card.suit, card.rank)%>">
+    <%= unicode_card(card) %>
+  </a>
   <%end%>
 </div>

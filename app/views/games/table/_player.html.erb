@@ -1,5 +1,5 @@
 <div class="player_space">
-  <%= render partial: 'games/table/hand',
+  <%= render partial: 'games/table/hidden_hand',
       locals: {  player: player } %>
   <div class="won_cards">
     <% player.scored_cards.each do |card| %>
