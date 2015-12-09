@@ -17,15 +17,27 @@ class AdvanceGame
   private
 
   def next_player
-    puts "LAST OPERATION = #{@game.operations.last.type}"
+    if last_operation_type == :play_card || last_operation_type == :deal_card
+      next_player_play_card
+    else
+      next_player_trump_select
+    end
+  end
+
+  def next_player_play_card
     if end_of_trick?
-      puts "WINNER OF LAST TRICK"
       winner_of_last_trick
     elsif trick_in_progress?
-      puts "LEFT OF LAST PLAYER"
       left_of_last_player
     else
-      puts "LEFT OF DEALER"
+      left_of_dealer
+    end
+  end
+
+  def next_player_trump_select
+    if last_operation_type == :pass_trump
+      left_of_last_player
+    else
       left_of_dealer
     end
   end
@@ -66,6 +78,10 @@ class AdvanceGame
   def end_of_trick?
     puts "SIZE OF GAME PILE = #{@game_state.pile.length}"
     (@game_state.pile.length == 0) && @game.operations.last.type == :play_card
+  end
+
+  def last_operation_type
+    @game.operations.last.type
   end
 
 end

@@ -22,7 +22,7 @@ module AI
     end
 
     def calculate_hand_value
-      @ai_state.hand.inject do |sum, card|
+      @ai_state.hand.inject(0) do |sum, card|
         sum += CalculateCardValue.new(@game_state, card).call
       end
     end
