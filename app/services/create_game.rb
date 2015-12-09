@@ -18,19 +18,25 @@ class CreateGame
   end
 
   def call
-    game = Game.new(initial_trump: random_suit)
+    game = Game.create!(initial_trump: random_suit)
 
+    # TODO: This is ugly, fix it.
+    #
+    # We need to store a player ID inside the game, but players
+    # are not assigned IDs until they are saved. The players
+    # cannot be saved until the game itself is saved.
+    #
+    # It would be nice to have a `null: false` validation for
+    # `initial_dealer` but it introduces this cyclic dependence.
     game.with_lock do
       build_human_player(game)
       ai_count.times { build_ai_player(game) }
 
-      pl = random_player(game.players)
-      puts pl.to_s
-
-      game.initial_dealer_id = pl.id
+      game.initial_dealer = random_player(game.players)
       game.save!
-      game.players.each(&:save!)
     end
+
+    game
   end
 
   private
@@ -44,11 +50,11 @@ class CreateGame
   end
 
   def build_ai_player(game)
-    game.players.new(name: AI_NAMES.sample)
+    game.players.create!(name: AI_NAMES.sample)
   end
 
   def build_human_player(game)
-    game.players.new(name: player_name)
+    game.players.create!(name: player_name)
   end
 
   def ai_count

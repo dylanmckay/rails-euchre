@@ -14,6 +14,6 @@ class OperationsController < ApplicationController
   private
 
   def operation_params
-    params.permit(:operation_type, :player_id, :suit, :rank, :game_id)
+    params.permit(:operation_type, :player_id, :suit, :rank)
   end
 end
