@@ -19,15 +19,12 @@ class CreateGame
 
   def call
     ai_count = @player_count - 1
-    ai_count.times.map { create_ai }
 
-    game = Game.create!(:players => players,
-                        :initial_dealer_id => random_player(players).id,
-                        :initial_trump => random_suit)
+    players = [create_player!] + ai_count.times.map { create_ai! }
 
-    game.with_lock do
-      game.players.create!(:name => AI_NAMES.sample)
-    end
+    Game.create!(:players => players,
+                 :initial_dealer_id => random_player(players).id,
+                 :initial_trump => random_suit)
   end
 
   private
@@ -38,6 +35,14 @@ class CreateGame
     else
       @player_name.capitalize
     end
+  end
+
+  def create_ai!
+    Player.create!(:name => AI_NAMES.sample)
+  end
+
+  def create_player!
+    Player.create!(:name => player_name)
   end
 
   def random_player(players)
