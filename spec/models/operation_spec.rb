@@ -5,8 +5,8 @@ describe Operation do
 
   describe "scopes" do
 
-    describe "deal_card!" do
-      subject(:operation) { Operation.deal_card!(card) }
+    describe "deal_card" do
+      subject(:operation) { Operation.deal_card.create!(card.to_h) }
 
       it { is_expected.to be_an Operation }
 
@@ -20,7 +20,7 @@ describe Operation do
     end
 
     describe "pass_trump!" do
-      subject(:operation) { Operation.pass_trump! }
+      subject(:operation) { Operation.pass_trump.create! }
 
       it { is_expected.to be_an Operation }
 
@@ -30,7 +30,7 @@ describe Operation do
     end
 
     describe "accept_trump!" do
-      subject(:operation) { Operation.accept_trump! }
+      subject(:operation) { Operation.accept_trump.create! }
 
       it { is_expected.to be_an Operation }
 
@@ -40,7 +40,7 @@ describe Operation do
     end
 
     describe "pick_trump!" do
-      subject(:operation) { Operation.pick_trump!(card) }
+      subject(:operation) { Operation.pick_trump.create!(card.to_h) }
 
       it { is_expected.to be_an Operation }
 
@@ -55,7 +55,9 @@ describe Operation do
   end
 
   describe "play_card!" do
-    subject(:operation) { Operation.play_card!(card) }
+    subject(:operation) {
+      Operation.play_card.create!(card.to_h)
+    }
 
     it { is_expected.to be_an Operation }
 
@@ -71,8 +73,7 @@ describe Operation do
   describe "#card" do
     context "when the operation is passing a trump suit" do
       let(:operation) {
-        Operation.create!(operation_type: :pass_trump,
-                          suit: :diamonds)
+        Operation.pass_trump.create!(suit: :diamonds)
       }
 
       it "should not have an associated card" do
@@ -83,8 +84,7 @@ describe Operation do
 
     context "when the operation is playing a card" do
       let(:operation) {
-        Operation.create!(operation_type: :play_card,
-                       suit: :hearts, rank: 10)
+        Operation.play_card.create!(card.to_h)
       }
 
       it "should have an associated card" do
@@ -94,8 +94,7 @@ describe Operation do
 
     context "when the card is being dealt" do
       let(:operation) {
-        Operation.create!(operation_type: :deal_card,
-                       suit: :spades, rank: 11)
+        Operation.deal_card.create!(card.to_h)
       }
 
       it "should have an associated card" do
