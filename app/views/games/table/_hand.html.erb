@@ -1,6 +1,12 @@
 <div class="hand">
   <% read_only = defined?(read_only) ? read_only : false %>
 
+  <div class="player_space_header">
+    <div class="player_points">
+      <%= player.total_score %> Points
+    </div>
+  </div>
+
   <% player.hand.each do |card| %>
     <% can_play = !read_only && @game_state.valid_turn?(player, card) %>
     <a class="<%= hand_card_css_class(static: !can_play) %>"
