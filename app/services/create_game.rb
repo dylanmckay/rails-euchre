@@ -1,20 +1,8 @@
 class CreateGame
-  AI_NAMES = [
-    'Bill',
-    'John',
-    'Sally',
-    'Andy',
-    'Joseph',
-    "Tony",
-    "Jim",
-    "Ella",
-    "Amy",
-    "Eric",
-  ]
-
-  def initialize(player_count, player_name = nil)
+  # TODO: Use keyword arguments
+  def initialize(player_count, user)
     @player_count = player_count
-    @player_name = player_name
+    @user = user
   end
 
   def call
@@ -41,20 +29,18 @@ class CreateGame
 
   private
 
-  def player_name
-    if @player_name.nil? || @player_name.strip.empty?
-      AI_NAMES.sample
-    else
-      @player_name.capitalize
-    end
+  def find_ai_user(game)
+    fail if User.ai.empty?
+    User.ai.first
   end
 
   def build_ai_player(game)
-    game.players.create!(name: AI_NAMES.sample)
+    user = find_ai_user(game)
+    game.players.create!(user: user)
   end
 
   def build_human_player(game)
-    game.players.create!(name: player_name)
+    game.players.create!(user: @user)
   end
 
   def ai_count

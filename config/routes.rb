@@ -6,11 +6,15 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :users do
+    resources :players
+  end
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
-  root 'games#new'
+  root 'users#new'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
