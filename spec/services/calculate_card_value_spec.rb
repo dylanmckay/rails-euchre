@@ -5,7 +5,7 @@ RSpec.describe CalculateCardValue do
   }
 
   card = Card.new(:hearts, 1)
-  subject { CalculateCardValue.new(game_state,card).call }
+  subject { CalculateCardValue.new(game_state, card).call }
 
   context "when a non-trump card is used" do
     before { card = Card.new(:hearts, 9) }
@@ -27,7 +27,7 @@ RSpec.describe CalculateCardValue do
 
   context "when a trump card is used" do
     before {
-      game_state.trump_suit = :hearts
+      game_state.trump_state.suit = :hearts
       card = Card.new(:hearts, 9)
     }
 
@@ -36,7 +36,7 @@ RSpec.describe CalculateCardValue do
 
   context "when a right bower jack is used " do
     before {
-      game_state.trump_suit = :hearts
+      game_state.trump_state.suit = :hearts
       card = Card.new(:hearts, 11)
     }
 
@@ -45,7 +45,7 @@ RSpec.describe CalculateCardValue do
 
   context "when a left bower jack is used" do
     before {
-      game_state.trump_suit = :hearts
+      game_state.trump_state.suit = :hearts
       card = Card.new(:diamonds, 11)
     }
 
@@ -69,6 +69,4 @@ RSpec.describe CalculateCardValue do
 
     it { is_expected.to eq 61 }
   end
-
-
 end

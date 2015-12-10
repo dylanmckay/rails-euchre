@@ -80,10 +80,6 @@ class GameState
     @trump_state.suit
   end
 
-  def trump_suit=(suit)
-    @trump_state.suit = suit
-  end
-
   private
 
   def player_has_leading_cards?(player_state)

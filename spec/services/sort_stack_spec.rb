@@ -24,7 +24,7 @@ RSpec.describe SortStack do
           hand[0],
           hand[1]
         ]}
-        before {state.trump_suit = :hearts }
+        before {state.trump_state.suit = :hearts }
 
         it { is_expected.to eq sorted_hand}
       end
@@ -44,7 +44,7 @@ RSpec.describe SortStack do
           hand[4],
           hand[0]
         ]}
-        before {state.trump_suit = :diamonds}
+        before {state.trump_state.suit = :diamonds}
 
         it { is_expected.to eq sorted_hand}
       end
@@ -54,7 +54,7 @@ RSpec.describe SortStack do
   context "when comparing two cards" do
     subject { SortStack.new(state, [primary, other]).call.first }
     context "trump suit is spades" do
-      before { state.trump_suit = :spades }
+      before { state.trump_state.suit = :spades }
       trump_pair = :clubs
 
       context "when the card suits are: non-trump, following lead, and the same" do
@@ -99,7 +99,7 @@ RSpec.describe SortStack do
         end
 
         context "when the primary is trump and not-leading but other is leading" do
-          before { state.trump_suit = :diamonds }
+          before { state.trump_state.suit = :diamonds }
           before { state.pile.add(Card.new(other.suit, nil), nil)}
           let(:primary) { Card.new(:diamonds, 9) }
           let(:other)   { Card.new(:hearts, 1) }
@@ -117,24 +117,24 @@ RSpec.describe SortStack do
       end
 
       context "when the card suits are: trump, and the same " do
-        before { state.trump_suit = :spades }
+        before { state.trump_state.suit = :spades }
 
         context "and the primary card is a jack" do
-          let(:primary) { Card.new(state.trump_suit, 11) }
-          let(:other)   { Card.new(state.trump_suit, 12) }
+          let(:primary) { Card.new(state.trump_state.suit, 11) }
+          let(:other)   { Card.new(state.trump_state.suit, 12) }
 
           it { is_expected.to eq primary }
         end
 
         context "and the primary is the trump pair's jack and other is non jack trump" do
-          let(:other)   { Card.new(state.trump_suit, 1) }
+          let(:other)   { Card.new(state.trump_state.suit, 1) }
           let(:primary) { Card.new(other.partner_suit, 11) }
 
           it { is_expected.to eq primary }
         end
 
         context "and the primary and other are jack and pair jack" do
-          let(:primary) { Card.new(state.trump_suit, 11) }
+          let(:primary) { Card.new(state.trump_state.suit, 11) }
           let(:other)   { Card.new(trump_pair, 11) }
 
           it { is_expected.to eq primary }
@@ -145,14 +145,14 @@ RSpec.describe SortStack do
         context " and the other is trump and not leading" do
           before { state.pile.add(Card.new(:hearts, nil), nil) }
           let(:primary) { Card.new(:hearts, 1) }
-          let(:other)   { Card.new(state.trump_suit, 9) }
+          let(:other)   { Card.new(state.trump_state.suit, 9) }
 
           it { is_expected.to eq other }
         end
 
         context "and the primary is non-leading and other is trump" do
           let(:primary) { Card.new(:hearts,1) }
-          let(:other)   { Card.new(state.trump_suit,9) }
+          let(:other)   { Card.new(state.trump_state.suit,9) }
 
           it { is_expected.to eq other }
         end

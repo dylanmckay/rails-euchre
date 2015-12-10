@@ -20,7 +20,7 @@ RSpec.describe AI::DecidePlay do
                     trump_suit: :hearts)
     }
 
-    before { game_state.trump_suit = :hearts }
+    before { game_state.trump_state.suit = :hearts }
 
     context "when the pile is empty" do
       it { is_expected.to eq hand[3] }
@@ -46,7 +46,7 @@ RSpec.describe AI::DecidePlay do
 
     context "when the hand contains no leading-suit or trump" do
       before {
-        game_state.trump_suit = :clubs
+        game_state.trump_state.suit = :clubs
         game_state.pile.add(Card.new(:clubs, 1), ai_state)
       }
 
