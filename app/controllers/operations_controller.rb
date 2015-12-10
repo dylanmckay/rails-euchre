@@ -2,7 +2,7 @@ class OperationsController < ApplicationController
   def new
     player = Player.find(params[:player_id])
 
-    player.with_lock do
+    player.game.with_lock do
       operation = player.operations.create!(operation_params)
 
       game = operation.game
