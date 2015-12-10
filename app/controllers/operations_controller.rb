@@ -1,9 +1,15 @@
 class OperationsController < ApplicationController
   def new
-    operation = Operation.create!(operation_params)
-    game = operation.game
-    AdvanceGame.new(game).call
-    redirect_to game
+    player = Player.find(params[:player_id])
+
+    player.with_lock do
+      operation = player.operations.create!(operation_params)
+
+      game = operation.game
+      AdvanceGame.new(game).call
+
+      redirect_to game
+    end
   end
 
   def show
@@ -14,6 +20,6 @@ class OperationsController < ApplicationController
   private
 
   def operation_params
-    params.permit(:operation_type, :player_id, :suit, :rank)
+    params.permit(:operation_type, :suit, :rank)
   end
 end
