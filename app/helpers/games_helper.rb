@@ -35,6 +35,22 @@ module GamesHelper
     operation_url("pick_trump")
   end
 
+  def card_link_url(card, read_only: false)
+    if read_only
+      "javascript:void(0);"
+    else
+      play_card_operation_url(card.suit, card.rank)
+    end
+  end
+
+  def hand_card_css_class(static:)
+    if static
+      "static_hand_card"
+    else
+      "hand_card"
+    end
+  end
+
   def unicode_card(card)
     UNICODE_CARDS[card.suit][card.rank-1]
   end

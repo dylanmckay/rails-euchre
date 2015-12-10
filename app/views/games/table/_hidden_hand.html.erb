@@ -1,5 +1,7 @@
 <div class="hand">
   <% player.hand.each do |card| %>
-  <span class="hand_card"><%= unicode_card_back %></span>
+    <span class="<%= hand_card_css_class(static: true)  %>">
+      <%= unicode_card_back %>
+    </span>
   <%end%>
 </div>

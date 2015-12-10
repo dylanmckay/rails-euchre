@@ -34,6 +34,14 @@ class Pile
     @infos.each.map { |info| info.card }
   end
 
+  def leading_suit
+    if @infos.empty?
+      nil
+    else
+      @infos.first.card.suit
+    end
+  end
+
   def card_owner(card)
     raise Exception, 'the pile is empty' if empty?
 

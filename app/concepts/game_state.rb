@@ -63,12 +63,18 @@ class GameState
   end
 
   def is_leading_suit?(card)
-    !pile.empty? && card.suit == pile.cards.first.suit
+    card.suit == leading_suit
+  end
+
+  def leading_suit
+    @pile.leading_suit
   end
 
   # FIXME: this is unused
-  def valid_play_card_turn?(player_state, card, leading_suit)
-    card.suit == leading_suit || !player_has_leading_cards?(player_state, leading_suit)
+  def valid_play_card_turn?(player_state, card)
+    @pile.empty? ||
+      card.suit == leading_suit ||
+      !player_has_leading_cards?(player_state)
   end
 
   def trump_suit
@@ -81,7 +87,7 @@ class GameState
 
   private
 
-  def player_has_leading_cards?(player_state, leading_suit)
+  def player_has_leading_cards?(player_state)
     player_state.hand.any? { |c| c.suit == leading_suit }
   end
 
