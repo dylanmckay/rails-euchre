@@ -2,14 +2,15 @@ class OperationsController < ApplicationController
   def new
     player = Player.find(params[:player_id])
 
-    player.game.with_lock do
+    game = player.game.with_lock do
       operation = player.operations.create!(operation_params)
 
       game = operation.game
       AdvanceGame.new(game).call
-
-      redirect_to game
+      game
     end
+
+    redirect_to game
   end
 
   def show

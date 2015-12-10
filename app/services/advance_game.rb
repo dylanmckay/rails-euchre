@@ -5,6 +5,10 @@ class AdvanceGame
   end
 
   def call
+    if !@game_state.round_in_progress?
+      DealCards.new(@game, game_state: @game_state).call
+    end
+
     while !is_user?(ply = NextPlayer.new(@game_state, @game).call)
       AI::DecideOperations.new(@game, @game_state, ply).call
       @game.operations(reload: true)

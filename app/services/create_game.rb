@@ -22,6 +22,8 @@ class CreateGame
 
       game.initial_dealer = random_player(game.players)
       game.save!
+
+      DealCards.new(game).call
     end
 
     game

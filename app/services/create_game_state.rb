@@ -8,10 +8,6 @@ class CreateGameState
     apply_operations
     generate_deck
 
-    # FIXME: this shouldn't be here.
-    if !@game_state.round_in_progress?
-      DealCards.new(@game_model, @game_state).call
-    end
     @game_state
   end
 

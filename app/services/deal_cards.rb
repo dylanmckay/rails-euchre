@@ -1,7 +1,7 @@
 class DealCards
   HAND_SIZE = 5
 
-  def initialize(game_model, game_state)
+  def initialize(game_model, game_state: nil)
     @game_model = game_model
     @game_state = game_state
   end
@@ -19,7 +19,10 @@ class DealCards
   def deal_cards_to_player(deck, player)
     deck.pop(HAND_SIZE).each do |card|
       operation = player.operations.deal_card.create!(card.to_h)
-      ApplyOperation.new(@game_state, operation)
+
+      if @game_state
+        ApplyOperation.new(@game_state, operation)
+      end
     end
   end
 
