@@ -1,6 +1,8 @@
 <div class="player_space">
-  <%= render partial: 'games/table/hidden_hand',
-      locals: {  player: player } %>
+  <% hidden = defined?(hidden) ? hidden : false %>
+
+  <%= render partial: 'games/table/hand',
+      locals: {  player: player, hidden: hidden } %>
   <div class="won_cards">
     <% player.scored_cards.each do |card| %>
     <%= unicode_card(card) %>

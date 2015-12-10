@@ -1,5 +1,6 @@
 <div class="hand">
   <% read_only = defined?(read_only) ? read_only : false %>
+  <% hidden = defined?(hidden) ? hidden : false %>
 
   <div class="player_space_header">
     <div class="player_points">
@@ -11,7 +12,8 @@
     <% can_play = !read_only && @game_state.valid_turn?(player, card) %>
     <a class="<%= hand_card_css_class(static: !can_play) %>"
        href="<%= card_link_url(card, read_only: !can_play) %>">
-      <%= unicode_card(card) %>
+       <%= unicode_card(card) if !hidden %>
+       <%= unicode_card_back  if  hidden %>
     </a>
   <%end%>
 </div>
