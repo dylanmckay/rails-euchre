@@ -12,6 +12,9 @@
   <% if @game_state.dealer == player %>
     <div class="dealer_badge"><div>Dealer</div></div>
   <% end %>
+  <% if @game_state.round_leader == player %>
+    <div class="leader_badge"><div>Leader</div></div>
+  <% end %>
 
   <div class="player_name"><%= player.name %></div>
 </div>

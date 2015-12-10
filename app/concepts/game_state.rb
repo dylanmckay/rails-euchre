@@ -57,6 +57,17 @@ class GameState
     @pile.card_owner(best_card_in_pile)
   end
 
+  def round_leaders
+    max_score = @players.max_by { |player| player.total_score }.total_score
+    @players.select { |player| player.total_score == max_score }
+  end
+
+  def round_leader
+    leaders = round_leaders
+
+    leaders.first if leaders.length == 1
+  end
+
   def is_trump?(card)
     card.suit == trump_suit ||
       (card.partner_suit == trump_suit && card.jack?)
