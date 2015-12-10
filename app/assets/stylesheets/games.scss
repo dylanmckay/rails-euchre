@@ -162,7 +162,7 @@
   text-align: center;
 }
 
-.hand_card, .static_hand_card {
+.hand_card, .dynamic_hand_card {
   font-size: 85px;
   float: right;
   color: black;
@@ -170,7 +170,7 @@
   transform: translate(0em,0em);
 }
 
-.hand_card:hover {
+.dynamic_hand_card:hover {
   transform: translate(0em,-0.26em);
 }
 

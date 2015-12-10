@@ -43,9 +43,9 @@ module GamesHelper
     end
   end
 
-  def hand_card_css_class(static:)
-    if static
-      "static_hand_card"
+  def hand_card_css_class(dynamic:)
+    if dynamic
+      "dynamic_hand_card"
     else
       "hand_card"
     end
