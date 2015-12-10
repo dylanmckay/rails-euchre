@@ -16,7 +16,7 @@ describe GameState do
     GameState.new(players: [], dealer: nil, trump_suit: :hearts)
   }
 
-  describe "#valid_play_card_turn?" do
+  describe "#valid_play?" do
     hand = [
       Card.new(:hearts, 10 ),
       Card.new(:diamonds, 12),
@@ -30,11 +30,11 @@ describe GameState do
     let (:player) { PlayerState.new(id: 5, hand: hand, name: "Jacob") }
     before { state.pile.add(leading_card, state.players.last) }
 
-    it { is_expected.to be_valid_play_card_turn(player, hand[1]) }
+    it { is_expected.to be_valid_turn(player, hand[1]) }
 
-    it { is_expected.to_not be_valid_play_card_turn(player, hand[4]) }
+    it { is_expected.to_not be_valid_turn(player, hand[4]) }
 
-    it { is_expected.to be_valid_play_card_turn(player, hand[1]) }
+    it { is_expected.to be_valid_turn(player, hand[1]) }
   end
 
   describe "#round_in_progress?" do

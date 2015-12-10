@@ -2,7 +2,7 @@
   <% read_only = defined?(read_only) ? read_only : false %>
 
   <% player.hand.each do |card| %>
-    <% can_play = @game_state.valid_play_card_turn?(player, card) %>
+    <% can_play = @game_state.valid_turn?(player, card) %>
     <a class="<%= hand_card_css_class(static: !can_play) %>"
        href="<%= card_link_url(card, read_only: !can_play) %>">
       <%= unicode_card(card) %>

@@ -70,8 +70,7 @@ class GameState
     @pile.leading_suit
   end
 
-  # FIXME: this is unused
-  def valid_play_card_turn?(player_state, card)
+  def valid_turn?(player_state, card)
     @pile.empty? ||
       card.suit == leading_suit ||
       !player_has_leading_cards?(player_state)
