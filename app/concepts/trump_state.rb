@@ -1,5 +1,4 @@
 class TrumpState
-  attr_reader :suit
   attr_accessor :selection_operations, :suit, :selection_suit
 
   def initialize(players, initial_player, selection_suit)
@@ -14,6 +13,11 @@ class TrumpState
     initial_player_index = @players.find { |p| p==@initial_player }
     next_player_index = initial_player_index + @selection_operations.length
     @players[next_player_index % @players.length]
+  end
+
+  def restart_selection
+    @selection_suit = Card::SUITS.sample
+    @suit = nil
   end
 
   def selected?
