@@ -3,9 +3,7 @@
   <% read_only = defined?(read_only) ? read_only : hidden %>
 
   <div class="player_space_header">
-    <div class="player_points">
-      <%= player.total_score %> Points
-    </div>
+    <div class="player_points"><%= points_string(player.total_score) %></div>
   </div>
 
   <% player.hand.each do |card| %>

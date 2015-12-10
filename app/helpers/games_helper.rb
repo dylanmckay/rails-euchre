@@ -43,6 +43,14 @@ module GamesHelper
     end
   end
 
+  def points_string(point_count)
+    if point_count == 1
+      "#{point_count} Point"
+    else
+      "#{point_count} Points"
+    end
+  end
+
   def hand_card_css_class(dynamic:)
     if dynamic
       "dynamic_hand_card"

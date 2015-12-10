@@ -59,7 +59,13 @@ class GameState
 
   def round_leaders
     max_score = @players.max_by { |player| player.total_score }.total_score
-    @players.select { |player| player.total_score == max_score }
+    leaders = @players.select { |player| player.total_score == max_score }
+
+    if leaders.length != @players.length
+      leaders
+    else
+      [] # we don't really have leads if everyone is equal
+    end
   end
 
   def round_leader
