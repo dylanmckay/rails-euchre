@@ -2,19 +2,21 @@ class AdvanceGame
   def initialize(game)
     @game = game
     @game_state = CreateGameState.new(@game).call
+
   end
 
   def call
-    while !is_user?(ply = NextPlayer.new(@game_state, @game).call)
-      puts "PLAYING TURN FOR #{ply.name}"
+
+  while !is_user?(ply = NextPlayer.new(@game_state, @game).call)
       AI::DecideOperations.new(@game, @game_state, ply).call
-      @game_state = CreateGameState.new(@game).call
       @game.operations(reload: true)
+      @game_state = CreateGameState.new(@game).call
     end
-    puts "END OF LOOP"
   end
 
   private
+
+
 
   def is_user?(player)
     @game.main_player == player

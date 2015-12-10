@@ -17,7 +17,7 @@ module AI
 
     def decide_operation(ai)
       ai_state = @game_state.find_player(ai.id)
-
+      fail if ai_state.hand.empty?
       case @game.operations.last.type
       when :play_card then decide_play(ai, ai_state)
       when :pass_trump then decide_trump(ai, ai_state)
@@ -31,7 +31,6 @@ module AI
     def decide_play(ai, ai_state)
       card = AI::DecidePlay.new(@game_state, ai_state).call
       return if ai_state.hand.empty?
-
       ai.operations.play_card.create!(card.to_h)
     end
 

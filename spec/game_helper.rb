@@ -55,6 +55,10 @@ def create_rank
 end
 
 def create_operation(player_id, type, suit=nil, rank=nil)
-  Operation.create!(player_id: player_id, operation_type: type,
-                suit: suit, rank: rank)
+  Operation.create!(
+    player_id:      player_id,
+    operation_type: type,
+    suit:           suit,
+    rank:           rank
+  )
 end

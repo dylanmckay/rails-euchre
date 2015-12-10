@@ -7,13 +7,7 @@ class ApplyOperation
   end
 
   def call
-    case @operation.type
-    when :deal_card    then deal_card
-    when :pass_trump   then pass_trump
-    when :accept_trump then accept_trump
-    when :pick_trump   then pick_trump
-    when :play_card    then play_card
-    end
+    send(@operation.type)
   end
 
   private
@@ -46,7 +40,7 @@ class ApplyOperation
   end
 
   def play_card
-    fail "CARD|#{@operation.card}| is BAD " if @player.hand.exclude? @operation.card
+    #fail "CARD|#{@operation.card}| is BAD " if @player.hand.exclude? @operation.card
     @game_state.pile.add(@player.hand.delete(@operation.card), @player)
     finish_trick if every_player_has_played?
   end

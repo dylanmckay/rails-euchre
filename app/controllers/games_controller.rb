@@ -8,6 +8,9 @@ class GamesController < ApplicationController
   def show
     @game = Game.find(params[:id])
     @game_state = CreateGameState.new(@game).call
+    if !@game_state.round_in_progress?
+      DealCards.new(@game_model, @game_state).call
+    end
   end
 
   def index; end

@@ -9,10 +9,10 @@ class CreateGameState
     generate_deck
 
     # FIXME: this shouldn't be here.
-    if !@state.round_in_progress?
-      DealCards.new(@game_model, @state).call
+    if !@game_state.round_in_progress?
+      DealCards.new(@game_model, @game_state).call
     end
-    @state
+    @game_state
   end
 
   private
@@ -23,16 +23,16 @@ class CreateGameState
     dealer_state = find_player_from_id(@game_model.initial_dealer_id)
     initial_trump = @game_model.initial_trump.to_sym
 
-    @state = GameState.new(
-      players: @player_states,
-      dealer: dealer_state,
+    @game_state = GameState.new(
+      players:    @player_states,
+      dealer:     dealer_state,
       trump_suit: initial_trump
     )
   end
 
   def apply_operations
     @game_model.operations.each do |operation|
-      ApplyOperation.new(@state, operation).call
+      ApplyOperation.new(@game_state, operation).call
     end
   end
 
@@ -40,7 +40,7 @@ class CreateGameState
     # we need to generate a new deck after every
     # operation is applied so we know what cards
     # haven't been used yet
-    @state.deck = new_deck
+    @game_state.deck = new_deck
   end
 
   def make_player_states(player_models)
