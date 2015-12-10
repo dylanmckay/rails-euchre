@@ -8,5 +8,11 @@
     <%= unicode_card(card) %>
     <% end %>
   </div>
+
+  <% if @game_state.dealer == player %>
+    <div class="dealer_badge"><div>Dealer</div></div>
+  <% end %>
+
   <div class="player_name"><%= player.name %></div>
 </div>
+
