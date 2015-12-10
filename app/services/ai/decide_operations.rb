@@ -1,4 +1,5 @@
 module AI
+  # TODO: Remove the plural as we only decide a single operation
   class DecideOperations
 
     def initialize(game, game_state, ai_player)
@@ -8,9 +9,9 @@ module AI
     end
 
     def call
-      # dealer_index = @game_state.player_index(@game_state.dealer.id)
-      # @game.players[dealer_index+1..-1].each { |ai| decide_operation(ai) }
-      decide_operation(@ai)
+      op = decide_operation(@ai)
+      ApplyOperation.new(@game_state, op).call
+      op
     end
 
     private
@@ -18,15 +19,15 @@ module AI
     def decide_operation(ai)
       ai_state = @game_state.find_player(ai.id)
 
-      return if ai_state.hand.empty?
+      if ai_state.hand.empty?
+        raise Exception, 'cannot decide an AI operation if the AI has no cards'
+      end
 
       case @game.operations.last.type
       when :play_card then decide_play(ai, ai_state)
       when :pass_trump then decide_trump(ai, ai_state)
       when :accept_trump then decide_play(ai, ai_state)
       when :deal_card then decide_play(ai, ai_state)
-      else
-      #  puts "SOMETHING IS ODD #{@game.operations.last.type}"
       end
     end
 

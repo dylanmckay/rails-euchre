@@ -15,12 +15,15 @@ class GameState
   end
 
   def player_index(id)
-    puts "testing against #{id}"
     @players.index { |player| player.id == id }
   end
 
   def find_player(id)
     @players.find { |player| player.id == id }
+  end
+
+  def trick_in_progress?
+    !@pile.empty?
   end
 
   def round_in_progress?

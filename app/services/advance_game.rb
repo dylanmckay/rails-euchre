@@ -9,16 +9,35 @@ class AdvanceGame
       DealCards.new(@game, game_state: @game_state).call
     end
 
-    while !is_user?(ply = NextPlayer.new(@game_state, @game).call)
-      AI::DecideOperations.new(@game, @game_state, ply).call
-      @game.operations(reload: true)
-      @game_state = CreateGameState.new(@game).call
+    while whose_turn_next.ai?
+      advance
     end
   end
 
   private
 
-  def is_user?(player)
-    @game.main_player == player
+  def advance
+    if @game_state.round_in_progress?
+      puts "deciding"
+      decide_ai_operation
+    else
+      puts "restarting"
+      restart_round
+    end
+  end
+
+  def decide_ai_operation
+    ai = whose_turn_next
+
+    AI::DecideOperations.new(@game, @game_state, ai).call
+    @game.operations(reload: true)
+  end
+
+  def restart_round
+    DealCards.new(@game, game_state: @game_state).call
+  end
+
+  def whose_turn_next
+    NextPlayer.new(@game_state, @game).call
   end
 end

@@ -17,7 +17,7 @@ class NextPlayer
   def next_player_play_card
     if end_of_trick?
       winner_of_last_trick
-    elsif trick_in_progress?
+    elsif @game_state.trick_in_progress?
       left_of_last_player
     else
       left_of_dealer
@@ -43,11 +43,6 @@ class NextPlayer
   def compare_operation_cards(op_a, op_b)
     CompareCards.new(@game_state, op_a.card, op_b.card).call
   end
-
-  def trick_in_progress?
-    !@game_state.pile.empty?
-  end
-
   def left_of_last_player
     @game.players[(index_of_last_player + 1) % @game.players.size]
   end
