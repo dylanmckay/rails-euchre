@@ -57,7 +57,7 @@ class NextPlayer
   end
 
   def index_of_last_player
-    index_of(@game.operations.last.player.id)
+    index_of(last_operation.player.id)
   end
 
   def index_of(player_id)
@@ -66,11 +66,14 @@ class NextPlayer
 
   #FIXME maybe in game_state instead?
   def end_of_trick?
-    puts "SIZE OF GAME PILE = #{@game_state.pile.length}"
-    (@game_state.pile.length == 0) && @game.operations.last.type == :play_card
+    (@game_state.pile.length == 0) && last_operation_type == :play_card
+  end
+
+  def last_operation
+    @game.operations.last
   end
 
   def last_operation_type
-    @game.operations.last.type
+    last_operation.type
   end
 end

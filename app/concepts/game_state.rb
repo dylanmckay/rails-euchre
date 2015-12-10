@@ -15,6 +15,7 @@ class GameState
   end
 
   def player_index(id)
+    puts "testing against #{id}"
     @players.index { |player| player.id == id }
   end
 

@@ -24,7 +24,7 @@ module AI
       when :accept_trump then decide_play(ai, ai_state)
       when :deal_card then decide_play(ai, ai_state)
       else
-        puts "SOMETHING IS ODD #{@game.operations.last.type}"
+      #  puts "SOMETHING IS ODD #{@game.operations.last.type}"
       end
     end
 

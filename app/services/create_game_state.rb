@@ -4,18 +4,13 @@ class CreateGameState
   end
 
   def call
-    puts "CREATING GAME STATE"
     create_initial_state
-    puts "APPLY OP"
     apply_operations
     generate_deck
 
     # FIXME: this shouldn't be here.
     if !@state.round_in_progress?
-      puts "round is not in progress"
       DealCards.new(@game_model, @state).call
-    else
-      puts "round in progress"
     end
     @state
   end
@@ -28,14 +23,15 @@ class CreateGameState
     dealer_state = find_player_from_id(@game_model.initial_dealer_id)
     initial_trump = @game_model.initial_trump.to_sym
 
-    @state = GameState.new(players: @player_states,
-                           dealer: dealer_state,
-                           trump_suit: initial_trump)
+    @state = GameState.new(
+      players: @player_states,
+      dealer: dealer_state,
+      trump_suit: initial_trump
+    )
   end
 
   def apply_operations
     @game_model.operations.each do |operation|
-      fail if operation.game.id != @game_model.id
       ApplyOperation.new(@state, operation).call
     end
   end
@@ -49,8 +45,10 @@ class CreateGameState
 
   def make_player_states(player_models)
     player_models.map do |player_model|
-      PlayerState.new(id: player_model.id,
-                      name: player_model.name)
+      PlayerState.new(
+        id: player_model.id,
+        name: player_model.name
+      )
     end
   end
 
