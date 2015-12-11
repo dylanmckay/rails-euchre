@@ -3,7 +3,9 @@ rvm:
     - 2.2.2
 
 install: bundle install
-script: rspec
+script:
+  - bundle exec rake db:drop db:create db:migrate db:seed
+  - rspec
 
 notifications:
     email: false
