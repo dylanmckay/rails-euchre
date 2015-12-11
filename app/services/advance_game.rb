@@ -6,7 +6,7 @@ class AdvanceGame
 
   def call
     while whose_turn_next.ai?
-      restart_round if !@game_state.round_in_progress?
+      restart_round if @game_state.start_of_round?
 
       decide_ai_operation
     end
@@ -28,7 +28,7 @@ class AdvanceGame
 
   def whose_turn_next
     p = NextPlayer.new(@game_state).call
-    byebug if !p
-    NextPlayer.new(@game_state).call
+    fail if !p
+    p
   end
 end
