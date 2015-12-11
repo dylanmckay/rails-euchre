@@ -27,6 +27,8 @@ class AdvanceGame
   end
 
   def whose_turn_next
+    p = NextPlayer.new(@game_state).call
+    byebug if !p
     NextPlayer.new(@game_state).call
   end
 end

@@ -35,6 +35,10 @@ class GameState
     @players.each.any? { |player| !player.hand.empty? }
   end
 
+  def start_of_round?
+    @players.each.all? { |p| p.hand.empty? }
+  end
+
   def end_of_round?
     round_count > 0 && !round_in_progress?
   end

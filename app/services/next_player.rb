@@ -14,7 +14,9 @@ class NextPlayer
   private
 
   def next_player_to_play_card
-    if @game_state.end_of_trick?
+    if @game_state.start_of_round?
+      left_of_dealer
+    elsif @game_state.end_of_trick?
       winner_of_last_trick
     elsif @game_state.trick_in_progress?
       left_of_last_player
