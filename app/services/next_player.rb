@@ -1,21 +1,20 @@
 class NextPlayer
-  def initialize(game_state,game)
+  def initialize(game_state)
     @game_state = game_state
-    @game = game
   end
 
   def call
-    if in_card_play_stage
-      next_player_play_card
+    if selecting_trump?
+      next_player_to_select_trump
     else
-      next_player_trump_select
+      next_player_to_play_card
     end
   end
 
   private
 
-  def next_player_play_card
-    if end_of_trick?
+  def next_player_to_play_card
+    if @game_state.end_of_trick?
       winner_of_last_trick
     elsif @game_state.trick_in_progress?
       left_of_last_player
@@ -24,12 +23,12 @@ class NextPlayer
     end
   end
 
-  def in_card_play_stage
-    last_operation_type == :play_card || last_operation_type == :deal_card
+  def selecting_trump?
+    @game_state.trump_suit.nil?
   end
 
-  def next_player_trump_select
-    if last_operation_type == :pass_trump
+  def next_player_to_select_trump
+    if @game_state.trump_state.selection_operations.last == :pass
       left_of_last_player
     else
       left_of_dealer
@@ -37,38 +36,18 @@ class NextPlayer
   end
 
   def winner_of_last_trick
-    @game.operations.last(4).sort { |x,y| compare_operation_cards(x, y) }.first.player
+    @game_state.trick_winners.last
   end
 
-  def compare_operation_cards(op_a, op_b)
-    CompareCards.new(@game_state, op_a.card, op_b.card).call
+  def left_of_player(player)
+    @game_state.player_left_of(player)
   end
+
   def left_of_last_player
-    @game.players[(index_of_last_player + 1) % @game.players.size]
+    left_of_player(@game_state.last_player)
   end
 
   def left_of_dealer
-    @game.players[(index_of(@game_state.dealer.id) + 1) % @game.players.size]
-  end
-
-  def index_of_last_player
-    index_of(last_operation.player.id)
-  end
-
-  def index_of(player_id)
-    @game_state.player_index(player_id)
-  end
-
-  #FIXME maybe in game_state instead?
-  def end_of_trick?
-    (@game_state.pile.length == 0) && last_operation_type == :play_card
-  end
-
-  def last_operation
-    @game.operations.last
-  end
-
-  def last_operation_type
-    last_operation.type
+    left_of_player(@game_state.dealer)
   end
 end

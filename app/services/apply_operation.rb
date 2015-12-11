@@ -18,41 +18,46 @@ class ApplyOperation
 
   def pass_trump
     @game_state.trump_state.selection_operations << :pass
+    @game_state.last_player = @player
   end
 
   def accept_trump
     @game_state.trump_state.selection_operations << :accept
     @game_state.trump_state.suit = @game_state.trump_state.selection_suit
+    @game_state.last_player = @player
   end
 
   def pick_trump
     @game_state.trump_state.selection_operations << :pick
     @game_state.trump_state.suit = @operation.suit.to_sym
+    @game_state.last_player = @player
   end
 
   def finish_trick
     winner = @game_state.trick_winner
     winner.scored_cards += @game_state.pile.cards
     @game_state.pile.clear
-    @game_state.trick_counter += 1
+    @game_state.trick_winners << winner
 
     finish_round if every_player_has_no_cards?
   end
 
   def play_card
-    #fail "CARD|#{@operation.card}| is BAD " if @player.hand.exclude? @operation.card
     @game_state.pile.add(@player.hand.delete(@operation.card), @player)
+    @game_state.last_player = @player
+
     finish_trick if every_player_has_played?
   end
 
   def finish_round
+    @game_state.round_winners << @game_state.round_leader
 
     @game_state.players.each do |player|
       player.total_score += @game_state.calculate_points(player)
       player.scored_cards.clear
     end
 
-    @game_state.trick_counter = 0
+    @game_state.trick_winners = []
     assign_next_dealer
   end
 

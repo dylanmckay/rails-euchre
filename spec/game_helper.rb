@@ -4,6 +4,16 @@ require_relative '../app/concepts/player_state'
 require_relative '../app/concepts/card'
 require_relative '../app/models/operation'
 
+def create_game(players: [],
+                dealer: players.first,
+                trump: :hearts)
+
+  GameState.new(
+    players: players,
+    dealer: dealer,
+    trump_suit: trump,
+  )
+end
 
 def create_game_state(player_count:,
                       dealer: nil,
@@ -31,6 +41,10 @@ def create_custom_game_state(players:,
 
   GameState.new(players: players, dealer: dealer,
                 trump_suit: trump_suit)
+end
+
+def create_players(count)
+  count.times.map.with_index { |n| create_player_state(n) }
 end
 
 def create_player_state(player_id, cards=create_hand, name: "John")

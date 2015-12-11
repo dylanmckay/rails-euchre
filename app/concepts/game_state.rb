@@ -1,7 +1,7 @@
 class GameState
   attr_reader :players
   attr_accessor :trump_state, :dealer, :pile, :deck,
-    :trick_counter
+    :trick_winners, :round_winners, :last_player
 
   def initialize(players:, dealer:, trump_suit:,
                  deck: [], pile: Pile.new)
@@ -10,8 +10,10 @@ class GameState
     @deck = deck
     @players = players
     @trump_state = TrumpState.new(@players, @dealer, trump_suit)
+    @last_player = nil
 
-    @trick_counter = 0
+    @round_winners = []
+    @trick_winners = []
   end
 
   def player_index(id)
@@ -22,12 +24,19 @@ class GameState
     @players.find { |player| player.id == id }
   end
 
-  def trick_in_progress?
-    !@pile.empty?
+  def trick_in_progress?; !@pile.empty?; end
+  def end_of_trick?
+    (round_count > 0 ||
+     trick_count > 0) &&
+    !trick_in_progress?
   end
 
   def round_in_progress?
     @players.each.any? { |player| !player.hand.empty? }
+  end
+
+  def end_of_round?
+    round_count > 0 && !round_in_progress?
   end
 
   def in_trump_selection?
@@ -37,6 +46,9 @@ class GameState
   def best_card_in_pile
     SortStack.new(self, @pile.cards).call.first
   end
+
+  def round_count; @round_winners.count; end
+  def trick_count; @trick_winners.count; end
 
   def calculate_points(player)
     if won_trick_count_for_player(player) == 5
@@ -56,6 +68,7 @@ class GameState
     @players[1..-1]
   end
 
+  # TODO: rename to 'trick_leader'
   def trick_winner
     @pile.card_owner(best_card_in_pile)
   end
@@ -98,6 +111,14 @@ class GameState
 
   def trump_suit
     @trump_state.suit
+  end
+
+  def player_left_of(player)
+    puts "last: #{@last_player}, player: #{player}"
+    player_index = @players.index(player)
+    left_player_index = (player_index + 1) % @players.length
+
+    @players[left_player_index]
   end
 
   private
