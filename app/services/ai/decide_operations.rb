@@ -3,7 +3,8 @@ module AI
   class DecideOperations
 
     def initialize(game, game_state, ai_player)
-      @ai = ai_player
+      @ai_state = ai_player
+      @ai = Player.find(ai_player.id)
       @game = game
       @game_state = game_state
     end
@@ -27,7 +28,7 @@ module AI
       when :play_card then decide_play(ai, ai_state)
       when :pass_trump then decide_trump(ai, ai_state)
       when :accept_trump then decide_play(ai, ai_state)
-      when :deal_card then decide_play(ai, ai_state)
+      when :deal_card then decide_trump(ai, ai_state)
       end
     end
 

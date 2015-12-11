@@ -6,8 +6,6 @@ module AI
     end
 
     def call
-      puts "GAME PILE: #{@game_state.pile.cards}"
-      puts "OWN HAND : #{@ai_state.hand}"
       if play_best_card?
         best_card_in_hand
       elsif hand_contains_any_leading_suit?

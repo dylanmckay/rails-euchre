@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 describe ApplyOperation do
-
   def operation(player_id, type, suit=nil, rank=nil)
     op = create_operation(player_id, type, suit, rank)
     ApplyOperation.new(state, op).call
@@ -50,6 +49,7 @@ describe ApplyOperation do
     }
 
     it { is_expected.not_to change { state } }
+    it { is_expected.to change { state.last_player }.to state.find_player(1) }
   end
 
   context "accepting a trump" do
@@ -58,6 +58,7 @@ describe ApplyOperation do
     }
 
     it { is_expected.to change{state.trump_suit}.to :diamonds }
+    it { is_expected.to change { state.last_player }.to state.find_player(2) }
   end
 
   context "picking a trump" do
@@ -66,6 +67,7 @@ describe ApplyOperation do
     }
 
     it { is_expected.to change{state.trump_suit}.to :spades }
+    it { is_expected.to change { state.last_player }.to state.find_player(1) }
   end
 
   context "playing a card" do
@@ -76,8 +78,8 @@ describe ApplyOperation do
     let(:hand) { state.find_player(1).hand }
 
     it { is_expected.to change { state.pile.length }.by 1 }
-
-    it { is_expected.to change { hand.length }.by -1 }
+    it { is_expected.to change { hand.length }.by(-1) }
+    it { is_expected.to change { state.last_player }.to state.find_player(1) }
 
     context "finishing a trick" do
 
@@ -91,6 +93,7 @@ describe ApplyOperation do
       }
 
       it { is_expected.to change { state.pile.length }.to 0 }
+      it { is_expected.to change { state.last_player }.to state.find_player(2) }
 
       # TODO: check that the winners score is incremented
     end
@@ -108,5 +111,6 @@ describe ApplyOperation do
     }
 
     it { is_expected.to change { state.dealer } }
+    it { is_expected.to change { state.last_player }.to state.find_player(0) }
   end
 end

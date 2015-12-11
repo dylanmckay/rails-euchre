@@ -21,7 +21,7 @@ class DealCards
       operation = player.operations.deal_card.create!(card.to_h)
 
       if @game_state
-        ApplyOperation.new(@game_state, operation)
+        ApplyOperation.new(@game_state, operation).call
       end
     end
   end

@@ -5,26 +5,14 @@ class AdvanceGame
   end
 
   def call
-    if !@game_state.round_in_progress?
-      DealCards.new(@game, game_state: @game_state).call
-    end
-
     while whose_turn_next.ai?
-      advance
+      restart_round if !@game_state.round_in_progress?
+
+      decide_ai_operation
     end
   end
 
   private
-
-  def advance
-    if @game_state.round_in_progress?
-      puts "deciding"
-      decide_ai_operation
-    else
-      puts "restarting"
-      restart_round
-    end
-  end
 
   def decide_ai_operation
     ai = whose_turn_next
@@ -35,9 +23,10 @@ class AdvanceGame
 
   def restart_round
     DealCards.new(@game, game_state: @game_state).call
+    @game.operations(reload: true)
   end
 
   def whose_turn_next
-    NextPlayer.new(@game_state, @game).call
+    NextPlayer.new(@game_state).call
   end
 end

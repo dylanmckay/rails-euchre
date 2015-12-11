@@ -43,7 +43,8 @@ class CreateGameState
     player_models.map do |player_model|
       PlayerState.new(
         id: player_model.id,
-        name: player_model.user.name
+        name: player_model.user.name,
+        ai: player_model.ai?,
       )
     end
   end

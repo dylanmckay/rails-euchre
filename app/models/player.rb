@@ -5,4 +5,12 @@ class Player < ActiveRecord::Base
 
   def ai?; user.ai; end
   def human?; !user.ai; end
+
+  def ==(other)
+    if other.is_a?(Player) || other.is_a?(PlayerState)
+      id == other.id
+    else
+      false
+    end
+  end
 end

@@ -15,6 +15,34 @@ def create_game(players: [],
   )
 end
 
+def create_game_model(players: [],
+                      dealer: players.first,
+                      trump: "hearts")
+  Game.create!(
+    players: players,
+    initial_dealer: dealer,
+    initial_trump: trump,
+  )
+end
+
+def create_player_models(count)
+  human_user = User.new(name: "Bill")
+  ai_user = User.new(name: "Tim", ai: true)
+
+  human_count = 1
+  ai_count = count - human_count
+
+  human_players = human_count.times.map do
+    Player.new(user: human_user)
+  end
+
+  ai_players = ai_count.times.map do
+    Player.new(user: ai_user)
+  end
+
+  human_players + ai_players
+end
+
 def create_game_state(player_count:,
                       dealer: nil,
                       trump: nil)

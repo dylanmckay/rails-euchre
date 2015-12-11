@@ -105,6 +105,4 @@ describe GameState do
       it { is_expected.to eq [1,0] }
     end
   end
-
-
 end

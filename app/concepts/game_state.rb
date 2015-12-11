@@ -114,7 +114,6 @@ class GameState
   end
 
   def player_left_of(player)
-    puts "last: #{@last_player}, player: #{player}"
     player_index = @players.index(player)
     left_player_index = (player_index + 1) % @players.length
 
