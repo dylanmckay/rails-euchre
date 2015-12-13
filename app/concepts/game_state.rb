@@ -95,8 +95,8 @@ class GameState
   end
 
   def is_trump?(card)
-    card.suit == trump_suit ||
-      (card.partner_suit == trump_suit && card.jack?)
+    (card.suit == trump_suit ||
+      (card.partner_suit == trump_suit && card.jack?))
   end
 
   def is_leading_suit?(card)
@@ -114,7 +114,7 @@ class GameState
   end
 
   def trump_suit
-    @trump_state.suit
+    @trump_state.suit != nil ? @trump_state.suit : @trump_state.selection_suit
   end
 
   def player_left_of(player)

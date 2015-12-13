@@ -10,7 +10,7 @@ class GamesController < ApplicationController
       params[:player_number].to_i,
       user,
     ).call
-
+    DealCards.new(game).call
     redirect_to game
   end
 

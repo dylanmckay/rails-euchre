@@ -16,8 +16,9 @@ describe CreateGame do
     it "creates four players" do
       expect(game.players.size).to eq 4
     end
-
+    before { DealCards.new(game).call }
     it "deals each player unique cards" do
+
       dealt_cards = game.players.flat_map do |player|
         deals = player.operations.select(&:deal_card?)
         deals.map { |operation| operation.card }

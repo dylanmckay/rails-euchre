@@ -57,7 +57,7 @@ describe ApplyOperation do
       -> { operation(2, :accept_trump) }
     }
 
-    it { is_expected.to change{state.trump_suit}.to :diamonds }
+    it { is_expected.to change{state.trump_state.suit}.to :diamonds }
     it { is_expected.to change { state.last_player }.to state.find_player(2) }
   end
 

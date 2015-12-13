@@ -23,21 +23,20 @@ class CreateGame
       game.initial_dealer = random_player(game.players)
       game.save!
 
-      DealCards.new(game).call
+      
     end
-
     game
   end
 
   private
 
-  def find_ai_user(game)
+  def find_ai_user
     fail if User.ai.empty?
     User.ai.first
   end
 
   def build_ai_player(game)
-    user = find_ai_user(game)
+    user = find_ai_user
     game.players.create!(user: user)
   end
 

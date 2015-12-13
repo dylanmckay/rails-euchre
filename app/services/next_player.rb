@@ -26,7 +26,8 @@ class NextPlayer
   end
 
   def selecting_trump?
-    @game_state.trump_suit.nil?
+    #TODO maybe make a nil? as well as trump_suit in game_state
+    @game_state.trump_state.suit.nil?
   end
 
   def next_player_to_select_trump

@@ -8,13 +8,13 @@ RSpec.describe CalculateCardValue do
   subject { CalculateCardValue.new(game_state, card).call }
 
   context "when a non-trump card is used" do
-    before { card = Card.new(:hearts, 9) }
+    before { card = Card.new(:clubs, 9) }
 
     it{ is_expected.to eq 9}
   end
 
   context "when an ace, non-trump card is used" do
-    before { card = Card.new(:hearts,1) }
+    before { card = Card.new(:clubs,1) }
 
     it {is_expected.to eq 14 }
   end
