@@ -6,8 +6,6 @@ class CreateGameState
   def call
     create_initial_state
     apply_operations
-    generate_deck
-
     @game_state
   end
 
@@ -32,13 +30,6 @@ class CreateGameState
     end
   end
 
-  def generate_deck
-    # we need to generate a new deck after every
-    # operation is applied so we know what cards
-    # haven't been used yet
-    @game_state.deck = new_deck
-  end
-
   def make_player_states(player_models)
     player_models.map do |player_model|
       PlayerState.new(
@@ -47,14 +38,6 @@ class CreateGameState
         ai: player_model.ai?,
       )
     end
-  end
-
-  def new_deck
-    new_unshuffled_deck.shuffle
-  end
-
-  def new_unshuffled_deck
-    Card::DECK.reject { |card| any_player_has_card?(card) }
   end
 
   def any_player_has_card?(card)

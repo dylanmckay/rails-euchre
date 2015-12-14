@@ -24,7 +24,12 @@ class AdvanceGame
   end
 
   def restart_round
-    DealCards.new(@game, game_state: @game_state).call
+    # @game_state.deck.refresh.shuffle
+    puts "refresing deck then dealing"
+    @game_state.deck.refresh
+    @game_state.deck.shuffle
+    DealCards.new(@game, game_state: @game_state, deck:@game_state.deck).call
+    @game_state.trump_state.restart_selection
     @game.operations(reload: true)
   end
 

@@ -1,23 +1,23 @@
 class DealCards
   HAND_SIZE = 5
 
-  def initialize(game_model, game_state: nil)
+  def initialize(game_model, game_state: nil, deck: Deck.new)
     @game_model = game_model
     @game_state = game_state
+    @deck = deck
   end
 
   def call
-    deck = new_deck
 
     @game_model.players.each do |player_model|
-      deal_cards_to_player(deck, player_model)
+      deal_cards_to_player(player_model)
     end
   end
 
   private
 
-  def deal_cards_to_player(deck, player)
-    deck.pop(HAND_SIZE).each do |card|
+  def deal_cards_to_player(player)
+    @deck.pop(HAND_SIZE).each do |card|
       operation = player.operations.deal_card.create!(card.to_h)
       if @game_state
         ApplyOperation.new(@game_state, operation).call
@@ -25,7 +25,4 @@ class DealCards
     end
   end
 
-  def new_deck
-    Card::DECK.shuffle
-  end
 end

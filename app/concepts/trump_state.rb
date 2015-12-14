@@ -1,9 +1,10 @@
 class TrumpState
   attr_accessor :selection_operations, :suit, :selection_suit
 
-  def initialize(players, initial_player, selection_suit)
+  def initialize(players, initial_player, selection_suit, deck)
     @players = players
     @initial_dealer = initial_player
+    @deck = deck
     @suit = nil
     @selection_suit = selection_suit
     @selection_operations = []
@@ -16,8 +17,15 @@ class TrumpState
   end
 
   def restart_selection
-    @selection_suit = Card::SUITS.sample
-    @suit = nil
+    if @suit
+      @selection_suit = @deck.pop.first.suit
+      @suit = nil
+    end
+  end
+
+  def select_suit_as_trump
+    @suit = @selection_suit
+    @selection_suit = nil
   end
 
   def selected?

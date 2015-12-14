@@ -4,7 +4,7 @@ class NextPlayer
   end
 
   def call
-    if selecting_trump?
+    if @game_state.in_trump_selection?
       next_player_to_select_trump
     else
       next_player_to_play_card
@@ -23,10 +23,6 @@ class NextPlayer
     else
       left_of_dealer
     end
-  end
-
-  def selecting_trump?
-    @game_state.is_trump_suit_selected?
   end
 
   def next_player_to_select_trump

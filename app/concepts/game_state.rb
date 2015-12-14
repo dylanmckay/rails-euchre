@@ -3,13 +3,12 @@ class GameState
   attr_accessor :trump_state, :dealer, :pile, :deck,
     :trick_winners, :round_winners, :last_player
 
-  def initialize(players:, dealer:, trump_suit:,
-                 deck: [], pile: Pile.new)
+  def initialize(players:, dealer:, trump_suit:, pile: Pile.new)
     @dealer = dealer
     @pile = pile
-    @deck = deck
     @players = players
-    @trump_state = TrumpState.new(@players, @dealer, trump_suit)
+    @deck = Deck.new
+    @trump_state = TrumpState.new(@players, @dealer, trump_suit,deck)
     @last_player = nil
 
     @round_winners = []
@@ -126,10 +125,6 @@ class GameState
 
   def trump_suit
     @trump_state.suit != nil ? @trump_state.suit : @trump_state.selection_suit
-  end
-
-  def is_trump_suit_selected?
-    @trump_state.suit == nil
   end
 
   def player_left_of(player)
