@@ -3,15 +3,15 @@
   <% read_only = defined?(read_only) ? read_only : hidden %>
 
   <div class="player_space_header">
-    <div class="player_points"><%= @game.points_string(player.total_score) %></div>
+    <div class="player_points"><%= points_string(player.total_score) %></div>
   </div>
 
   <% player.hand.each do |card| %>
     <% dynamic = !hidden && !read_only && @game_state.valid_turn?(player, card) %>
-    <a class="<%= @game.hand_card_css_class(dynamic: dynamic) %>"
-       href="<%= @game.card_link_url(card, read_only: !dynamic) %>">
-       <%= @game.unicode_card(card) if !hidden %>
-       <%= @game.unicode_card_back  if  hidden %>
+    <a class="<%= hand_card_css_class(dynamic: dynamic) %>"
+       href="<%= card_link_url(card, read_only: !dynamic) %>">
+       <%= unicode_card(card) if !hidden %>
+       <%= unicode_card_back  if  hidden %>
     </a>
   <%end%>
 </div>
