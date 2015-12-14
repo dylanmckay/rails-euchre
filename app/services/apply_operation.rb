@@ -54,7 +54,6 @@ class ApplyOperation
   end
 
   def finish_round
-    puts "finishing round"
     @game_state.round_winners << @game_state.round_leader
 
     @game_state.players.each do |player|

@@ -8,7 +8,7 @@ class GameState
     @pile = pile
     @players = players
     @deck = Deck.new
-    #TODO refactor this so they're not co-dependant
+    #TODO refactor this so they're not co-dependant?
     @trump_state = TrumpState.new(self, deck)
     @last_player = nil
 

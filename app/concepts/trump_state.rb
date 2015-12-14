@@ -15,21 +15,8 @@ class TrumpState
     card
   end
 
-
-  def restart_selection
-    print "Restart selection? "
-    if @suit
-      print " YES! "
-      @next_trump_card = @deck.pop.first
-      # game_state.player.
-      @suit = nil
-    end
-    puts ""
-  end
-
   def selection_suit
-    #TODO REFACTOR THIS
-    @selection_card == nil ? nil : @selection_card.suit
+    @selection_card.nil? ? nil : @selection_card.suit
   end
 
   def assign_new_selection_card(card)
