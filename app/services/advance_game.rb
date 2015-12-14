@@ -20,7 +20,7 @@ class AdvanceGame
 
     ai = find_next_player
     @game.operations(reload: true)
-    AI::DecideOperations.new(@game, @game_state, ai).call
+    AI::DecideOperation.new(@game, @game_state, ai).call
   end
 
   def restart_round

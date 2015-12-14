@@ -1,6 +1,5 @@
 module AI
-  # TODO: Remove the plural as we only decide a single operation
-  class DecideOperations
+  class DecideOperation
 
     def initialize(game, game_state, ai_player)
       @ai_state = ai_player
