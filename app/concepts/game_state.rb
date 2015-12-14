@@ -38,7 +38,6 @@ class GameState
     @players.any? { |player| !player.hand.empty? }
   end
 
-  #Doesn't make sense? start of round is when all hands are empty?
   def start_of_round?
     @players.all? { |p| p.hand.empty? }
   end
@@ -59,8 +58,13 @@ class GameState
     SortStack.new(self, @pile.cards).call.first
   end
 
-  def round_count; @round_winners.count; end
-  def trick_count; @trick_winners.count; end
+  def round_count
+    @round_winners.count
+  end
+
+  def trick_count
+    @trick_winners.count
+  end
 
   def calculate_points(player)
     if won_trick_count_for_player(player) == 5
@@ -73,15 +77,14 @@ class GameState
   end
 
   def main_player
-    @players.first
+    @players.find{ |p| p.human? }
   end
 
   def ai_players
-    @players[1..-1]
+    @players.select { |p| p.ai? }
   end
 
-  # TODO: rename to 'trick_leader'
-  def trick_winner
+  def trick_leader
     @pile.card_owner(best_card_in_pile)
   end
 
@@ -123,6 +126,10 @@ class GameState
 
   def trump_suit
     @trump_state.suit != nil ? @trump_state.suit : @trump_state.selection_suit
+  end
+
+  def is_trump_suit_selected?
+    @trump_state.suit == nil
   end
 
   def player_left_of(player)

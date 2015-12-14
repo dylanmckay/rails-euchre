@@ -34,7 +34,7 @@ class ApplyOperation
   end
 
   def finish_trick
-    winner = @game_state.trick_winner
+    winner = @game_state.trick_leader
     winner.scored_cards += @game_state.pile.cards
     @game_state.pile.clear
     @game_state.trick_winners << winner
