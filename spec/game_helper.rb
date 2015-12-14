@@ -4,24 +4,21 @@ require_relative '../app/concepts/player_state'
 require_relative '../app/concepts/card'
 require_relative '../app/models/operation'
 
-def create_game(players: [],
-                dealer: players.first,
-                trump: :hearts)
+def create_game(players: [], dealer: players.first, trump: :hearts)
 
-  GameState.new(
+  state = GameState.new(
     players: players,
-    dealer: dealer,
-    trump_suit: trump,
+    dealer: dealer
   )
+  state.trump_state.select_suit_as_trump(trump)
+  state
 end
 
 def create_game_model(players: [],
-                      dealer: players.first,
-                      trump: "hearts")
+                      dealer: players.first)
   Game.create!(
     players: players,
     initial_dealer: dealer,
-    initial_trump: trump,
   )
 end
 
@@ -45,10 +42,9 @@ end
 
 def create_game_state(player_count:,
                       dealer: nil,
-                      trump: nil)
+                      trump: :hearts)
   players = player_count.times.map { |n| create_hand(n) }
   dealer ||= players.first
-  trump ||= :hearts
 
   GameState.new(players: players, dealer: dealer,
                 trump_suit: trump)
@@ -56,7 +52,7 @@ end
 
 def create_custom_game_state(players:,
                              dealer: nil,
-                             trump_suit: nil)
+                             trump_suit: :hearts)
   players = players.each.with_index.map do |player,index|
     id = player.include?(:id) ? player[:id] : index
     hand = player.include?(:hand) ? player[:hand] : create_hand
@@ -65,10 +61,10 @@ def create_custom_game_state(players:,
   end
 
   dealer ||= players.first
-  trump_suit ||= :hearts
 
-  GameState.new(players: players, dealer: dealer,
-                trump_suit: trump_suit)
+  state = GameState.new(players: players, dealer: dealer)
+  state.trump_state.select_suit_as_trump trump_suit
+  state
 end
 
 def create_players(count)

@@ -1,7 +1,8 @@
 RSpec.describe CalculateCardValue do
   let(:game_state) {
-    GameState.new(players: [], dealer: nil,
-                  trump_suit: :hearts)
+    create_game(
+      players: [],
+    )
   }
 
   card = Card.new(:hearts, 1)

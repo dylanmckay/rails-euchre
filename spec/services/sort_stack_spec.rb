@@ -1,8 +1,10 @@
 
 RSpec.describe SortStack do
   subject(:state) {
-    GameState.new(players: [], dealer: nil,
-                  trump_suit: :hearts)
+    create_game(
+      players: [],
+      dealer: nil
+    )
   }
 
   describe "#call" do

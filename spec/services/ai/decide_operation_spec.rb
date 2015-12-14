@@ -18,7 +18,7 @@ RSpec.describe AI::DecideOperation do
     context "after a deal_card operation" do
       context "when the AI has a bad hand, it passes on trump selection" do
         before {
-          game_state.trump_state.selection_suit = :spades
+          game_state.trump_state.selection_card = Card.new(:spades, 1)
           deal_specific_cards_to_player(first_ai_player, ai_hand)
         }
 
@@ -28,7 +28,7 @@ RSpec.describe AI::DecideOperation do
 
       context "when the AI has a good hand, it accepts the trump selection" do
         before {
-          game_state.trump_state.selection_suit = :hearts
+          game_state.trump_state.selection_card = Card.new(:hearts, 1)
           deal_specific_cards_to_player(first_ai_player, ai_hand)
         }
 
@@ -40,7 +40,7 @@ RSpec.describe AI::DecideOperation do
     context "after a pass_trump operation" do
       context "when the AI has a bad hand, it passes on trump selection" do
         before {
-          game_state.trump_state.selection_suit = :spades
+          game_state.trump_state.selection_card = Card.new(:spades, 1)
           deal_specific_cards_to_player(first_ai_player, ai_hand)
           first_human_player.operations.create!( operation_type: "pass_trump" )
         }

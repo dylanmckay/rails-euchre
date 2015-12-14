@@ -38,13 +38,8 @@ class TrumpState
   end
 
   def select_suit_as_trump(new_suit = selection_suit)
-    print "seectin new trump ?? "
-    # if !@suit
-      print "  YESSS"
-      @suit = new_suit
-      @selection_card = nil
-    # end
-    puts
+    @suit = new_suit
+    @selection_card = nil
   end
 
   def selected?

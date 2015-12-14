@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe ApplyOperation do
-  def operation(player_id, type, suit=nil, rank=nil)
+  def operation(player_id, type, suit = nil, rank = nil)
     op = create_operation(player_id, type, suit, rank)
     ApplyOperation.new(state, op).call
   end
@@ -53,8 +53,12 @@ describe ApplyOperation do
   end
 
   context "accepting a trump" do
+    before { state.trump_state.suit = nil }
     subject {
-      -> { operation(2, :accept_trump) }
+      -> {
+          operation(2, :draw_trump, :diamonds, 1)
+          operation(2, :accept_trump)
+        }
     }
 
     it { is_expected.to change{state.trump_state.suit}.to :diamonds }

@@ -8,12 +8,15 @@ describe GameState do
   ]}
 
   subject(:state) {
-    GameState.new(players: players, dealer: players.sample,
-                  trump_suit: :hearts)
+    create_game(
+      players: players,
+      dealer: players.sample,
+      trump: :hearts
+    )
   }
 
   let(:empty_state) {
-    GameState.new(players: [], dealer: nil, trump_suit: :hearts)
+    create_game(players: [], dealer: nil, trump: :hearts)
   }
 
   describe "#valid_play?" do
@@ -49,8 +52,8 @@ describe GameState do
       ]}
 
       subject {
-        GameState.new(players: players, dealer: players.first,
-                      trump_suit: :diamonds)
+        create_game(players: players, dealer: players.first,
+                      trump: :diamonds)
       }
 
       it { is_expected.not_to be_round_in_progress }
@@ -84,8 +87,8 @@ describe GameState do
       ] }
 
       let(:state) {
-        GameState.new(players: players, dealer: players.sample,
-                      trump_suit: :clubs)
+        create_game(players: players, dealer: players.sample,
+                      trump: :clubs)
       }
 
       it { is_expected.to eq [2,0] }
@@ -99,8 +102,8 @@ describe GameState do
       ]}
 
       let(:state) {
-        GameState.new(players: players, dealer: players.sample,
-                      trump_suit: :hearts)
+        create_game(players: players, dealer: players.sample,
+                      trump: :hearts)
       }
       it { is_expected.to eq [1,0] }
     end

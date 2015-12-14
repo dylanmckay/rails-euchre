@@ -5,7 +5,7 @@ class CreateGame
   end
 
   def call
-    game = Game.create!(initial_trump: random_suit)
+    game = Game.create!
 
     # TODO: This is ugly, fix it.
     #

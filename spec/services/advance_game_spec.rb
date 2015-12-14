@@ -7,7 +7,7 @@ describe AdvanceGame do
 
     let(:game) {
       create_game_model(
-        players: players,
+        players: players
       )
     }
 
