@@ -29,8 +29,12 @@ class ApplyOperation
 
   def pick_trump
     @game_state.trump_state.selection_operations << :pick
-    @game_state.trump_state.suit = @operation.suit.to_sym
+    @game_state.trump_state.select_suit_as_trump @operation.suit.to_sym
     @game_state.last_player = @player
+  end
+
+  def draw_trump
+    @game_state.trump_state.assign_new_selection_card  @operation.card
   end
 
   def finish_trick
@@ -50,6 +54,7 @@ class ApplyOperation
   end
 
   def finish_round
+    puts "finishing round"
     @game_state.round_winners << @game_state.round_leader
 
     @game_state.players.each do |player|
@@ -57,6 +62,7 @@ class ApplyOperation
       player.scored_cards.clear
     end
     @game_state.trick_winners = []
+
     assign_next_dealer
   end
 

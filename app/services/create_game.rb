@@ -23,7 +23,7 @@ class CreateGame
       game.initial_dealer = random_player(game.players)
       game.save!
 
-      
+
     end
     game
   end

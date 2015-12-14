@@ -3,12 +3,13 @@ class GameState
   attr_accessor :trump_state, :dealer, :pile, :deck,
     :trick_winners, :round_winners, :last_player
 
-  def initialize(players:, dealer:, trump_suit:, pile: Pile.new)
+  def initialize(players:, dealer:, pile: Pile.new)
     @dealer = dealer
     @pile = pile
     @players = players
     @deck = Deck.new
-    @trump_state = TrumpState.new(@players, @dealer, trump_suit,deck)
+    #TODO refactor this so they're not co-dependant
+    @trump_state = TrumpState.new(self, deck)
     @last_player = nil
 
     @round_winners = []

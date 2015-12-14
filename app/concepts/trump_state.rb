@@ -1,31 +1,50 @@
 class TrumpState
-  attr_accessor :selection_operations, :suit, :selection_suit
+  attr_accessor :selection_operations, :suit, :selection_card
 
-  def initialize(players, initial_player, selection_suit, deck)
-    @players = players
-    @initial_dealer = initial_player
+  def initialize(game_state, deck)
+    @game_state = game_state
     @deck = deck
     @suit = nil
-    @selection_suit = selection_suit
     @selection_operations = []
   end
 
-  def next_player_selection
-    initial_player_index = @players.find { |p| p==@initial_player }
-    next_player_index = initial_player_index + @selection_operations.length
-    @players[next_player_index % @players.length]
+  def pop_new_trump_card
+    @suit = nil
+    card = @deck.pop.first
+    @selection_card = card
+    card
   end
+
 
   def restart_selection
+    print "Restart selection? "
     if @suit
-      @selection_suit = @deck.pop.first.suit
+      print " YES! "
+      @next_trump_card = @deck.pop.first
+      # game_state.player.
       @suit = nil
     end
+    puts ""
   end
 
-  def select_suit_as_trump
-    @suit = @selection_suit
-    @selection_suit = nil
+  def selection_suit
+    #TODO REFACTOR THIS
+    @selection_card == nil ? nil : @selection_card.suit
+  end
+
+  def assign_new_selection_card(card)
+    @selection_card = card
+    @suit = nil
+  end
+
+  def select_suit_as_trump(new_suit = selection_suit)
+    print "seectin new trump ?? "
+    # if !@suit
+      print "  YESSS"
+      @suit = new_suit
+      @selection_card = nil
+    # end
+    puts
   end
 
   def selected?

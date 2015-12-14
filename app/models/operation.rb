@@ -2,11 +2,12 @@ class Operation < ActiveRecord::Base
   belongs_to :player
   has_one :game, through: :player
 
-  scope :deal_card, -> { where(operation_type: "deal_card") }
-  scope :pass_trump, -> { where(operation_type: "pass_trump") }
-  scope :accept_trump, -> { where(operation_type: "accept_trump") }
-  scope :pick_trump, -> { where(operation_type: "pick_trump") }
-  scope :play_card, -> { where(operation_type: "play_card") }
+  scope :deal_card,   -> { where(operation_type: "deal_card")     }
+  scope :pass_trump,  -> { where(operation_type: "pass_trump")    }
+  scope :accept_trump,-> { where(operation_type: "accept_trump")  }
+  scope :pick_trump,  -> { where(operation_type: "pick_trump")    }
+  scope :play_card,   -> { where(operation_type: "play_card")     }
+  scope :draw_trump,  -> { where(operation_tye: "draw_trump")     }
 
   def deal_card?
     type == :deal_card
@@ -26,6 +27,10 @@ class Operation < ActiveRecord::Base
 
   def play_card?
     type == :play_card
+  end
+
+  def draw_trump?
+    type == :draw_trump
   end
 
   def type

@@ -24,6 +24,7 @@ module AI
       case @game.operations.last.type
       when :pass_trump then decide_trump
       when :deal_card then decide_trump
+      when :draw_trump then decide_trump
       else decide_play
       end
     end

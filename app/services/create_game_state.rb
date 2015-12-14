@@ -15,12 +15,12 @@ class CreateGameState
     @player_states = make_player_states(@game_model.players)
 
     dealer_state = find_player_from_id(@game_model.initial_dealer_id)
-    initial_trump = @game_model.initial_trump.to_sym
+    # initial_trump = @game_model.initial_trump.to_sym
 
     @game_state = GameState.new(
       players:    @player_states,
       dealer:     dealer_state,
-      trump_suit: initial_trump
+      # trump_suit: initial_trump
     )
   end
 
