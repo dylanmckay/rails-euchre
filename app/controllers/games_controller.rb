@@ -7,8 +7,8 @@ class GamesController < ApplicationController
     user = User.find(params[:user_id])
 
     game = CreateGame.new(
-      params[:player_number].to_i,
-      user,
+      player_count: params[:player_number].to_i,
+      user: user,
     ).call
     AdvanceGame.new(game).call
     redirect_to game

@@ -6,17 +6,22 @@ describe CreateGame do
     User.create!(name: "Bob")
   }
 
-  it "creates a game object" do
-    expect(CreateGame.new(2, user).call).to be_a Game
-  end
+  subject(:game) {
+    CreateGame.new(
+      player_count: 4,
+      user: user
+    ).call
+  }
+
+  it { is_expected.to be_a Game }
 
   context "when creating the game with four players" do
-    let(:game) { CreateGame.new(4, user).call }
-
     it "creates four players" do
       expect(game.players.size).to eq 4
     end
+
     before { DealCards.new(game).call }
+
     it "deals each player unique cards" do
 
       dealt_cards = game.players.flat_map do |player|

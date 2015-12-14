@@ -1,6 +1,5 @@
 class CreateGame
-  # TODO: Use keyword arguments
-  def initialize(player_count, user)
+  def initialize(player_count:, user:)
     @player_count = player_count
     @user = user
   end

@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe AI::DecideOperation do
   player_user = User.new(name: "test", ai: false)
-  let(:game)        { CreateGame.new(2, player_user).call }
+  let(:game)        { CreateGame.new(player_count: 2, user: player_user).call }
   let(:game_state)  { CreateGameState.new(game).call }
   subject(:test)    {
     -> { AI::DecideOperation.new(game, game_state, first_ai_player_state).call }
