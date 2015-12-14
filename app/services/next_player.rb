@@ -14,7 +14,7 @@ class NextPlayer
   private
 
   def next_player_to_play_card
-    if @game_state.start_of_round?
+    if @game_state.started_new_round? ||@game_state.start_of_round?
       left_of_dealer
     elsif @game_state.end_of_trick?
       winner_of_last_trick
@@ -31,7 +31,7 @@ class NextPlayer
   end
 
   def next_player_to_select_trump
-    if @game_state.trump_state.selection_operations.last != :pass
+    if @game_state.trump_state.selection_operations.empty?
       left_of_dealer
     else
       left_of_last_player

@@ -5,20 +5,22 @@ class AdvanceGame
   end
 
   def call
-    while whose_turn_next.ai?
+    while find_next_player.ai?
       restart_round if @game_state.start_of_round?
 
       decide_ai_operation
+      @game.operations(reload: true)
     end
+    restart_round if @game_state.start_of_round?
   end
 
   private
 
   def decide_ai_operation
-    ai = whose_turn_next
 
-    AI::DecideOperations.new(@game, @game_state, ai).call
+    ai = find_next_player
     @game.operations(reload: true)
+    AI::DecideOperations.new(@game, @game_state, ai).call
   end
 
   def restart_round
@@ -26,7 +28,7 @@ class AdvanceGame
     @game.operations(reload: true)
   end
 
-  def whose_turn_next
+  def find_next_player
     p = NextPlayer.new(@game_state).call
     fail if !p
     p

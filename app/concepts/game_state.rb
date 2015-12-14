@@ -24,7 +24,10 @@ class GameState
     @players.find { |player| player.id == id }
   end
 
-  def trick_in_progress?; !@pile.empty?; end
+  def trick_in_progress?
+     !@pile.empty?
+  end
+
   def end_of_trick?
     (round_count > 0 ||
      trick_count > 0) &&
@@ -32,11 +35,16 @@ class GameState
   end
 
   def round_in_progress?
-    @players.each.any? { |player| !player.hand.empty? }
+    @players.any? { |player| !player.hand.empty? }
   end
 
+  #Doesn't make sense? start of round is when all hands are empty?
   def start_of_round?
-    @players.each.all? { |p| p.hand.empty? }
+    @players.all? { |p| p.hand.empty? }
+  end
+
+  def started_new_round?
+    @players.all? { |p| p.hand.count == 5 }
   end
 
   def end_of_round?

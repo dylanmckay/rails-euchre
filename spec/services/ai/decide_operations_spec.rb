@@ -46,7 +46,7 @@ RSpec.describe AI::DecideOperations do
         }
 
         it { is_expected.to change{ Operation.count }.by 1 }
-        it { expect( subject.call ).to satisfy{ Operation.last.type == :pass_trump } }
+        it { expect( subject.call ).to satisfy{ Operation.last.pass_trump? } }
       end
     end
 
@@ -58,13 +58,12 @@ RSpec.describe AI::DecideOperations do
 
       it { is_expected.to change{ Operation.count }.by 1 }
       #FIXME 'satisfy' doesn't seem like a good idea and should be used sparcely, find an alternative for this situation
-      it { is_expected.to satisfy{ Operation.last.type == :play_card } }
+      it { is_expected.to satisfy{ Operation.last.play_card? } }
     end
 
     context "when no cards are dealt" do
       it { is_expected.to raise_error(Exception) }
     end
-
   end
 
   private

@@ -56,7 +56,7 @@ class ApplyOperation
       player.total_score += @game_state.calculate_points(player)
       player.scored_cards.clear
     end
-
+    @game_state.trump_state.restart_selection
     @game_state.trick_winners = []
     assign_next_dealer
   end

@@ -18,8 +18,6 @@ module AI
     private
 
     def decide_operation
-      #ai_state = @game_state.find_player(@ai.id)
-
       if @ai_state.hand.empty?
         raise Exception, 'cannot decide an AI operation if the AI has no cards'
       end
