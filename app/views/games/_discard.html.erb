@@ -1,0 +1,10 @@
+<h4>Discard</h4>
+
+<div style="width: 380px; margin: 0 auto 0 auto">
+  <%= render partial: 'games/table/hand',
+    locals: {
+      player: @game_state.main_player,
+      operation_type: "discard_card",
+    }
+  %>
+</div>
