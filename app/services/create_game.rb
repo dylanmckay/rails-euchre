@@ -21,8 +21,6 @@ class CreateGame
 
       game.initial_dealer = random_player(game.players)
       game.save!
-
-
     end
     game
   end
@@ -30,8 +28,7 @@ class CreateGame
   private
 
   def find_ai_user
-    fail if User.ai.empty?
-    User.ai.first
+    User.ai.sample
   end
 
   def build_ai_player(game)
