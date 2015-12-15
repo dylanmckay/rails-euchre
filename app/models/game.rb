@@ -5,11 +5,11 @@ class Game < ActiveRecord::Base
   EVENT_LOG_ENTRIES = 4
 
   def main_player
-    players.find{ |p| p.human? }
+    players.find{ |p| p.user.human? }
   end
 
   def ai_players
-    players.select(&:ai?)
+    players.select { |player| player.user.ai? }
   end
 
   #TODO: Put in presenter or something of the like

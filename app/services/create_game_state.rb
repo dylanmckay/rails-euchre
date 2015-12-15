@@ -35,7 +35,7 @@ class CreateGameState
       PlayerState.new(
         id: player_model.id,
         name: player_model.user.name,
-        ai: player_model.ai?,
+        ai: player_model.user.ai?,
       )
     end
   end

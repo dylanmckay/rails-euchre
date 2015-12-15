@@ -3,15 +3,6 @@ class Player < ActiveRecord::Base
   belongs_to :game
   belongs_to :user
 
-  # Remove these methods, use 'user' directly
-  def ai?
-    user.ai
-  end
-
-  def human?
-    !user.ai
-  end
-
   # TODO: don't mess with ActiveRecord operatprs
   # player state stuff is bad too
   def ==(other)

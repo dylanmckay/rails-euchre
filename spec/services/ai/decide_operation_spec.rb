@@ -77,16 +77,15 @@ RSpec.describe AI::DecideOperation do
   end
 
   def play_card_from_user
-    card = first_human_player_state.hand.sample
     first_human_player.operations.create!(operation_type: "play_card", suit: "hearts", rank: 1)
   end
 
   def first_human_player
-    game.players.find { |p| p.human? }
+    game.players.find { |p| p.user.human? }
   end
 
   def first_ai_player
-    game.players.find { |p| p.ai? }
+    game.players.find { |p| p.user.ai? }
   end
 
   def first_human_player_state
