@@ -1,0 +1,7 @@
+<h4>Users</h4>
+
+<ul>
+<% User.human.each do |user| %>
+  <li><a href="<%= user_path(user) %>"><%= user.name %></a></li>
+<% end %>
+</ul>

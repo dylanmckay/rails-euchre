@@ -2,6 +2,6 @@
 <h2>Create New User</h2>
 
 <%= form_for User.new do |f| %>
-  Name: <%= f.text_field :name %>
+  Name: <%= f.text_field :name, :value => %x{whoami}  %>
   <%= f.submit "Create" %>
 <% end %>
