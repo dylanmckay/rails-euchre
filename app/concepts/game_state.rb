@@ -54,6 +54,11 @@ class GameState
     !@trump_state.selected?
   end
 
+  def in_discard_phase?
+    #TODO refactor to not use constants
+    @dealer.hand.length == 6
+  end
+
   def best_card_in_pile
     SortStack.new(self, @pile.cards).call.first
   end

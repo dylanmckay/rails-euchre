@@ -26,7 +26,9 @@ class TrumpState
 
   def select_suit_as_trump(new_suit = selection_suit)
     @suit = new_suit
+    card = @selection_card
     @selection_card = nil
+    card
   end
 
   def selected?

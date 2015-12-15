@@ -26,16 +26,13 @@ class AdvanceGame
     DealCards.new(@game, game_state: @game_state, deck:@game_state.deck).call
 
     new_trump_card = @game_state.trump_state.pop_new_trump_card
-    dealer.operations.create!(
-      operation_type: "draw_trump",
-      suit: new_trump_card.suit,
-      rank: new_trump_card.rank
-    )
+    
     @game.operations(reload: true)
+    dealer.operations.draw_trump.create!(new_trump_card.to_h)
   end
 
   def find_next_player
-    NextPlayer.new(@game_state).call
+     NextPlayer.new(@game_state).call
   end
 
   def dealer

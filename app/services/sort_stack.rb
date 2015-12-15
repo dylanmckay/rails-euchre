@@ -1,6 +1,6 @@
 
 class SortStack
-  def initialize(game_state,stack)
+  def initialize(game_state, stack)
     @stack = stack
     @game_state = game_state
   end

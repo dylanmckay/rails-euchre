@@ -7,10 +7,16 @@ class Operation < ActiveRecord::Base
   scope :accept_trump,-> { where(operation_type: "accept_trump")  }
   scope :pick_trump,  -> { where(operation_type: "pick_trump")    }
   scope :play_card,   -> { where(operation_type: "play_card")     }
-  scope :draw_trump,  -> { where(operation_tye: "draw_trump")     }
+  scope :draw_trump,  -> { where(operation_type: "draw_trump")    }
+  scope :discard_card, ->{ where(operation_type: "discard_card")  }
+
 
   def deal_card?
     type == :deal_card
+  end
+
+  def discard_card?
+    type == :discard_card
   end
 
   def pass_trump?
@@ -51,6 +57,8 @@ class Operation < ActiveRecord::Base
     when :pass_trump    then "#{player.user.name} passed on the trump"
     when :accept_trump  then "#{player.user.name} accepted the trump"
     when :play_card     then "#{player.user.name} played #{card}"
+    when :discard_card  then "#{player.user.name} discard a card"
+    when :draw_trump    then ""
     else "Undescribeable action"
     end
   end

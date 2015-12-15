@@ -20,6 +20,10 @@ module AI
       if @ai_state.hand.empty?
         raise Exception, 'cannot decide an AI operation if the AI has no cards'
       end
+      #TODO factor out the 6
+      if @ai_state.hand.length == 6
+        return discard_worst_card
+      end
 
       case @game.operations.last.type
       when :pass_trump then decide_trump
@@ -33,6 +37,12 @@ module AI
       card = AI::DecidePlay.new(@game_state, @ai_state).call
       return if @ai_state.hand.empty?
       @ai.operations.play_card.create!(card.to_h)
+    end
+
+    def discard_worst_card
+      sorted_hand = SortStack.new(@game_state, @ai_state.hand).call
+      worst_card = sorted_hand.last
+      @ai.operations.discard_card.create!(worst_card.to_h)
     end
 
     def decide_trump
