@@ -58,7 +58,7 @@ class Operation < ActiveRecord::Base
     when :accept_trump  then "#{player.user.name} accepted the trump"
     when :play_card     then "#{player.user.name} played #{card}"
     when :discard_card  then "#{player.user.name} discard a card"
-    when :draw_trump    then ""
+    when :draw_trump    then "Drew a card"
     else "Undescribeable action"
     end
   end

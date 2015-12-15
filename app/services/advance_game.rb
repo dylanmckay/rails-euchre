@@ -7,9 +7,8 @@ class AdvanceGame
   def call
     while find_next_player.ai?
       restart_round if @game_state.start_of_round?
-
-      decide_ai_operation
       @game.operations(reload: true)
+      decide_ai_operation
     end
     restart_round if @game_state.start_of_round?
   end
@@ -26,7 +25,7 @@ class AdvanceGame
     DealCards.new(@game, game_state: @game_state, deck:@game_state.deck).call
 
     new_trump_card = @game_state.trump_state.pop_new_trump_card
-    
+
     @game.operations(reload: true)
     dealer.operations.draw_trump.create!(new_trump_card.to_h)
   end

@@ -7,6 +7,7 @@ class NextPlayer
     if @game_state.in_trump_selection?
       next_player_to_select_trump
     elsif @game_state.in_discard_phase?
+      puts "INDISCARD PHASE "
       @game_state.dealer
     else
       next_player_to_play_card

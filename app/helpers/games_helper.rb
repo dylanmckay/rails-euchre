@@ -23,6 +23,10 @@ module GamesHelper
     operation_url("play_card", suit, rank)
   end
 
+  def discard_card_operation_url(suit, rank)
+
+  end
+
   def pass_trump_operation_url
     operation_url("pass_trump")
   end
@@ -35,11 +39,12 @@ module GamesHelper
     operation_url("pick_trump")
   end
 
-  def card_link_url(card, read_only: false)
+  def card_link_url(card, operation, read_only: false)
+    puts "OPERATION_TYPE = #{operation}"
     if read_only
       "javascript:void(0);"
-    else
-      play_card_operation_url(card.suit, card.rank)
+    elsif operation != ""
+      operation_url(operation, card.suit, card.rank)
     end
   end
 

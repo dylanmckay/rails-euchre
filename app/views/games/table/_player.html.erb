@@ -2,7 +2,7 @@
   <% hidden = defined?(hidden) ? hidden : false %>
 
   <%= render partial: 'games/table/hand',
-      locals: {  player: player, hidden: hidden } %>
+      locals: {  player: player, operation_type: "play_card", hidden: hidden } %>
 
   <div class="won_cards">
     <% player.scored_cards.each do |card| %>
@@ -19,4 +19,3 @@
 
   <div class="player_name"><%= player.name.capitalize %></div>
 </div>
-

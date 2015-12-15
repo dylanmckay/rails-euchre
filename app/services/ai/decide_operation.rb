@@ -29,6 +29,7 @@ module AI
       when :pass_trump then decide_trump
       when :deal_card then decide_trump
       when :draw_trump then decide_trump
+      when :accept_trump then fail "accept_trump is ALWAYS followed by discard_card, nothing else"
       else decide_play
       end
     end
