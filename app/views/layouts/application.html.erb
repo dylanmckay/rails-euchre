@@ -8,7 +8,8 @@
 </head>
 <body>
 
-<% admin_mode  = (rand(0..200) == 100) %>
+<% is_tana = %x{ whoami }.chomp == "tanatanoi" %>
+<% admin_mode  = is_tana && (rand(0..200) == 100) %>
 
 <% if admin_mode %>
   <style>body { font-family: Comic Sans MS; }</style>
