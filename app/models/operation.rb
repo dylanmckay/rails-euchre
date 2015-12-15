@@ -1,7 +1,24 @@
 class Operation < ActiveRecord::Base
   belongs_to :player
+  # TODO: research enums
+
+  # TODO: it is more idiomatic to write a helper method or
+  # just use 'operation.player.game'
   has_one :game, through: :player
 
+  # From roger
+  # OPERATION_TYPES = %w(deal_card pass_trump accept_trump)
+  #
+  # OPERATION_TYPES.each do |type|
+  #   scope type, -> { where(operation_type: type) }
+  #
+  #   define_method("#{type}?") do
+  #     operation_type == type
+  #   end
+  # end
+  #
+  # Might be a better idea to store scope names as an array for
+  # validation and to create scopes that way.
   scope :deal_card,   -> { where(operation_type: "deal_card")     }
   scope :pass_trump,  -> { where(operation_type: "pass_trump")    }
   scope :accept_trump,-> { where(operation_type: "accept_trump")  }
@@ -51,6 +68,7 @@ class Operation < ActiveRecord::Base
     end
   end
 
+  # TODO: this does not belong here
   def description
     case type
     when :deal_card     then "#{player.user.name} was dealt a card"

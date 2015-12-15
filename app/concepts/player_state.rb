@@ -5,6 +5,7 @@ class PlayerState
   attr_accessor :hand, :scored_cards
   attr_accessor :total_score
 
+  # TODO: Don't use 'id', pass a player model in
   def initialize(id:, name:, hand: [], scored_cards: [], ai: false)
     @id = id
     @name = name

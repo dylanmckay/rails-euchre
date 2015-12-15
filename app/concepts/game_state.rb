@@ -8,7 +8,7 @@ class GameState
     @pile = pile
     @players = players
     @deck = Deck.new
-    #TODO refactor this so they're not co-dependant?
+    #TODO refactor this so they're not co-dependent?
     @trump_state = TrumpState.new(self, deck)
     @last_player = nil
 
@@ -43,6 +43,7 @@ class GameState
   end
 
   def started_new_round?
+    # USE CONSTANTS!!!
     @players.all? { |p| p.hand.count == 5 }
   end
 
