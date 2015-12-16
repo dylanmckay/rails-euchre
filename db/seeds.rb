@@ -6,19 +6,8 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 #
-
-AI_NAMES = [
-  'Bill',
-  'John',
-  'Sally',
-  'Andy',
-  'Joseph',
-  "Tony",
-  "Jim",
-  "Ella",
-  "Amy",
-  "Eric",
-]
+#
+AI_NAMES = File.open("first_names.txt").lines.map(&:chomp)
 
 AI_NAMES.each do |name|
   User.ai.create!(name: name)
