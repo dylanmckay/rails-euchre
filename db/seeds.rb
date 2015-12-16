@@ -9,6 +9,10 @@
 #
 AI_NAMES = File.open("first_names.txt").lines.map(&:chomp)
 
+if Rails.env.test?
+  AI_NAMES = AI_NAMES.take(20)
+end
+
 AI_NAMES.each do |name|
   User.ai.create!(name: name)
 end
