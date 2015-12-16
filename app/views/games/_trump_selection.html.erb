@@ -1,6 +1,10 @@
 
 <h4>Trump Selection</h4>
 
+<% if @game_state.trump_state.pick_phase? %>
+  <%# Trump picking should happen here %>
+<% end %>
+
 <div class="center_card">
   <%= unicode_card(@game_state.trump_state.selection_card) %>
 </div>

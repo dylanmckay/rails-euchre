@@ -34,4 +34,8 @@ class TrumpState
   def selected?
     !@suit.nil?
   end
+
+  def pick_phase?
+    @selection_operations.select { |op| op == :pass }.size == @game_state.players.size
+  end
 end
