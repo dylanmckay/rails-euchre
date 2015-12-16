@@ -6,27 +6,15 @@ class Operation < ActiveRecord::Base
   # just use 'operation.player.game'
   has_one :game, through: :player
 
-  # From roger
-  # OPERATION_TYPES = %w(deal_card pass_trump accept_trump)
-  #
-  # OPERATION_TYPES.each do |type|
-  #   scope type, -> { where(operation_type: type) }
-  #
-  #   define_method("#{type}?") do
-  #     operation_type == type
-  #   end
-  # end
-  #
-  # Might be a better idea to store scope names as an array for
-  # validation and to create scopes that way.
-  scope :deal_card,   -> { where(operation_type: "deal_card")     }
-  scope :pass_trump,  -> { where(operation_type: "pass_trump")    }
-  scope :accept_trump,-> { where(operation_type: "accept_trump")  }
-  scope :pick_trump,  -> { where(operation_type: "pick_trump")    }
-  scope :play_card,   -> { where(operation_type: "play_card")     }
-  scope :draw_trump,  -> { where(operation_type: "draw_trump")    }
-  scope :discard_card, ->{ where(operation_type: "discard_card")  }
+  OPERATION_TYPES = %w(deal_card pass_trump accept_trump pick_trump play_card draw_trump discard_card)
 
+  OPERATION_TYPES.each do |type|
+    scope type, -> { where(operation_type: type) }
+
+    define_method("#{type}?") do
+      operation_type == type
+    end
+  end
 
   def deal_card?
     type == :deal_card
