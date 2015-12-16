@@ -44,7 +44,7 @@ class GameState
 
   def started_new_round?
     # USE CONSTANTS!!!
-    @players.all? { |p| p.hand.count == 5 }
+    @players.all? { |p| p.hand.count == Config::HAND_CARD_COUNT }
   end
 
   def end_of_round?
@@ -56,8 +56,7 @@ class GameState
   end
 
   def in_discard_phase?
-    #TODO refactor to not use constants
-    @dealer.hand.length == 6
+    @dealer.hand.length == Config::HAND_CARD_COUNT+1
   end
 
   def best_card_in_pile
@@ -73,7 +72,7 @@ class GameState
   end
 
   def calculate_points(player)
-    if won_trick_count_for_player(player) == 5
+    if won_trick_count_for_player(player) == Config::HAND_CARD_COUNT
       2
     elsif won_trick_count_for_player(player) >= 3
       1

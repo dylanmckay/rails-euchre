@@ -21,5 +21,5 @@ AI_NAMES = [
 ]
 
 AI_NAMES.each do |name|
-  User.create!(name: name, ai: true)
+  User.ai.create!(name: name)
 end
