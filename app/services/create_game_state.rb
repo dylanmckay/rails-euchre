@@ -40,10 +40,6 @@ class CreateGameState
     end
   end
 
-  def any_player_has_card?(card)
-    @player_states.any? { |player| player.has_card?(card) }
-  end
-
   def find_player_from_id(id)
     @player_states.find { |player| player.id == id }
   end

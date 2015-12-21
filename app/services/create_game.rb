@@ -47,8 +47,4 @@ class CreateGame
   def random_player(players)
     players.sample
   end
-
-  def random_suit
-    Card::SUITS.sample
-  end
 end

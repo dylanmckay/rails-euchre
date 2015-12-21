@@ -19,6 +19,34 @@ describe GameState do
     create_game(players: [], dealer: nil, trump: :hearts)
   }
 
+  describe "#player_index" do
+    context "when looking for an existing player" do
+      it "return the correct index" do
+        expect(state.player_index(5)).to eq 0
+      end
+    end
+
+    context "when looking for a nonexistent player" do
+      it "returns nil" do
+        expect(state.player_index(1214234)).to eq nil
+      end
+    end
+  end
+
+  describe "#main_player" do
+    it "returns a human player" do
+      expect(state.main_player).to be_human
+    end
+  end
+
+  describe "#ai_players" do
+    it "returns only AI players" do
+      state.ai_players.each do |player|
+        expect(player).to be_ai
+      end
+    end
+  end
+
   describe "#valid_play?" do
     hand = [
       Card.new(:hearts, 10 ),

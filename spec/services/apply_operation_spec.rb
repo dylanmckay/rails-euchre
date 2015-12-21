@@ -103,6 +103,16 @@ describe ApplyOperation do
     end
   end
 
+  context "discarding a card" do
+    subject {
+      -> { operation(0, :discard_card, :hearts, 11) }
+    }
+
+    let(:hand) { state.find_player(0).hand }
+
+    it { is_expected.to change { hand.length }.by(-1) }
+  end
+
   context "finishing a round" do
     subject {
       operation(1, :play_card, :clubs, 10)
