@@ -1,6 +1,6 @@
 module AI
   class DecideTrump
-    HAND_VALUE_SELECTION_THRESHOLD = 220
+    HAND_VALUE_SELECTION_THRESHOLD = 250
 
     def initialize(game_state, ai_state)
       @game_state = game_state
@@ -23,7 +23,7 @@ module AI
 
     def calculate_hand_value
       @ai_state.hand.inject(0) do |sum, card|
-        sum += CalculateCardValue.new(@game_state, card).call
+        sum + CalculateCardValue.new(@game_state, card).call
       end
     end
   end
