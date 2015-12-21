@@ -124,9 +124,19 @@ class GameState
   end
 
   def valid_turn?(player_state, card)
-    @pile.empty? ||
-      card.suit == leading_suit ||
+    @pile.empty?  ||
+      valid_card?(card) ||
       !player_has_leading_cards?(player_state)
+  end
+
+  def valid_card?(card)
+    if is_leading_suit?(card)
+      true
+    elsif leading_suit == @trump_state.suit
+      is_trump?(card)
+    else
+      false
+    end
   end
 
   def trump_suit
