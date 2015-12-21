@@ -18,6 +18,7 @@ class GamesController < ApplicationController
     game = Game.find(params[:id])
     @game = GamePresenter.new(game, view_context)
     @game_state = CreateGameState.new(@game).call
+    @user = @game.main_player.user
   end
 
   def index; end

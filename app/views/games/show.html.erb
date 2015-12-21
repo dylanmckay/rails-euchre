@@ -1,9 +1,11 @@
 
 <div class="title">Euchre</div>
 
-<% if !@game_state.round_in_progress? %>
-  <a href=""><button type="button" class="restart_button" >Restart</button></a>
-<% elsif @game_state.in_trump_selection? %>
+<a href="<%= user_path(@user) %>">
+<button type="button" class="restart_button">Restart Game</button>
+</a>
+
+<% if @game_state.in_trump_selection? %>
   <%= render partial: 'trump_selection' %>
 <% elsif @game_state.in_discard_phase? %>
   <%= render partial: 'discard' %>
