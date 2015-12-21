@@ -7,7 +7,7 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 #
 #
-AI_NAMES = File.open("first_names.txt").lines.map(&:chomp)
+AI_NAMES = File.open("first_names.txt").each_line.map(&:chomp)
 
 if Rails.env.test?
   AI_NAMES = AI_NAMES.take(20)
