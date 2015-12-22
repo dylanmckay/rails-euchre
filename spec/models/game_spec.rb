@@ -6,7 +6,15 @@ describe Game do
     g.players.new(user: User.ai.create!(name: "Tim"))
     g.players.new(user: User.ai.create!(name: "Jim"))
 
-    g.players.first.operations.pass_trump.new
+    g.players[0].operations.deal_card.new(suit: "diamonds", rank: 13)
+    g.players[0].operations.deal_card.new(suit: "hearts", rank: 9)
+    g.players[1].operations.deal_card.new(suit: "hearts", rank: 10)
+    g.players[2].operations.deal_card.new(suit: "hearts", rank: 11)
+
+    g.players[0].operations.pass_trump.new
+    g.players[1].operations.pick_trump.new(suit: "diamonds", rank: 6)
+    g.players[2].operations.discard_card.new(suit: "hearts", rank: 11)
+    g.main_player.operations.deal_card.new(suit: "diamonds", rank: 14)
 
     g.save!
     g

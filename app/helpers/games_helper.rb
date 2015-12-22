@@ -8,14 +8,6 @@ module GamesHelper
     "/games/#{@game.id}/players/#{@game.players.first.id}/operations/new" + args
   end
 
-  def play_card_operation_url(suit, rank)
-    operation_url("play_card", suit, rank)
-  end
-
-  def discard_card_operation_url(suit, rank)
-
-  end
-
   def pass_trump_operation_url
     operation_url("pass_trump")
   end
@@ -24,15 +16,11 @@ module GamesHelper
     operation_url("accept_trump")
   end
 
-  def pick_trump_operation_url
-    operation_url("pick_trump")
-  end
-
   def card_link_url(card, operation, read_only: false)
     puts "OPERATION_TYPE = #{operation}"
     if read_only
       "javascript:void(0);"
-    elsif operation != ""
+    else
       operation_url(operation, card.suit, card.rank)
     end
   end
