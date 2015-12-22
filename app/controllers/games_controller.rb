@@ -20,6 +20,4 @@ class GamesController < ApplicationController
     @game_state = CreateGameState.new(@game).call
     @user = @game.main_player.user
   end
-
-  def index; end
 end

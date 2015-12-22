@@ -13,11 +13,6 @@ class OperationsController < ApplicationController
     redirect_to game
   end
 
-  def show
-    operation = Operation.find(params[:operation_id])
-    redirect_to operation.player
-  end
-
   private
 
   def operation_params
