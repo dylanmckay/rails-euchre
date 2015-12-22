@@ -2,11 +2,9 @@ require 'rails_helper'
 require_relative '../game_helper'
 
 describe GameState do
-  let(:player_models){[
-    Player.new(user: User.new(name: "Henry")),
-    Player.new(user: User.new(name: "Jacob")),
-    Player.new(user: User.new(name: "Harold"))
-    ]}
+  let(:player_models){
+    create_player_models(3)
+  }
   let(:players) {[
       PlayerState.new(hand: create_hand, player: player_models[0]),
       PlayerState.new(player: player_models[1]),
@@ -48,7 +46,7 @@ describe GameState do
   describe "#ai_players" do
     it "returns only AI players" do
       state.ai_players.each do |player|
-        expect(player).to be_ai
+        expect(player.player.user).to be_ai
       end
     end
   end
