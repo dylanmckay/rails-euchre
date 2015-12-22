@@ -82,7 +82,7 @@ describe GameState do
       Card.new(:hearts, 10 ),
       Card.new(:diamonds, 12),
       Card.new(:hearts, 12),
-      Card.new(:hearts, 1 ),
+      Card.new(:clubs, 1 ),
       Card.new(:hearts, 13)
     ]
     let (:player) { PlayerState.new(hand: hand, player: player_models[1]) }
@@ -94,9 +94,9 @@ describe GameState do
 
       it { is_expected.to be_valid_turn(player, hand[1]) }
 
-      it { is_expected.to_not be_valid_turn(player, hand[4]) }
+      it { is_expected.to_not be_valid_turn(player, hand[3]) }
 
-      it { is_expected.to be_valid_turn(player, hand[1]) }
+      it { is_expected.to_not be_valid_turn(player, hand[0]) }
     end
     context "when the leading card is a left bower" do
       leading_card =  Card.new(:diamonds, 11)
@@ -109,6 +109,31 @@ describe GameState do
       it { is_expected.to be_valid_turn(player, hand[0]) }
 
       it { is_expected.to_not be_valid_turn(player, hand[1]) }
+    end
+
+    context "when the leading card is a regular jack" do
+      leading_card =  Card.new(:clubs, 11)
+
+      before {
+        state.pile.clear
+        state.pile.add(leading_card, state.players.last)
+      }
+
+      it { is_expected.to_not be_valid_turn(player, hand[0]) }
+
+      it { is_expected.to be_valid_turn(player, hand[3]) }
+    end
+
+    context "when the player contains no cards that follow the leading suit" do
+      leading_card =  Card.new(:spades, 11)
+
+      before {
+        state.pile.clear
+        state.pile.add(leading_card, state.players.last)
+      }
+      hand.each do |card|
+        it { is_expected.to be_valid_turn(player, card) }
+      end
     end
   end
 
