@@ -47,10 +47,6 @@ class GameState
     @players.all? { |p| p.hand.count == Config::HAND_CARD_COUNT }
   end
 
-  def end_of_round?
-    round_count > 0 && !round_in_progress?
-  end
-
   def in_trump_selection?
     !@trump_state.selected?
   end
