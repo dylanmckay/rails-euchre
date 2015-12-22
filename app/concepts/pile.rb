@@ -34,11 +34,11 @@ class Pile
     @infos.each.map { |info| info.card }
   end
 
-  def leading_suit
+  def leading_card
     if @infos.empty?
       nil
     else
-      @infos.first.card.suit
+      @infos.first.card
     end
   end
 

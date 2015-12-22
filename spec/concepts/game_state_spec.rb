@@ -85,18 +85,31 @@ describe GameState do
       Card.new(:hearts, 1 ),
       Card.new(:hearts, 13)
     ]
-
-    leading_card =  Card.new(:diamonds, 1)
-
     let (:player) { PlayerState.new(hand: hand, player: player_models[1]) }
 
-    before { state.pile.add(leading_card, state.players.last) }
+    context "when leading card is regular card" do
+      leading_card =  Card.new(:diamonds, 1)
 
-    it { is_expected.to be_valid_turn(player, hand[1]) }
+      before { state.pile.add(leading_card, state.players.last) }
 
-    it { is_expected.to_not be_valid_turn(player, hand[4]) }
+      it { is_expected.to be_valid_turn(player, hand[1]) }
 
-    it { is_expected.to be_valid_turn(player, hand[1]) }
+      it { is_expected.to_not be_valid_turn(player, hand[4]) }
+
+      it { is_expected.to be_valid_turn(player, hand[1]) }
+    end
+    context "when the leading card is a left bower" do
+      leading_card =  Card.new(:diamonds, 11)
+
+      before {
+        state.pile.clear
+        state.pile.add(leading_card, state.players.last)
+      }
+
+      it { is_expected.to be_valid_turn(player, hand[0]) }
+
+      it { is_expected.to_not be_valid_turn(player, hand[1]) }
+    end
   end
 
   describe "#round_in_progress?" do
