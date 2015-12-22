@@ -5,6 +5,7 @@ describe GameState do
   let(:players) {[
       PlayerState.new(id: 5, hand: create_hand, name: "Henry"),
       PlayerState.new(id: 10, name: "Harold"),
+      PlayerState.new(id: 8, name: "Jim", ai: true),
   ]}
 
   subject(:state) {
