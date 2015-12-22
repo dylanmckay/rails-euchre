@@ -48,6 +48,32 @@ describe GameState do
     end
   end
 
+  describe "#round_leaders" do
+    subject { state.round_leaders }
+
+    context "when there are no leaders" do
+      it { is_expected.to be_empty }
+    end
+
+    context "when there is one leader" do
+      before {
+        state.players.first.total_score += 10
+      }
+
+      it { is_expected.to eq [ state.players.first ] }
+    end
+
+    context "when there are two leaders" do
+      before {
+        state.players.take(2).each do |player|
+          player.total_score += 10
+        end
+      }
+
+      it { is_expected.to eq state.players.take(2) }
+    end
+  end
+
   describe "#valid_play?" do
     hand = [
       Card.new(:hearts, 10 ),
@@ -99,6 +125,27 @@ describe GameState do
     context "when there are no players" do
       it "should not find any hands" do
         expect(empty_state.find_player(5)).to be nil
+      end
+    end
+  end
+
+  describe "#valid_card?" do
+    context "when the leading suit is the same as the trump suit" do
+      before {
+        state.trump_state.suit = :hearts
+        state.pile.add(Card.new(:hearts, 9), state.players.first)
+      }
+
+      context "when the card is a trump" do
+        subject { state.valid_card?(Card.new(:hearts, 10)) }
+
+        it { is_expected.to eq true }
+      end
+
+      context "when the card is not a trump" do
+        subject { state.valid_card?(Card.new(:spades, 1)) }
+
+        it { is_expected.to eq false }
       end
     end
   end
