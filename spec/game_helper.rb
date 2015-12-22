@@ -40,16 +40,6 @@ def create_player_models(count)
   human_players + ai_players
 end
 
-def create_game_state(player_count:,
-                      dealer: nil,
-                      trump: :hearts)
-  players = player_count.times.map { |n| create_hand(n) }
-  dealer ||= players.first
-
-  GameState.new(players: players, dealer: dealer,
-                trump_suit: trump)
-end
-
 def create_custom_game_state(players:,
                              dealer: nil,
                              trump_suit: :hearts)
