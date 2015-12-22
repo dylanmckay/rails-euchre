@@ -21,7 +21,7 @@ describe CreateGameState do
     end
 
     it "sets the initial dealer" do
-      expect(state.dealer.id).to eq model.players.first.id
+      expect(state.dealer.player).to eq model.players.first
     end
   end
 end

@@ -3,12 +3,10 @@ require 'rails_helper'
 describe PlayerState do
   context "on a simple player state" do
     let(:state) {
-      PlayerState.new(
-        id: 0,
-        name: "Rick",
-        hand: [
+      create_player_state(
+        cards: [
           Card.new(:hearts, 1),
-        ],
+        ]
       )
     }
 

@@ -16,8 +16,8 @@ class GameState
     @trick_winners = []
   end
 
-  def player_index(id)
-    @players.index { |player| player.id == id }
+  def player_index(player_model)
+    @players.index { |player| player.player == player_model }
   end
 
   def find_player(player_model)

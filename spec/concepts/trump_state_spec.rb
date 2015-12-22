@@ -2,10 +2,10 @@ describe TrumpState do
   context "at the start of a game" do
     let(:state) { TrumpState.new(game, deck) }
     let(:deck) { Deck.new }
-
+    let(:player_models){ create_player_models(2) }
     let(:players) {[
-        PlayerState.new(id: 5, hand: create_hand, name: "Henry"),
-        PlayerState.new(id: 10, name: "Harold"),
+        PlayerState.new(player: player_models[0], hand: create_hand),
+        PlayerState.new(player: player_models[1])
     ]}
 
     subject(:game) {

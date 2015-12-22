@@ -25,7 +25,6 @@ class ApplyOperation
     @game_state.trump_state.selection_operations << :accept
     trump_card = @game_state.trump_state.select_suit_as_trump
     @game_state.last_player = @player_state
-    puts "TRUMP CARD IS #{trump_card}"
     @game_state.dealer.hand << trump_card
   end
 

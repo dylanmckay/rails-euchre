@@ -8,8 +8,9 @@ describe GameState do
     Player.new(user: User.new(name: "Harold"))
     ]}
   let(:players) {[
-      PlayerState.new(hand: create_hand, player: player_models.first),
-      PlayerState.new(player: player_models.last),
+      PlayerState.new(hand: create_hand, player: player_models[0]),
+      PlayerState.new(player: player_models[1]),
+      PlayerState.new(player: player_models[2]),
   ]}
 
   subject(:state) {
@@ -27,20 +28,20 @@ describe GameState do
   describe "#player_index" do
     context "when looking for an existing player" do
       it "return the correct index" do
-        expect(state.player_index(5)).to eq 0
+        expect(state.player_index(player_models[0])).to eq 0
       end
     end
 
     context "when looking for a nonexistent player" do
       it "returns nil" do
-        expect(state.player_index(1214234)).to eq nil
+        expect(state.player_index(nil)).to eq nil
       end
     end
   end
 
   describe "#main_player" do
     it "returns a human player" do
-      expect(state.main_player).to be_human
+      expect(state.main_player.player.user).to be_human
     end
   end
 
