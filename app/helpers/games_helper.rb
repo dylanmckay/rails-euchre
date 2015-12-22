@@ -17,7 +17,6 @@ module GamesHelper
   end
 
   def card_link_url(card, operation, read_only: false)
-    puts "OPERATION_TYPE = #{operation}"
     if read_only
       "javascript:void(0);"
     else
