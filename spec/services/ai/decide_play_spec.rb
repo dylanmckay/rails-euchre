@@ -13,8 +13,8 @@ RSpec.describe AI::DecidePlay do
       Card.new(:hearts,   1),
       Card.new(:hearts,   13)
     ]}
-
-    let (:ai_state) { PlayerState.new(id: 10, name: "Jojo", hand: hand) }
+    let (:ai_player) { Player.new(user: User.new(name: "Jono", ai: true)) }
+    let (:ai_state) { PlayerState.new(player: ai_player, hand: hand) }
     let (:game_state) {
       create_game(
         players: [ai_state],

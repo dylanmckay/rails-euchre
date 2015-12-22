@@ -1,7 +1,6 @@
 describe Pile do
-
   let(:player) {
-    PlayerState.new(id: 0, name: "Tana")
+    create_player_state
   }
 
   let(:pile) {

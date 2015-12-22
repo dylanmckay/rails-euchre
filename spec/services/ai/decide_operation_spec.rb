@@ -89,6 +89,6 @@ RSpec.describe AI::DecideOperation do
   end
 
   def first_ai_player_state
-    game_state.players.find { |p| p.ai? }
+    game_state.players.find { |p| p.player.user.ai? }
   end
 end

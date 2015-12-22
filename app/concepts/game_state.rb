@@ -20,8 +20,10 @@ class GameState
     @players.index { |player| player.id == id }
   end
 
-  def find_player(id)
-    @players.find { |player| player.id == id }
+  def find_player(player_model)
+    @players.find{ |player_state|
+      player_state.player == player_model
+    }
   end
 
   def trick_in_progress?
@@ -43,7 +45,6 @@ class GameState
   end
 
   def started_new_round?
-    # USE CONSTANTS!!!
     @players.all? { |p| p.hand.count == Config::HAND_CARD_COUNT }
   end
 
@@ -78,11 +79,11 @@ class GameState
   end
 
   def main_player
-    @players.find{ |p| p.human? }
+    @players.find{ |p| p.player.user.human? }
   end
 
   def ai_players
-    @players.select { |p| p.ai? }
+    @players.select { |p| p.player.user.ai? }
   end
 
   def trick_leader

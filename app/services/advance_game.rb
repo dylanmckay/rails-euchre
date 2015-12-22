@@ -5,7 +5,7 @@ class AdvanceGame
   end
 
   def call
-    while find_next_player.ai?
+    while find_next_player.player.user.ai?
       restart_round if @game_state.start_of_round?
       @game.operations(reload: true)
       decide_ai_operation
@@ -35,6 +35,6 @@ class AdvanceGame
   end
 
   def dealer
-    @game.players.find(@game_state.dealer.id)
+    @game_state.dealer.player
   end
 end

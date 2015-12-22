@@ -1,12 +1,8 @@
 describe NextPlayer do
-  let(:players) { create_players(2) }
+  let(:player_models) { create_player_models(3) }
 
   let(:state) {
-    create_game(
-      players: players,
-      trump: nil,
-      dealer: players[0],
-    )
+    create_custom_game_state({players: player_models.map{|model| {player_model: model}}, trump_suit: nil })
   }
 
   subject(:next_player) { NextPlayer.new(state).call }
@@ -20,7 +16,7 @@ describe NextPlayer do
       before {
         ApplyOperation.new(
           state,
-          Operation.pass_trump.create!(player_id: state.dealer.id),
+          player_models[0].operations.pass_trump.new
         ).call
       }
 
@@ -35,12 +31,12 @@ describe NextPlayer do
       before {
         ApplyOperation.new(
           state,
-          Operation.pass_trump.create!(player_id: first_player.id),
+          player_models[0].operations.pass_trump.new
         ).call
 
         ApplyOperation.new(
           state,
-          Operation.pass_trump.create!(player_id: second_player.id),
+          player_models[1].operations.pass_trump.new
         ).call
       }
 
@@ -52,14 +48,18 @@ describe NextPlayer do
     before {
       ApplyOperation.new(
         state,
-        Operation.pick_trump.create!(player_id: state.dealer.id,
-                                     suit: :hearts),
+        player_models[0].operations.pick_trump.new(suit: :hearts),
       ).call
     }
 
     let(:first_player) { state.player_left_of(state.dealer) }
     let(:second_player) { state.player_left_of(first_player) }
 
+    let(:player_models) { create_player_models(2) }
+
+    let(:state) {
+      create_custom_game_state({players: player_models.map{|model| {player_model: model}}, trump_suit: nil })
+    }
     context "at the start of the first round" do
       it { is_expected.to eq first_player }
     end
@@ -69,8 +69,7 @@ describe NextPlayer do
         card = first_player.hand.first
         ApplyOperation.new(
           state,
-          Operation.play_card.create!(
-            player_id: first_player.id,
+          player_models[1].operations.play_card.new(
             suit: card.suit,
             rank: card.rank,
           )
@@ -81,12 +80,20 @@ describe NextPlayer do
 
       context "after the trick finishes" do
         before {
+          card = first_player.hand.first
+          ApplyOperation.new(
+            state,
+            player_models[1].operations.play_card.new(
+              suit: card.suit,
+              rank: card.rank,
+            )
+          ).call
+
           card = second_player.hand.first
 
           ApplyOperation.new(
             state,
-            Operation.play_card.create!(
-              player_id: second_player.id,
+            player_models[0].operations.play_card.new(
               suit: card.suit,
               rank: card.rank,
             )

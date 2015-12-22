@@ -5,7 +5,6 @@ require_relative '../app/concepts/card'
 require_relative '../app/models/operation'
 
 def create_game(players: [], dealer: players.first, trump: :hearts)
-
   state = GameState.new(
     players: players,
     dealer: dealer
@@ -26,28 +25,37 @@ def create_player_models(count)
   human_user = User.new(name: "Bill")
   ai_user = User.new(name: "Tim", ai: true)
 
-  human_count = 1
-  ai_count = count - human_count
-
-  human_players = human_count.times.map do
+  human_players = [
     Player.new(user: human_user)
-  end
+  ]
 
-  ai_players = ai_count.times.map do
+  ai_players = (1...count).map do
     Player.new(user: ai_user)
   end
-
   human_players + ai_players
+end
+
+def create_game_state(player_count:,
+                      dealer: nil,
+                      trump: :hearts)
+  players = player_count.times.map { |n| create_hand(n) }
+  dealer ||= players.first
+
+  GameState.new(players: players, dealer: dealer,
+                trump_suit: trump)
+end
+
+def create_player_model
+    Player.new(user: User.new(name: "Jax"))
 end
 
 def create_custom_game_state(players:,
                              dealer: nil,
                              trump_suit: :hearts)
   players = players.each.with_index.map do |player,index|
-    id = player.include?(:id) ? player[:id] : index
     hand = player.include?(:hand) ? player[:hand] : create_hand
 
-    create_player_state(id, hand)
+    create_player_state(player: player[:player_model], cards: hand)
   end
 
   dealer ||= players.first
@@ -58,11 +66,13 @@ def create_custom_game_state(players:,
 end
 
 def create_players(count)
-  count.times.map.with_index { |n| create_player_state(n) }
+  create_player_models(count).map do |player|
+    create_player_state(player: player)
+  end
 end
 
-def create_player_state(player_id, cards=create_hand, name: "John")
-  PlayerState.new(id: player_id, name: name, hand: cards)
+def create_player_state(player: create_player_model, cards: create_hand)
+  PlayerState.new(player: player, hand: cards)
 end
 
 def create_hand
@@ -82,9 +92,8 @@ def create_rank
   ([1] + (8..13).to_a).sample
 end
 
-def create_operation(player_id, type, suit=nil, rank=nil)
-  Operation.create!(
-    player_id:      player_id,
+def create_operation(player, type, suit=nil, rank=nil)
+  player.operations.new(
     operation_type: type,
     suit:           suit,
     rank:           rank

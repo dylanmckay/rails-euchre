@@ -2,10 +2,6 @@ class Operation < ActiveRecord::Base
   belongs_to :player
   # TODO: research enums
 
-  # TODO: it is more idiomatic to write a helper method or
-  # just use 'operation.player.game'
-  has_one :game, through: :player
-
   OPERATION_TYPES = %w(deal_card pass_trump accept_trump pick_trump play_card draw_trump discard_card)
 
   OPERATION_TYPES.each do |type|
@@ -14,6 +10,11 @@ class Operation < ActiveRecord::Base
     define_method("#{type}?") do
       operation_type == type
     end
+  end
+
+  #TODO remove this and references to this
+  def game
+    player.game
   end
 
   def deal_card?

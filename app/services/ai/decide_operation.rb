@@ -3,7 +3,7 @@ module AI
 
     def initialize(game, game_state, ai_player)
       @ai_state = ai_player
-      @ai = Player.find(ai_player.id)
+      @ai = ai_player.player
       @game = game
       @game_state = game_state
     end
@@ -20,16 +20,16 @@ module AI
       if @ai_state.hand.empty?
         raise Exception, 'cannot decide an AI operation if the AI has no cards'
       end
-      #TODO factor out the 6
-      if @ai_state.hand.length == 6
-        return discard_worst_card
-      end
+      # #TODO factor out the 6
+      # if @ai_state.hand.length == 6
+      #   return
+      # end
 
       case @game.operations.last.type
       when :pass_trump then decide_trump
       when :deal_card then decide_trump
       when :draw_trump then decide_trump
-      when :accept_trump then fail "accept_trump is ALWAYS followed by discard_card, nothing else"
+      when :accept_trump then discard_worst_card #fail "accept_trump is ALWAYS followed by discard_card, nothing else"
       else decide_play
       end
     end
