@@ -9,10 +9,11 @@
 <body>
 
 <% is_tana = %x{ whoami }.chomp == "tanatanoi" %>
-<% admin_mode  = is_tana && (rand(0..100) == 50) %>
+<% admin_mode  = is_tana && (rand(0..30) == 15) %>
 
 <% if admin_mode %>
   <style>body { font-family: Comic Sans MS; }</style>
+  <% system("say my name is tana and i don't like marcel") %>
 <% end %>
 
 <div id="header">
