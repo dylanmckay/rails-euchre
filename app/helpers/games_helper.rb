@@ -1,15 +1,4 @@
 module GamesHelper
-  def card_onclick_handler(card)
-    "play_card(#{@game.id},
-               #{@game_state.main_player.id},
-               \"#{card.suit}\",
-               #{card.rank})"
-  end
-
-  def card_html_id(card)
-    "#{card.suit}_#{card.rank}"
-  end
-
   def operation_url(operation_type, suit=nil, rank=nil)
     args = "?operation_type=#{operation_type}"
 

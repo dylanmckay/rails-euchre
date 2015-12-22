@@ -9,6 +9,8 @@ RSpec.describe GamesController, type: :controller do
       players: create_player_models(4),
     )
     model.players.first.operations.draw_trump.create!(suit: "hearts", rank: 1)
+    model.players.first.operations.deal_card.create!(suit: "diamonds", rank: 2)
+    model.players[1].operations.deal_card.create!(suit: "diamonds", rank: 1)
     model
   }
 
