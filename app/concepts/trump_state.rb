@@ -1,8 +1,8 @@
 class TrumpState
   attr_accessor :selection_operations, :suit, :selection_card
 
-  def initialize(game_state, deck)
-    @game_state = game_state
+  def initialize(deck, number_of_players)
+    @number_of_players = number_of_players
     @deck = deck
     @suit = nil
     @selection_operations = []
@@ -36,6 +36,6 @@ class TrumpState
   end
 
   def pick_phase?
-    @selection_operations.select { |op| op == :pass }.size == @game_state.players.size
+    @selection_operations.select { |op| op == :pass }.size == @number_of_players
   end
 end

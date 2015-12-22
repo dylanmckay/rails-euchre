@@ -102,8 +102,6 @@ describe ApplyOperation do
 
       it { is_expected.to change { state.pile.length }.to 0 }
       it { is_expected.to change { state.last_player }.to state.find_player(player_models[2]) }
-
-      # TODO: check that the winners score is incremented
     end
   end
 

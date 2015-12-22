@@ -6,15 +6,6 @@ class CreateGame
 
   def call
     game = Game.create!
-
-    # TODO: This is ugly, fix it.
-    #
-    # We need to store a player ID inside the game, but players
-    # are not assigned IDs until they are saved. The players
-    # cannot be saved until the game itself is saved.
-    #
-    # It would be nice to have a `null: false` validation for
-    # `initial_dealer` but it introduces this cyclic dependence.
     game.with_lock do
       build_human_player(game)
       ai_count.times { build_ai_player(game) }

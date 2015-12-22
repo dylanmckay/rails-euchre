@@ -20,10 +20,6 @@ module AI
       if @ai_state.hand.empty?
         raise Exception, 'cannot decide an AI operation if the AI has no cards'
       end
-      # #TODO factor out the 6
-      # if @ai_state.hand.length == 6
-      #   return
-      # end
 
       case @game.operations.last.type
       when :pass_trump then decide_trump

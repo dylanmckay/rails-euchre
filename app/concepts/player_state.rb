@@ -1,10 +1,8 @@
 
 class PlayerState
-
   attr_reader :player
   attr_accessor :hand, :scored_cards,  :total_score
 
-  # TODO: Don't use 'id', pass a player model in
   def initialize(player:, hand: [], scored_cards: [])
     @player = player
     @hand = hand

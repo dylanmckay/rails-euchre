@@ -8,8 +8,7 @@ class GameState
     @pile = pile
     @players = players
     @deck = Deck.new
-    #TODO refactor this so they're not co-dependent?
-    @trump_state = TrumpState.new(self, deck)
+    @trump_state = TrumpState.new(deck, players.size)
     @last_player = nil
 
     @round_winners = []

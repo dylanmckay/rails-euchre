@@ -5,7 +5,7 @@ class OperationsController < ApplicationController
     game = player.game.with_lock do
       operation = player.operations.create!(operation_params)
 
-      game = operation.game
+      game = operation.player.game
       AdvanceGame.new(game).call
       game
     end

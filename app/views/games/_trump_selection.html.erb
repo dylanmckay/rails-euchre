@@ -5,6 +5,12 @@
   <%# Trump picking should happen here %>
 <% end %>
 
+<div class="status">
+  <% @game.event_log.each do |op| %>
+    <br><%= op %>
+  <% end %>
+</div>
+
 <div class="center_card">
   <%= unicode_card(@game_state.trump_state.selection_card) %>
 </div>
