@@ -177,39 +177,4 @@ describe GameState do
       end
     end
   end
-
-  xdescribe "#calculate_points" do
-    subject {
-      state.players.map { |player| state.calculate_points(player) }
-    }
-
-    context "when one player has won all 5 tricks in the round" do
-      tricks = 10.times.map{ Card.new(:hearts,1) }
-      let(:players) { [
-          PlayerState.new(scored_cards: tricks, player: player_models.first),
-          PlayerState.new(player: player_models.last),
-      ] }
-
-      let(:state) {
-        create_game(players: players, dealer: players.sample,
-                      trump: :clubs)
-      }
-
-      it { is_expected.to eq [2,0] }
-    end
-
-    context "when one player has won 3 of 5 tricks in the round" do
-      tricks = 10.times.map{ Card.new(:hearts, 1) }
-      let(:players) {[
-          PlayerState.new(scored_cards: tricks[0..6], player: player_models.first),
-          PlayerState.new(scored_cards: tricks[7..10], player: player_models.last)
-      ]}
-
-      let(:state) {
-        create_game(players: players, dealer: players.sample,
-                      trump: :hearts)
-      }
-      it { is_expected.to eq [1,0] }
-    end
-  end
 end

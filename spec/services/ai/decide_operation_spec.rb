@@ -62,7 +62,7 @@ RSpec.describe AI::DecideOperation do
       #FIXME 'satisfy' doesn't seem like a good idea and should be used sparcely, find an alternative for this situation, maybe?
       it { is_expected.to satisfy{ Operation.last.play_card? } }
 
-      xit { is_expected.to satisfy{ Operation.last.player == first_ai_player } }
+      # xit { is_expected.to satisfy{ Operation.last.player == first_ai_player } }
       # FIXME For some reason the game that deal_specific_cards_to_player is adding to is not the one the ai player is in???? This means op.last != game.op.last
     end
 

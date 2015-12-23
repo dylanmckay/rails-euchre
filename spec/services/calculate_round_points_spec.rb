@@ -19,6 +19,15 @@ RSpec.describe CalculateRoundPoints do
     it { is_expected.to eq [1,0]}
   end
 
+  context "when one player has scored a march and also picked the trump" do
+    before {
+      award_player_cards(10, game_state.players.first)
+      game_state.trump_state.trump_selector = game_state.players.first.player
+    }
+
+    it { is_expected.to eq [2,0]}
+  end
+
   context "when the one player echured the other by scoring 3 tricks" do
     before {
       award_player_cards(6, game_state.players.first)
