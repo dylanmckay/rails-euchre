@@ -1,6 +1,21 @@
 module AI
   class DecideOperation
 
+    DECIDE_TRUMP_SYMBOLS = [
+      :pass_trump,
+      :deal_card,
+      :draw_trump
+    ]
+
+    DECIDE_PLAY_SYMBOLS = [
+      :play_card,
+      :discard_card
+    ]
+
+    DISCARD_WORST_CARD_SYMBOLS =[
+      :accept_trump
+    ]
+
     def initialize(game, game_state, ai_player)
       @ai_state = ai_player
       @ai = ai_player.player
@@ -20,14 +35,18 @@ module AI
       if @ai_state.hand.empty?
         raise Exception, 'cannot decide an AI operation if the AI has no cards'
       end
-
-      case @game.operations.last.type
-      when :pass_trump then decide_trump
-      when :deal_card then decide_trump
-      when :draw_trump then decide_trump
-      when :accept_trump then discard_worst_card #fail "accept_trump is ALWAYS followed by discard_card, nothing else"
-      else decide_play
+      puts "#{last_operation} spec"
+      if DECIDE_TRUMP_SYMBOLS.include? last_operation
+        decide_trump
+      elsif DECIDE_PLAY_SYMBOLS.include? last_operation
+        decide_play
+      elsif DISCARD_WORST_CARD_SYMBOLS.include? last_operation
+        discard_worst_card
       end
+    end
+
+    def last_operation
+      @game.operations.last.type
     end
 
     def decide_play

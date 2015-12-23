@@ -4,7 +4,7 @@ RSpec.describe AI::DecideOperation do
   player_user = User.new(name: "test", ai: false)
   let(:game)        { CreateGame.new(player_count: 2, user: player_user).call }
   let(:game_state)  { CreateGameState.new(game).call }
-  subject(:test)    {
+  subject() {
     -> { AI::DecideOperation.new(game, game_state, first_ai_player_state).call }
   }
 
@@ -53,12 +53,17 @@ RSpec.describe AI::DecideOperation do
     context "In the middle of a trick," do
       before {
         deal_specific_cards_to_player(first_ai_player, ai_hand)
+        deal_specific_cards_to_player(first_human_player, ai_hand)
         play_card_from_user
+
       }
 
       it { is_expected.to change{ Operation.count }.by 1 }
-      #FIXME 'satisfy' doesn't seem like a good idea and should be used sparcely, find an alternative for this situation
+      #FIXME 'satisfy' doesn't seem like a good idea and should be used sparcely, find an alternative for this situation, maybe?
       it { is_expected.to satisfy{ Operation.last.play_card? } }
+
+      xit { is_expected.to satisfy{ Operation.last.player == first_ai_player } }
+      # FIXME For some reason the game that deal_specific_cards_to_player is adding to is not the one the ai player is in???? This means op.last != game.op.last
     end
 
     context "when no cards are dealt" do
@@ -77,11 +82,18 @@ RSpec.describe AI::DecideOperation do
   end
 
   def play_card_from_user
-    first_human_player.operations.create!(operation_type: "play_card", suit: "hearts", rank: 1)
+    card = first_human_player_state.hand.first
+    op = first_human_player.operations.play_card.create!(suit: card.suit, rank: card.rank)
+    ApplyOperation.new(game_state,op).call
+
   end
 
   def first_human_player
     game.players.find { |p| p.user.human? }
+  end
+
+  def first_human_player_state
+    game_state.players.find { |p| p.player.user.human? }
   end
 
   def first_ai_player

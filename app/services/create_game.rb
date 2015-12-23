@@ -5,15 +5,15 @@ class CreateGame
   end
 
   def call
-    game = Game.create!
-    game.with_lock do
-      build_human_player(game)
-      ai_count.times { build_ai_player(game) }
+    Game.create!.tap do |game|
+      game.with_lock do
+        build_human_player(game)
+        ai_count.times { build_ai_player(game) }
 
-      game.initial_dealer = random_player(game.players)
-      game.save!
+        game.initial_dealer = random_player(game.players)
+        game.save!
+      end
     end
-    game
   end
 
   private

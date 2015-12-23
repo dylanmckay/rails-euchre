@@ -157,21 +157,7 @@ describe GameState do
     end
   end
 
-  xdescribe "#find_player" do
-    context "when there is a player" do
-      it "should find the hand" do
-        expect(state.find_player(5)).to be_a PlayerState
-      end
-    end
-
-    context "when there are no players" do
-      it "should not find any hands" do
-        expect(empty_state.find_player(5)).to be nil
-      end
-    end
-  end
-
-  xdescribe "#valid_card?" do
+  describe "#valid_card?" do
     context "when the leading suit is the same as the trump suit" do
       before {
         state.trump_state.suit = :hearts
