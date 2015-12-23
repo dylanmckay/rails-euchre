@@ -6,11 +6,11 @@ class AdvanceGame
 
   def call
     while find_next_player.player.user.ai?
-      restart_round if @game_state.start_of_round?
+      restart_round if @game_state.start_of_round?  || all_passed_trump?
       @game.operations(reload: true)
       decide_ai_operation
     end
-    restart_round if @game_state.start_of_round?
+    restart_round if @game_state.start_of_round? || all_passed_trump?
   end
 
   private
@@ -19,7 +19,12 @@ class AdvanceGame
     AI::DecideOperation.new(@game, @game_state, find_next_player).call
   end
 
+  def all_passed_trump?
+    @game.operations.last(@game.players.size).all?(&:pass_trump?)
+  end
+
   def restart_round
+    discard_player_hands
     @game_state.deck.refresh.shuffle
 
     DealCards.new(@game, game_state: @game_state, deck:@game_state.deck).call
@@ -36,5 +41,14 @@ class AdvanceGame
 
   def dealer
     @game_state.dealer.player
+  end
+
+  def discard_player_hands
+    puts "DISCARDING CARDS FROM PLAYER"
+    @game_state.players.each do |player|
+      player.hand.each do |card|
+        player.player.operations.discard_card.create!(suit: card.suit, rank: card.rank)
+      end
+    end
   end
 end
