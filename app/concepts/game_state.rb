@@ -32,7 +32,7 @@ class GameState
   def end_of_trick?
     (round_count > 0 ||
      trick_count > 0) &&
-     all_cards_played? &&
+     !all_cards_played? &&
     !trick_in_progress?
   end
 

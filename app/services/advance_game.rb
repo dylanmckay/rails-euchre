@@ -43,10 +43,13 @@ class AdvanceGame
   end
 
   def discard_player_hands
-    @game_state.players.each do |player|
-      player.hand.each do |card|
-        player.player.operations.discard_card.create!(suit: card.suit, rank: card.rank)
+    discards = @game_state.players.flat_map do |player|
+      player.hand.map do |card|
+        op = player.player.operations.discard_card.create!(suit: card.suit, rank: card.rank)
       end
+    end
+    discards.each do |op|
+      ApplyOperation.new(@game_state, op).call
     end
   end
 end
