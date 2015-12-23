@@ -38,11 +38,12 @@ end
 def create_game_state(player_count:,
                       dealer: nil,
                       trump: :hearts)
-  players = player_count.times.map { |n| create_hand(n) }
+  players = create_players(player_count)
   dealer ||= players.first
 
-  GameState.new(players: players, dealer: dealer,
-                trump_suit: trump)
+  GameState.new(players: players, dealer: dealer).tap do |game|
+    game.trump_state.suit = trump
+  end
 end
 
 def create_player_model

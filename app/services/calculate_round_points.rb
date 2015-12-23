@@ -23,7 +23,7 @@ class CalculateRoundPoints
   end
 
   def euchred_other_player?(player)
-    player_picked_trump?(player) && tricks_won(player) >= winning_trick_amount
+    !player_picked_trump?(player) && won_trick_count_for_player(player) >= winning_trick_amount
   end
 
   def player_picked_trump?(player)
@@ -34,17 +34,21 @@ class CalculateRoundPoints
     (Config::HAND_CARD_COUNT/2.0).ceil
   end
 
-  def tricks_won(player)
-    @game_state.won_trick_count_for_player(player)
+  def winning_trick_march_amount
+    Config::HAND_CARD_COUNT
   end
 
   def standard_points(player)
-    if tricks_won(player) == Config::HAND_CARD_COUNT
+    if won_trick_count_for_player(player) == winning_trick_march_amount
         2
-    elsif tricks_won(player) >= 3
+    elsif won_trick_count_for_player(player) >= winning_trick_amount
       1
     else
       0
     end
+  end
+
+  def won_trick_count_for_player(player)
+    player.scored_cards.length / @game_state.players.length
   end
 end

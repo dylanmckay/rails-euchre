@@ -35,7 +35,6 @@ module AI
       if @ai_state.hand.empty?
         raise Exception, 'cannot decide an AI operation if the AI has no cards'
       end
-      puts "#{last_operation} spec"
       if DECIDE_TRUMP_SYMBOLS.include? last_operation
         decide_trump
       elsif DECIDE_PLAY_SYMBOLS.include? last_operation
