@@ -67,15 +67,15 @@ class GameState
     @trick_winners.count
   end
 
-  def calculate_points(player)
-    if won_trick_count_for_player(player) == Config::HAND_CARD_COUNT
-      2
-    elsif won_trick_count_for_player(player) >= 3
-      1
-    else
-      0
-    end
-  end
+  # def calculate_points(player)
+  #   if won_trick_count_for_player(player) == Config::HAND_CARD_COUNT
+  #     2
+  #   elsif won_trick_count_for_player(player) >= 3
+  #     1
+  #   else
+  #     0
+  #   end
+  # end
 
   def main_player
     @players.find{ |p| p.player.user.human? }
@@ -154,13 +154,13 @@ class GameState
     @players[left_player_index]
   end
 
+  def won_trick_count_for_player(player)
+    player.scored_cards.length / players.length
+  end
+
   private
 
   def player_has_leading_cards?(player_state)
     player_state.hand.any? { |c| c.suit == leading_suit }
-  end
-
-  def won_trick_count_for_player(player)
-    player.scored_cards.length / players.length
   end
 end

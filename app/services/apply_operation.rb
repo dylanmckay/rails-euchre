@@ -1,4 +1,3 @@
-
 class ApplyOperation
   def initialize(game_state, operation)
     @game_state = game_state
@@ -23,6 +22,7 @@ class ApplyOperation
 
   def accept_trump
     @game_state.trump_state.selection_operations << :accept
+    @game_state.trump_state.trump_selector = @operation.player
     trump_card = @game_state.trump_state.select_suit_as_trump
     @game_state.last_player = @player_state
     @game_state.dealer.hand << trump_card
@@ -61,8 +61,10 @@ class ApplyOperation
   def finish_round
     @game_state.round_winners << @game_state.round_leader
 
-    @game_state.players.each do |player|
-      player.total_score += @game_state.calculate_points(player)
+    player_points = CalculateRoundPoints.new(@game_state).call
+
+    @game_state.players.each_with_index do |player, i|
+      player.total_score += player_points[i]
       player.scored_cards.clear
     end
     @game_state.trick_winners = []
