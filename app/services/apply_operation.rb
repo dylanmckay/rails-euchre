@@ -35,7 +35,7 @@ class ApplyOperation
   end
 
   def draw_trump
-    @game_state.trump_state.assign_new_selection_card  @operation.card
+    @game_state.trump_state.assign_new_selection_card(@operation.card)
   end
 
   def discard_card

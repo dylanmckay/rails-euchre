@@ -22,6 +22,8 @@ class NextPlayer
       winner_of_last_trick
     elsif @game_state.trick_in_progress?
       left_of_last_player
+    else
+      left_of_last_player
     end
   end
 

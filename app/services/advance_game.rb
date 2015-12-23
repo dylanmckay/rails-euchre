@@ -25,14 +25,13 @@ class AdvanceGame
 
   def restart_round
     discard_player_hands
-    @game_state.deck.refresh.shuffle
 
+    @game_state.deck.refresh.shuffle
     DealCards.new(@game, game_state: @game_state, deck:@game_state.deck).call
 
     new_trump_card = @game_state.trump_state.pop_new_trump_card
-
-    @game.operations(reload: true)
     dealer.operations.draw_trump.create!(new_trump_card.to_h)
+    @game.operations(reload: true)
   end
 
   def find_next_player
@@ -44,7 +43,6 @@ class AdvanceGame
   end
 
   def discard_player_hands
-    puts "DISCARDING CARDS FROM PLAYER"
     @game_state.players.each do |player|
       player.hand.each do |card|
         player.player.operations.discard_card.create!(suit: card.suit, rank: card.rank)

@@ -32,7 +32,14 @@ class GameState
   def end_of_trick?
     (round_count > 0 ||
      trick_count > 0) &&
+     all_cards_played? &&
     !trick_in_progress?
+  end
+
+  def all_cards_played?
+    @players.flat_map do |player|
+      player.scored_cards
+    end.length == Config::HAND_CARD_COUNT * @players.length
   end
 
   def round_in_progress?
