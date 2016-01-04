@@ -1,7 +1,6 @@
 class Operation < ActiveRecord::Base
   belongs_to :player
 
-  # TODO: research enums
   OPERATION_TYPES = %w(deal_card pass_trump accept_trump pick_trump play_card draw_trump discard_card)
 
   OPERATION_TYPES.each do |type|
