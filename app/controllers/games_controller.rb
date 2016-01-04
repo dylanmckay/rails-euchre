@@ -16,7 +16,7 @@ class GamesController < ApplicationController
 
   def show
     game = Game.find(params[:id])
-    @game = GamePresenter.new(game, view_context)
+    @game = game
     @game_state = CreateGameState.new(@game).call
     @user = @game.main_player.user
   end

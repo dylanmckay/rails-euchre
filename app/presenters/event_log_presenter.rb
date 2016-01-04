@@ -1,0 +1,3 @@
+class EventLogPresenter <GamePresenter
+  
+end

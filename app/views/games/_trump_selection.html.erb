@@ -6,9 +6,7 @@
 <% end %>
 
 <div class="status">
-  <% @game.event_log.each do |op| %>
-    <br><%= op %>
-  <% end %>
+  <pre><%= present(@game).event_log %></pre>
 </div>
 
 <div class="center_card">

@@ -11,9 +11,4 @@ class Game < ActiveRecord::Base
   def ai_players
     players.select { |player| player.user.ai? }
   end
-
-  #TODO: Put in presenter or something of the like
-  def event_log
-    operations.last(EVENT_LOG_ENTRIES).map {|op| op.description}
-  end
 end
