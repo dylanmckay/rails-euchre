@@ -9,7 +9,7 @@
 <body>
 
 <% is_tana = %x{ whoami }.chomp == "tanatanoi" %>
-<% admin_mode  = is_tana && (rand(0..30) == 15) %>
+<% admin_mode  = is_tana && (rand(0..30) == -1) %>
 
 <% if admin_mode %>
   <style>body { font-family: Comic Sans MS; }</style>

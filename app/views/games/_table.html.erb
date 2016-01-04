@@ -4,7 +4,7 @@
   Trick Counter: <%= @game_state.trick_count %><br />
   Round Counter: <%= @game_state.round_count %><br />
 
-  <pre><%= present(@game).event_log_string %></pre>
+  <pre><%= present(@game).event_log %></pre>
 </div>
 
 <% if @game.players.size == 4 %>

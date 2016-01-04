@@ -23,17 +23,4 @@ class Operation < ActiveRecord::Base
       fail 'the operation does not have an associated card'
     end
   end
-
-  # TODO: this does not belong here, put into a presenter
-  def description
-    case type
-    when :deal_card     then "#{player.user.name} was dealt a card"
-    when :pass_trump    then "#{player.user.name} passed on the trump"
-    when :accept_trump  then "#{player.user.name} accepted the trump"
-    when :play_card     then "#{player.user.name} played #{card}"
-    when :discard_card  then "#{player.user.name} discard a card"
-    when :draw_trump    then "Drew a new trump card"
-    else "Undescribeable action"
-    end
-  end
 end
