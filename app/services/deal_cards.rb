@@ -1,5 +1,5 @@
 class DealCards
-  def initialize(game_model, game_state: nil, deck: Deck.new)
+  def initialize(game_model, game_state:, deck: Deck.new)
     @game_model = game_model
     @game_state = game_state
     @deck = deck
@@ -16,10 +16,7 @@ class DealCards
   def deal_cards_to_player(player)
     @deck.pop(Config::HAND_CARD_COUNT).each do |card|
       operation = player.operations.deal_card.create!(card.to_h)
-      #TODO might be able to just remove this if statement
-      if @game_state
-        ApplyOperation.new(@game_state, operation).call
-      end
+      ApplyOperation.new(@game_state, operation).call
     end
   end
 

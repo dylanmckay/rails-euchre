@@ -20,7 +20,9 @@ describe CreateGame do
       expect(game.players.size).to eq 4
     end
 
-    before { DealCards.new(game).call }
+    before {
+      DealCards.new(game, game_state: CreateGameState.new(game).call).call
+    }
 
     it "deals each player unique cards" do
 
