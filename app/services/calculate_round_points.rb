@@ -1,4 +1,6 @@
 class CalculateRoundPoints
+  TRICK_WON_AMOUNT = (Player::INITIAL_CARD_COUNT/2.0).ceil
+
   def initialize(game_state)
     @game_state = game_state
   end
@@ -34,7 +36,7 @@ class CalculateRoundPoints
   end
 
   def player_won_trick?(player_state)
-    won_trick_count_for_player(player_state) >= winning_trick_amount
+    won_trick_count_for_player(player_state) >= TRICK_WON_AMOUNT
   end
 
   def player_won_trick_with_march?(player_state)
@@ -45,12 +47,8 @@ class CalculateRoundPoints
     player_state_state.player == @game_state.trump_state.trump_selector
   end
 
-  def winning_trick_amount
-    Config::TRICK_WON_AMOUNT
-  end
-
   def winning_trick_march_amount
-    Config::HAND_CARD_COUNT
+    Player::INITIAL_CARD_COUNT
   end
 
   def won_trick_count_for_player(player_state)

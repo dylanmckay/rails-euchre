@@ -29,13 +29,13 @@ class GameState
   end
 
   def start_of_round?
-    @players.all? { |p| p.hand.count == Config::HAND_CARD_COUNT }
+    @players.all? { |p| p.hand.count == Player::INITIAL_CARD_COUNT }
   end
 
   def current_phase
     if !@trump_state.selected?
       :trump_selection
-    elsif dealer.hand.length == Config::HAND_CARD_COUNT+1
+    elsif dealer.hand.length == Player::INITIAL_CARD_COUNT+1
       :discard
     else
       :trick

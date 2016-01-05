@@ -14,7 +14,7 @@ class DealCards
   private
 
   def deal_cards_to_player(player)
-    @deck.pop(Config::HAND_CARD_COUNT).each do |card|
+    @deck.pop(Player::INITIAL_CARD_COUNT).each do |card|
       operation = player.operations.deal_card.create!(card.to_h)
       ApplyOperation.new(@game_state, operation).call
     end
