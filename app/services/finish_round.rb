@@ -12,7 +12,8 @@ class FinishRound
       player.total_score += player_points[i]
       player.scored_cards.clear
     end
-    @game_state.trick_winners = []
+
+    @game_state.trick_winners.clear
 
     assign_next_dealer
   end

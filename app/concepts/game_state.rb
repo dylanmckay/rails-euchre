@@ -1,8 +1,8 @@
 class GameState
-  attr_reader :players
-  #TODO see what happens if this is a reader
-  attr_accessor :trump_state, :dealer, :pile, :deck,
-    :trick_winners, :round_winners, :last_player
+  attr_reader :players, :trump_state, :pile, :deck,
+    :trick_winners, :round_winners
+
+  attr_accessor :dealer, :last_player
 
   def initialize(players:, dealer:, pile: Pile.new, deck: Deck.new)
     @dealer = dealer
