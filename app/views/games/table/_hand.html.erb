@@ -8,7 +8,7 @@
   </div>
 
   <% player.hand.each do |card| %>
-    <% dynamic = !hidden && !read_only && @game_state.valid_turn?(player, card) || interactive %>
+    <% dynamic = !hidden && !read_only && @game_state.valid_play?(player, card) || interactive %>
     <a class="<%= hand_card_css_class(dynamic: dynamic) %>"
        href="<%= @game.card_link_url(card, operation_type, read_only: !dynamic) %>">
        <%= unicode_card(card) if !hidden %>

@@ -16,10 +16,6 @@ class GameState
     @trick_winners = []
   end
 
-  def player_index(player_model)
-    @players.index { |player| player.player == player_model }
-  end
-
   def find_player(player_model)
     @players.find { |player_state|  player_state.player == player_model }
   end
@@ -44,10 +40,6 @@ class GameState
     else
       :trick
     end
-  end
-
-  def best_card_in_pile
-    SortStack.new(self, @pile.cards).call.first
   end
 
   def round_count
@@ -102,21 +94,10 @@ class GameState
     end
   end
 
-  def valid_turn?(player_state, card)
+  def valid_play?(player_state, card)
     @pile.empty? ||
       valid_card?(card) ||
       !player_has_leading_cards?(player_state)
-  end
-
-  # TODO: better name
-  def valid_card?(card)
-    if leading_suit == card.suit
-      true
-    elsif leading_suit == @trump_state.suit
-      is_trump?(card)
-    else
-      false
-    end
   end
 
   def trump_suit
@@ -134,5 +115,24 @@ class GameState
 
   def player_has_leading_cards?(player_state)
     player_state.hand.any? { |c| c.suit == leading_suit }
+  end
+
+  # TODO: better name
+  def valid_card?(card)
+    if leading_suit == card.suit
+      true
+    elsif leading_suit == @trump_state.suit
+      is_trump?(card)
+    else
+      false
+    end
+  end
+
+  def player_index(player_model)
+    @players.index { |player| player.player == player_model }
+  end
+
+  def best_card_in_pile
+    SortStack.new(self, @pile.cards).call.first
   end
 end
