@@ -30,7 +30,6 @@ class AdvanceGame
     DealCards.new(@game, game_state: @game_state, deck: @game_state.deck).call
 
     new_trump_card = @game_state.trump_state.pop_new_trump_card
-    #TODO allow operations to just take a card rather than dividing it into a hash (using validations)
     dealer.operations.draw_trump.create!(card: new_trump_card)
     @game.operations(reload: true)
   end

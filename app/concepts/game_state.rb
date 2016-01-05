@@ -96,7 +96,7 @@ class GameState
 
   def valid_play?(player_state, card)
     @pile.empty? ||
-      valid_card?(card) ||
+      can_play_card?(card) ||
       !player_has_leading_cards?(player_state)
   end
 
@@ -117,8 +117,7 @@ class GameState
     player_state.hand.any? { |c| c.suit == leading_suit }
   end
 
-  # TODO: better name
-  def valid_card?(card)
+  def can_play_card?(card)
     if leading_suit == card.suit
       true
     elsif leading_suit == @trump_state.suit
