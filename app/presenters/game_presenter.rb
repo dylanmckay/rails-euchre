@@ -1,15 +1,8 @@
 class GamePresenter < SimpleDelegator
-  attr_reader :game, :view
   EVENT_LOG_ENTRIES = 4
-  def initialize(game, view)
-    @game, @view = game, view
-    super(@game)
-  end
 
   def event_log
-    @game.operations.last(EVENT_LOG_ENTRIES).map {|op| description(op)}.join("\n").tap do |s|
-      puts "LOG : #{s}"
-    end
+    operations.last(EVENT_LOG_ENTRIES).map {|op| description(op)}.join("\n")
   end
 
   def description(operation)
@@ -30,7 +23,7 @@ class GamePresenter < SimpleDelegator
     args += "&suit=#{suit}" if suit
     args += "&rank=#{rank}" if rank
 
-    "/games/#{@game.id}/players/#{@game.players.first.id}/operations/new" + args
+    "/games/#{id}/players/#{players.first.id}/operations/new" + args
   end
 
   def card_link_url(card, operation, read_only: false)

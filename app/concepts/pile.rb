@@ -16,7 +16,7 @@ class Pile
   end
 
   def add(card, player)
-    fail "card is nil" if card == nil
+    raise "Cannot add a nil card" if card == nil
     @infos << CardInfo.new(card, player)
   end
 
