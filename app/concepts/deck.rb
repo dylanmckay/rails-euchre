@@ -5,7 +5,7 @@ class Deck
            .map { |n| Card.new(suit, n) }
   end
 
-  delegate :pop, :shuffle! ,to: :cards
+  delegate :pop, :shuffle!, to: :cards
 
   def initialize
     @cards = DECK.dup

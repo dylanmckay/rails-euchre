@@ -30,7 +30,7 @@ class CalculateRoundPoints
   end
 
   def euchred_other_player_state?(player_state)
-    !player_state_picked_trump?(player_state) && player_won_trick?
+    !player_state_picked_trump?(player_state) && player_won_trick?(player_state)
   end
 
   def player_won_trick?(player_state)
@@ -54,6 +54,6 @@ class CalculateRoundPoints
   end
 
   def won_trick_count_for_player(player_state)
-    player_state.scored_cards.length / @game_state.player_states.length
+    player_state.scored_cards.length / @game_state.players.length
   end
 end

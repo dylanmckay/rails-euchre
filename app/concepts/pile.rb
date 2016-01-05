@@ -1,8 +1,10 @@
 
 class Pile
+  attr_reader :infos
+  delegate :length, :clear, :empty?, :any?, to: :infos
+
   # Internal helper class to store card and player
   class CardInfo
-
     attr_reader :card, :player
 
     def initialize(card, player)
@@ -48,13 +50,5 @@ class Pile
     info = @infos.each.find { |i| i.card == card }
 
     info.player if info
-  end
-
-  def empty?
-    @infos.empty?
-  end
-  #TODO delegation to infos
-  def any?
-    @infos.any?
   end
 end
