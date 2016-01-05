@@ -28,17 +28,21 @@ class GameState
     (round_count > 0 || trick_count > 0) && pile.empty?
   end
 
-  def start_of_round?
+  def end_of_round?
     @players.all? { |p| p.hand.empty? }
   end
 
-  def started_new_round?
+  def start_of_round?
     @players.all? { |p| p.hand.count == Config::HAND_CARD_COUNT }
   end
 
   def current_phase
     if !@trump_state.selected?
       :trump_selection
+    elsif dealer.hand.length == Config::HAND_CARD_COUNT+1
+      :discard
+    else
+      :trick
     end
   end
 

@@ -14,7 +14,7 @@ class FindNextPlayer
   private
 
   def next_player_to_play_card
-    if @game_state.started_new_round? ||@game_state.start_of_round?
+    if @game_state.start_of_round? || @game_state.end_of_round?
       left_of_dealer
     elsif @game_state.end_of_trick?
       winner_of_last_trick
