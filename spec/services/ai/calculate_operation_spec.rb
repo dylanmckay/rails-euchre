@@ -5,9 +5,11 @@ RSpec.describe AI::CalculateOperation do
   let(:game)        { CreateGame.new(player_count: 2, user: player_user).call }
   let(:game_state)  { CreateGameState.new(game).call }
   subject() {
-    ->{ operation = AI::CalculateOperation.new(game, game_state, first_ai_player_state).call
-    ApplyOperation.new(game_state, operation).call
-    operation }
+    ->{
+      operation = AI::CalculateOperation.new(game, game_state, first_ai_player_state).call
+      ApplyOperation.new(game_state, operation).call
+      operation
+    }
   }
 
   describe "call" do

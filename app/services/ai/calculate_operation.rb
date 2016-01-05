@@ -24,15 +24,6 @@ module AI
     end
 
     def call
-      # decide_operation.tap do |operation|
-      #   ApplyOperation.new(@game_state, operation).call
-      # end
-      decide_operation
-    end
-
-    private
-
-    def decide_operation
       if @ai_state.hand.empty?
         raise Exception, 'cannot decide an AI operation if the AI has no cards'
       end
@@ -44,6 +35,8 @@ module AI
         discard_worst_card
       end
     end
+
+    private
 
     def last_operation
       @game.operations.last.type
