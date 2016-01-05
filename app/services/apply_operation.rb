@@ -46,53 +46,10 @@ class ApplyOperation
     @game_state.pile.add(@player_state.hand.delete(@operation.card), @player_state)
     @game_state.last_player = @player_state
 
-    finish_trick if every_player_has_played?
-  end
-
-  def finish_trick
-    winner = @game_state.trick_leader
-    winner.scored_cards += @game_state.pile.cards
-    @game_state.pile.clear
-    @game_state.trick_winners << winner
-
-    finish_round if every_player_has_no_cards?
-  end
-
-  #TODO Extract most of these methods to smaller services
-  def finish_round
-    @game_state.round_winners << @game_state.round_leader
-
-    player_points = CalculateRoundPoints.new(@game_state).call
-
-    @game_state.players.each_with_index do |player, i|
-      player.total_score += player_points[i]
-      player.scored_cards.clear
-    end
-    @game_state.trick_winners = []
-
-    assign_next_dealer
-  end
-
-  def assign_next_dealer
-    index = current_dealer_index
-
-    # get the next player, wrapping the index back to the start
-    next_index = (index+1) % @game_state.players.length
-
-    @game_state.dealer = @game_state.players[next_index]
-  end
-
-  def current_dealer_index
-    @game_state.players.find_index do |player|
-      player == @game_state.dealer
-    end
+    FinishTrick.new(@game_state).call if every_player_has_played?
   end
 
   def every_player_has_played?
     @game_state.pile.length == @game_state.players.length
-  end
-
-  def every_player_has_no_cards?
-    @game_state.players.map(&:hand).all?(&:empty?)
   end
 end

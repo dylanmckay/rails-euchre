@@ -21,9 +21,7 @@ class GameState
   end
 
   def find_player(player_model)
-    @players.find do |player_state|
-      player_state.player == player_model
-    end
+    @players.find { |player_state|  player_state.player == player_model }
   end
 
   def trick_in_progress?
