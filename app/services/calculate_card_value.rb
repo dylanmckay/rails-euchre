@@ -20,7 +20,7 @@ class CalculateCardValue
   def additional_points
     if @game_state.is_trump? @card
       ADDITIONAL_TRUMP_POINTS
-    elsif @game_state.is_leading_suit? @card
+    elsif @game_state.leading_suit == @card.suit
       ADDITIONAL_LEADING_SUIT_POINTS
     else
       0

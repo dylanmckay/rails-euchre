@@ -4,12 +4,10 @@ class FindNextPlayer
   end
 
   def call
-    if @game_state.in_trump_selection?
-      next_player_to_select_trump
-    elsif @game_state.in_discard_phase?
-      @game_state.dealer
-    else
-      next_player_to_play_card
+    case @game_state.current_phase
+    when :trump_selection then next_player_to_select_trump
+    when :discard then @game_state.dealer
+    else next_player_to_play_card
     end
   end
 

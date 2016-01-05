@@ -24,27 +24,8 @@ class GameState
     @players.find { |player_state|  player_state.player == player_model }
   end
 
-  def trick_in_progress?
-    @pile.any?
-  end
-
-  #TODO cleanup this goddamn logic
   def end_of_trick?
-    (round_count > 0 || trick_count > 0) &&
-      !all_cards_played? &&
-      !trick_in_progress?
-  end
-
-  def all_cards_played?
-    all_scored_cards.length == Config::HAND_CARD_COUNT * @players.length
-  end
-
-  def all_scored_cards
-    @players.flat_map(&:scored_cards)
-  end
-
-  def round_in_progress?
-    @players.any? { |player| player.hand.any? }
+    (round_count > 0 || trick_count > 0) && pile.empty?
   end
 
   def start_of_round?
@@ -55,12 +36,10 @@ class GameState
     @players.all? { |p| p.hand.count == Config::HAND_CARD_COUNT }
   end
 
-  def in_trump_selection?
-    !@trump_state.selected?
-  end
-
-  def in_discard_phase?
-    @dealer.hand.length == Config::HAND_CARD_COUNT+1
+  def current_phase
+    if !@trump_state.selected?
+      :trump_selection
+    end
   end
 
   def best_card_in_pile
@@ -87,7 +66,6 @@ class GameState
     @pile.card_owner(best_card_in_pile)
   end
 
-  #TODO go into a presenter
   def round_leaders
     max_score = @players.max_by { |player| player.total_score }.total_score
     leaders = @players.select { |player| player.total_score == max_score }
@@ -110,10 +88,6 @@ class GameState
       (card.partner_suit == trump_suit && card.jack?))
   end
 
-  def is_leading_suit?(card)
-    card.suit == leading_suit
-  end
-
   def leading_suit
     if @pile.leading_card
       if is_trump?(@pile.leading_card)
@@ -121,19 +95,18 @@ class GameState
       else
         @pile.leading_card.suit
       end
-    else
-      nil
     end
   end
 
   def valid_turn?(player_state, card)
-    @pile.empty?  ||
+    @pile.empty? ||
       valid_card?(card) ||
       !player_has_leading_cards?(player_state)
   end
 
+  # TODO: better name
   def valid_card?(card)
-    if is_leading_suit?(card)
+    if leading_suit == card.suit
       true
     elsif leading_suit == @trump_state.suit
       is_trump?(card)

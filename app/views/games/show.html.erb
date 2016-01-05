@@ -5,10 +5,8 @@
 <button type="button" class="restart_button">Restart Game</button>
 </a>
 
-<% if @game_state.in_trump_selection? %>
-  <%= render partial: 'trump_selection' %>
-<% elsif @game_state.in_discard_phase? %>
-  <%= render partial: 'discard' %>
-<% else %>
-  <%= render partial: 'table' %>
+<% case @game_state.current_phase
+   when :trump_selection %><%= render partial: 'trump_selection' %>
+<% when :discard %><%= render partial: 'discard' %>
+<% else %><%= render partial: 'table'  %>
 <% end %>

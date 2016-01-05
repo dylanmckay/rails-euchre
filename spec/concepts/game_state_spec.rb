@@ -137,26 +137,6 @@ describe GameState do
     end
   end
 
-  describe "#round_in_progress?" do
-    context "at the start of the game" do
-      it { is_expected.to be_round_in_progress }
-    end
-
-    context "in an empty game" do
-      let(:players) {[
-        PlayerState.new(player: player_models.first),
-        PlayerState.new(player: player_models.last ),
-      ]}
-
-      subject {
-        create_game(players: players, dealer: players.first,
-                      trump: :diamonds)
-      }
-
-      it { is_expected.not_to be_round_in_progress }
-    end
-  end
-
   describe "#valid_card?" do
     context "when the leading suit is the same as the trump suit" do
       before {
