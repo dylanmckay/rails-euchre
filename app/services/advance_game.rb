@@ -36,7 +36,7 @@ class AdvanceGame
   end
 
   def find_next_player
-     NextPlayer.new(@game_state).call
+     FindNextPlayer.new(@game_state).call
   end
 
   def dealer

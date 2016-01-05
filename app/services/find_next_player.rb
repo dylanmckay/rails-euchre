@@ -1,5 +1,4 @@
-#TODO rename next_player, FindNextPlayer
-class NextPlayer
+class FindNextPlayer
   def initialize(game_state)
     @game_state = game_state
   end

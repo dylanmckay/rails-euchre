@@ -1,11 +1,11 @@
-describe NextPlayer do
+describe FindNextPlayer do
   let(:player_models) { create_player_models(3) }
 
   let(:state) {
     create_custom_game_state({players: player_models.map{|model| {player_model: model}}, trump_suit: nil })
   }
 
-  subject(:next_player) { NextPlayer.new(state).call }
+  subject(:next_player) { FindNextPlayer.new(state).call }
 
   context "when performing trump selection" do
     context "on the first turn" do
