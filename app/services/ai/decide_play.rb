@@ -1,4 +1,5 @@
 module AI
+  #TODO rename decide play to something good (i.e to do with what it returns)
   class DecidePlay
     def initialize(game_state, ai_state)
       @ai_state  = ai_state

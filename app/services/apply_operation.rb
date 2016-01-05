@@ -42,6 +42,13 @@ class ApplyOperation
     @player_state.hand.delete(@operation.card)
   end
 
+  def play_card
+    @game_state.pile.add(@player_state.hand.delete(@operation.card), @player_state)
+    @game_state.last_player = @player_state
+
+    finish_trick if every_player_has_played?
+  end
+
   def finish_trick
     winner = @game_state.trick_leader
     winner.scored_cards += @game_state.pile.cards
@@ -51,13 +58,7 @@ class ApplyOperation
     finish_round if every_player_has_no_cards?
   end
 
-  def play_card
-    @game_state.pile.add(@player_state.hand.delete(@operation.card), @player_state)
-    @game_state.last_player = @player_state
-
-    finish_trick if every_player_has_played?
-  end
-
+  #TODO Extract most of these methods to smaller services
   def finish_round
     @game_state.round_winners << @game_state.round_leader
 

@@ -6,7 +6,7 @@ class AdvanceGame
 
   def call
     while find_next_player.player.user.ai?
-      restart_round if @game_state.start_of_round?  || all_passed_trump?
+      restart_round if @game_state.start_of_round? || all_passed_trump?
       @game.operations(reload: true)
       decide_ai_operation
     end
@@ -14,7 +14,7 @@ class AdvanceGame
   end
 
   private
-
+  #IMPORTANT TODO rename aaaallllll the decides into apply because they are applying and deciding
   def decide_ai_operation
     AI::DecideOperation.new(@game, @game_state, find_next_player).call
   end
@@ -26,10 +26,11 @@ class AdvanceGame
   def restart_round
     discard_player_hands
 
-    @game_state.deck.refresh.shuffle
-    DealCards.new(@game, game_state: @game_state, deck:@game_state.deck).call
+    @game_state.deck.refresh.shuffle!
+    DealCards.new(@game, game_state: @game_state, deck: @game_state.deck).call
 
     new_trump_card = @game_state.trump_state.pop_new_trump_card
+    #TODO allow operations to just take a card rather than dividing it into a hash (using validations)
     dealer.operations.draw_trump.create!(new_trump_card.to_h)
     @game.operations(reload: true)
   end
@@ -45,7 +46,7 @@ class AdvanceGame
   def discard_player_hands
     discards = @game_state.players.flat_map do |player|
       player.hand.map do |card|
-        op = player.player.operations.discard_card.create!(suit: card.suit, rank: card.rank)
+        op = player.player.operations.discard_card.create!(card.to_h)
       end
     end
     discards.each do |op|

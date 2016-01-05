@@ -15,23 +15,20 @@ class CalculateRoundPoints
   end
 
   def bonus_points(player)
-    if euchred_other_player?(player)
-      2
-    else
-      0
-    end
+    euchred_other_player?(player) ? 2 : 0
   end
 
+  #TODO rename 'player' to 'player_state' if they are states
   def euchred_other_player?(player)
     !player_picked_trump?(player) && won_trick_count_for_player(player) >= winning_trick_amount
   end
 
-  def player_picked_trump?(player)
-    player.player == @game_state.trump_state.trump_selector
+  def player_picked_trump?(player_state)
+    player_state.player == @game_state.trump_state.trump_selector
   end
 
   def winning_trick_amount
-    (Config::HAND_CARD_COUNT/2.0).ceil
+    Config::TRICK_WON_AMOUNT
   end
 
   def winning_trick_march_amount
@@ -40,7 +37,7 @@ class CalculateRoundPoints
 
   def standard_points(player)
     if won_trick_count_for_player(player) == winning_trick_march_amount
-        2
+      2
     elsif won_trick_count_for_player(player) >= winning_trick_amount
       1
     else

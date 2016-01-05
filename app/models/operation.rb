@@ -14,7 +14,7 @@ class Operation < ActiveRecord::Base
   def type
     operation_type.to_sym
   end
-
+  #XXX maybe write a validation to confirm presences of both or absensece of both
   def card
     if suit && rank
       Card.new(suit, rank)

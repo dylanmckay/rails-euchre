@@ -6,7 +6,6 @@ class DealCards
   end
 
   def call
-
     @game_model.players.each do |player_model|
       deal_cards_to_player(player_model)
     end
@@ -17,6 +16,7 @@ class DealCards
   def deal_cards_to_player(player)
     @deck.pop(Config::HAND_CARD_COUNT).each do |card|
       operation = player.operations.deal_card.create!(card.to_h)
+      #TODO might be able to just remove this if statement
       if @game_state
         ApplyOperation.new(@game_state, operation).call
       end

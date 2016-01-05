@@ -5,18 +5,7 @@ class GamePresenter < SimpleDelegator
     operations.last(EVENT_LOG_ENTRIES).map {|op| description(op)}.join("\n")
   end
 
-  def description(operation)
-    case operation.type
-    when :deal_card     then "#{operation.player.user.name} was dealt a card"
-    when :pass_trump    then "#{operation.player.user.name} passed on the trump, #{operation.suit}"
-    when :accept_trump  then "#{operation.player.user.name} accepted the trump"
-    when :play_card     then "#{operation.player.user.name} played #{operation.card}"
-    when :discard_card  then "#{operation.player.user.name} discard a card"
-    when :draw_trump    then "Drew a new trump card"
-    else "Undescribeable action"
-    end
-  end
-
+  #TODO to_query <- look into this, sounds super useful, also in the wrong place
   def operation_url(operation_type, suit=nil, rank=nil)
     args = "?operation_type=#{operation_type}"
 
@@ -42,7 +31,17 @@ class GamePresenter < SimpleDelegator
     operation_url("accept_trump")
   end
 
-  def h
-    @view
+  private
+
+  def description(operation)
+    player_name = operation.player.user.name
+    case operation.type
+    when :deal_card     then "#{player_name} was dealt a card"
+    when :pass_trump    then "#{player_name} passed on the trump, #{operation.suit}"
+    when :accept_trump  then "#{player_name} accepted the trump"
+    when :play_card     then "#{player_name} played #{operation.card}"
+    when :discard_card  then "#{player_name} discard a card"
+    when :draw_trump    then "Drew a new trump card"
+    end
   end
 end

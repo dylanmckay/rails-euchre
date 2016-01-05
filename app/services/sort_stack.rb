@@ -1,4 +1,3 @@
-
 class SortStack
   def initialize(game_state, stack)
     @stack = stack
@@ -6,12 +5,12 @@ class SortStack
   end
 
   def call
-    @stack.sort {|x,y| compare_cards(x, y)}
+    @stack.sort { |x, y| compare_cards(x, y) }
   end
 
   private
 
   def compare_cards(x, y)
-    CompareCards.new(@game_state,x,y).call
+    CompareCards.new(@game_state, x, y).call
   end
 end

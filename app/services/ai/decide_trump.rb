@@ -1,6 +1,6 @@
 module AI
   class DecideTrump
-    HAND_VALUE_SELECTION_THRESHOLD = 250
+    HAND_VALUE_SELECTION_THRESHOLD = 249
 
     def initialize(game_state, ai_state)
       @game_state = game_state
@@ -8,7 +8,7 @@ module AI
     end
 
     def call
-      if should_accept?
+      if should_accept_trump?
         :accept
       else
         :pass
@@ -17,7 +17,7 @@ module AI
 
     private
 
-    def should_accept?
+    def should_accept_trump?
       calculate_hand_value > HAND_VALUE_SELECTION_THRESHOLD
     end
 

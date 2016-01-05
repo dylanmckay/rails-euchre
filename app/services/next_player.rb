@@ -1,3 +1,4 @@
+#TODO rename next_player, FindNextPlayer
 class NextPlayer
   def initialize(game_state)
     @game_state = game_state
@@ -20,8 +21,6 @@ class NextPlayer
       left_of_dealer
     elsif @game_state.end_of_trick?
       winner_of_last_trick
-    elsif @game_state.trick_in_progress?
-      left_of_last_player
     else
       left_of_last_player
     end

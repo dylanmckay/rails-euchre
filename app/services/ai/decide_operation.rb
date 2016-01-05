@@ -24,9 +24,9 @@ module AI
     end
 
     def call
-      op = decide_operation
-      ApplyOperation.new(@game_state, op).call
-      op
+      decide_operation.tap do |operation|
+        ApplyOperation.new(@game_state, operation).call
+      end
     end
 
     private

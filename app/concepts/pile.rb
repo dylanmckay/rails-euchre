@@ -53,4 +53,8 @@ class Pile
   def empty?
     @infos.empty?
   end
+  #TODO delegation to infos
+  def any?
+    @infos.any?
+  end
 end

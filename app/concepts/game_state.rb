@@ -1,13 +1,14 @@
 class GameState
   attr_reader :players
+  #TODO see what happens if this is a reader
   attr_accessor :trump_state, :dealer, :pile, :deck,
     :trick_winners, :round_winners, :last_player
 
-  def initialize(players:, dealer:, pile: Pile.new)
+  def initialize(players:, dealer:, pile: Pile.new, deck: Deck.new)
     @dealer = dealer
     @pile = pile
     @players = players
-    @deck = Deck.new
+    @deck = deck
     @trump_state = TrumpState.new(deck, players.size)
     @last_player = nil
 
@@ -20,30 +21,32 @@ class GameState
   end
 
   def find_player(player_model)
-    @players.find{ |player_state|
+    @players.find do |player_state|
       player_state.player == player_model
-    }
+    end
   end
 
   def trick_in_progress?
-     !@pile.empty?
+    @pile.any?
   end
 
+  #TODO cleanup this goddamn logic
   def end_of_trick?
-    (round_count > 0 ||
-     trick_count > 0) &&
-     !all_cards_played? &&
-    !trick_in_progress?
+    (round_count > 0 || trick_count > 0) &&
+      !all_cards_played? &&
+      !trick_in_progress?
   end
 
   def all_cards_played?
-    @players.flat_map do |player|
-      player.scored_cards
-    end.length == Config::HAND_CARD_COUNT * @players.length
+    all_scored_cards.length == Config::HAND_CARD_COUNT * @players.length
+  end
+
+  def all_scored_cards
+    @players.flat_map(&:scored_cards)
   end
 
   def round_in_progress?
-    @players.any? { |player| !player.hand.empty? }
+    @players.any? { |player| player.hand.any? }
   end
 
   def start_of_round?
@@ -86,6 +89,7 @@ class GameState
     @pile.card_owner(best_card_in_pile)
   end
 
+  #TODO go into a presenter
   def round_leaders
     max_score = @players.max_by { |player| player.total_score }.total_score
     leaders = @players.select { |player| player.total_score == max_score }

@@ -5,12 +5,13 @@ class CreateGame
   end
 
   def call
+    #XXX game.build <- look into this
     Game.create!.tap do |game|
       game.with_lock do
         build_human_player(game)
         ai_count.times { build_ai_player(game) }
 
-        game.initial_dealer = random_player(game.players)
+        game.initial_dealer = game.players.sample
         game.save!
       end
     end
@@ -33,9 +34,5 @@ class CreateGame
 
   def ai_count
     @player_count - 1
-  end
-
-  def random_player(players)
-    players.sample
   end
 end
