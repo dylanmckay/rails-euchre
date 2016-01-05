@@ -1,5 +1,5 @@
 module AI
-  class DecideOperation
+  class CalculateOperation
 
     DECIDE_TRUMP_SYMBOLS = [
       :pass_trump,
@@ -24,9 +24,10 @@ module AI
     end
 
     def call
-      decide_operation.tap do |operation|
-        ApplyOperation.new(@game_state, operation).call
-      end
+      # decide_operation.tap do |operation|
+      #   ApplyOperation.new(@game_state, operation).call
+      # end
+      decide_operation
     end
 
     private
@@ -49,7 +50,7 @@ module AI
     end
 
     def decide_play
-      card = AI::DecidePlay.new(@game_state, @ai_state).call
+      card = AI::CalculateCardToPlay.new(@game_state, @ai_state).call
       return if @ai_state.hand.empty?
       @ai.operations.play_card.create!(card.to_h)
     end

@@ -1,11 +1,13 @@
 require 'rails_helper'
 
-RSpec.describe AI::DecideOperation do
+RSpec.describe AI::CalculateOperation do
   player_user = User.new(name: "test", ai: false)
   let(:game)        { CreateGame.new(player_count: 2, user: player_user).call }
   let(:game_state)  { CreateGameState.new(game).call }
   subject() {
-    -> { AI::DecideOperation.new(game, game_state, first_ai_player_state).call }
+    ->{ operation = AI::CalculateOperation.new(game, game_state, first_ai_player_state).call
+    ApplyOperation.new(game_state, operation).call
+    operation }
   }
 
   describe "call" do
@@ -46,7 +48,7 @@ RSpec.describe AI::DecideOperation do
         }
 
         it { is_expected.to change{ Operation.count }.by 1 }
-        it { expect( subject.call ).to satisfy{ Operation.last.pass_trump? } }
+        it { expect( subject ).to satisfy{ Operation.last.pass_trump? } }
       end
     end
 

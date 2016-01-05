@@ -8,15 +8,15 @@ class AdvanceGame
     while find_next_player.player.user.ai?
       restart_round if @game_state.start_of_round? || all_passed_trump?
       @game.operations(reload: true)
-      decide_ai_operation
+      ApplyOperation.new(@game_state, decide_ai_operation).call
     end
     restart_round if @game_state.start_of_round? || all_passed_trump?
   end
 
   private
-  #IMPORTANT TODO rename aaaallllll the decides into apply because they are applying and deciding
+
   def decide_ai_operation
-    AI::DecideOperation.new(@game, @game_state, find_next_player).call
+    AI::CalculateOperation.new(@game, @game_state, find_next_player).call
   end
 
   def all_passed_trump?

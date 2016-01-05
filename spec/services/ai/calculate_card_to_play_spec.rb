@@ -1,8 +1,8 @@
 require 'rails_helper'
 
-RSpec.describe AI::DecidePlay do
+RSpec.describe AI::CalculateCardToPlay do
   subject {
-    AI::DecidePlay.new(game_state, ai_state).call
+    AI::CalculateCardToPlay.new(game_state, ai_state).call
   }
 
   describe "#call"do

@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe AI::DecideOperation do
+RSpec.describe AI::DecideTrump do
   player_user = User.new(name: "test", ai: false)
   let(:game)        { CreateGame.new(player_count: 2, user: player_user).call }
   let(:game_state)  { CreateGameState.new(game).call }
