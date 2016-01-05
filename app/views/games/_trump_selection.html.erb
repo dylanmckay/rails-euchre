@@ -6,7 +6,7 @@
 <% end %>
 
 <div class="status">
-  <pre><%= present(@game).event_log %></pre>
+  <pre><%= @game.event_log %></pre>
 </div>
 
 <div class="center_card">
@@ -14,10 +14,10 @@
 </div>
 
 <div style="margin: 0 auto 0 auto; display: table">
-  <a href="<%= present(@game).accept_trump_operation_url %>">
+  <a href="<%= @game.accept_trump_operation_url %>">
     <button type="button" >Accept</button>
   </a>
-  <a href="<%= present(@game).pass_trump_operation_url %>">
+  <a href="<%= @game.pass_trump_operation_url %>">
     <button type="button" >Pass</button>
   </a>
 </div>

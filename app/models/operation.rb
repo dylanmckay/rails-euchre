@@ -19,7 +19,7 @@ class Operation < ActiveRecord::Base
     if suit && rank
       Card.new(suit, rank)
     else
-      fail 'the operation does not have an associated card'
+      raise 'the operation does not have an associated card'
     end
   end
 end
