@@ -43,15 +43,15 @@ module AI
     end
 
     def decide_play
-      card = AI::CalculateCardToPlay.new(@game_state, @ai_state).call
+      card_to_play = AI::CalculateCardToPlay.new(@game_state, @ai_state).call
       return if @ai_state.hand.empty?
-      @ai.operations.play_card.create!(card.to_h)
+      @ai.operations.play_card.create!(card: card_to_play)
     end
 
     def discard_worst_card
       sorted_hand = SortStack.new(@game_state, @ai_state.hand).call
       worst_card = sorted_hand.last
-      @ai.operations.discard_card.create!(worst_card.to_h)
+      @ai.operations.discard_card.create!(card: worst_card)
     end
 
     def decide_trump

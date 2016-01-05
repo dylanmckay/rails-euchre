@@ -31,7 +31,7 @@ class AdvanceGame
 
     new_trump_card = @game_state.trump_state.pop_new_trump_card
     #TODO allow operations to just take a card rather than dividing it into a hash (using validations)
-    dealer.operations.draw_trump.create!(new_trump_card.to_h)
+    dealer.operations.draw_trump.create!(card: new_trump_card)
     @game.operations(reload: true)
   end
 
@@ -46,7 +46,7 @@ class AdvanceGame
   def discard_player_hands
     discards = @game_state.players.flat_map do |player|
       player.hand.map do |card|
-        op = player.player.operations.discard_card.create!(card.to_h)
+        op = player.player.operations.discard_card.create!(card: card)
       end
     end
     discards.each do |op|

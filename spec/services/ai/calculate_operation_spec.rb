@@ -79,7 +79,7 @@ RSpec.describe AI::CalculateOperation do
 
   def deal_specific_cards_to_player(player, cards)
     cards.each do |card|
-      operation = player.operations.deal_card.create!(card.to_h)
+      operation = player.operations.deal_card.create!(card: card)
       ApplyOperation.new(game_state, operation).call
     end
     game.operations(reload: true)

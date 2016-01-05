@@ -1,6 +1,6 @@
 class Operation < ActiveRecord::Base
   belongs_to :player
-
+  composed_of :card, mapping: [ %w(suit suit), %w(rank rank) ], allow_nil: true
   OPERATION_TYPES = %w(deal_card pass_trump accept_trump pick_trump play_card draw_trump discard_card)
 
   OPERATION_TYPES.each do |type|
@@ -14,7 +14,8 @@ class Operation < ActiveRecord::Base
   def type
     operation_type.to_sym
   end
-  #XXX maybe write a validation to confirm presences of both or absensece of both
+
+  #TODO maybe write a validation to confirm presences of both or absensece of both
   def card
     if suit && rank
       Card.new(suit, rank)

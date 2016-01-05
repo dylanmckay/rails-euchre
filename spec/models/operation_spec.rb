@@ -6,7 +6,7 @@ describe Operation do
   describe "scopes" do
 
     describe "deal_card" do
-      subject(:operation) { Operation.deal_card.create!(card.to_h) }
+      subject(:operation) { Operation.deal_card.create!(card: card) }
 
       it { is_expected.to be_an Operation }
 
@@ -40,7 +40,7 @@ describe Operation do
     end
 
     describe "pick_trump!" do
-      subject(:operation) { Operation.pick_trump.create!(card.to_h) }
+      subject(:operation) { Operation.pick_trump.create!(card: card) }
 
       it { is_expected.to be_an Operation }
 
@@ -56,7 +56,7 @@ describe Operation do
 
   describe "play_card!" do
     subject(:operation) {
-      Operation.play_card.create!(card.to_h)
+      Operation.play_card.create!(card: card)
     }
 
     it { is_expected.to be_an Operation }
@@ -84,7 +84,7 @@ describe Operation do
 
     context "when the operation is playing a card" do
       let(:operation) {
-        Operation.play_card.create!(card.to_h)
+        Operation.play_card.create!(card: card)
       }
 
       it "should have an associated card" do
@@ -94,7 +94,7 @@ describe Operation do
 
     context "when the card is being dealt" do
       let(:operation) {
-        Operation.deal_card.create!(card.to_h)
+        Operation.deal_card.create!(card: card)
       }
 
       it "should have an associated card" do

@@ -40,10 +40,6 @@ class Card
     "(#{rank} of #{suit.to_s.capitalize})"
   end
 
-  def to_h
-    { suit: @suit, rank: @rank }
-  end
-
   def ace?
     rank == 1
   end

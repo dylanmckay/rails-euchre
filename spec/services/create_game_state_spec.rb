@@ -8,7 +8,7 @@ describe CreateGameState do
       game.players.new(id: 1, user: User.create!(name: "Jim"))
       game.initial_dealer = game.players.first
 
-      p1.operations.deal_card.new(Card.new(:hearts, 1).to_h)
+      p1.operations.deal_card.new(card: Card.new(:hearts, 1))
 
       game.save!
       game
