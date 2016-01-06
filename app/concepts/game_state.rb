@@ -35,7 +35,7 @@ class GameState
   def current_phase
     if !@trump_state.trump_selected?
       :trump_selection
-    elsif dealer.hand.length == Player::INITIAL_CARD_COUNT+1
+    elsif dealer.hand.length == Player::DEALER_DISCARD_CARD_COUNT
       :discard
     else
       :trick

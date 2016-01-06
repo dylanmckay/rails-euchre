@@ -4,4 +4,5 @@ class Player < ActiveRecord::Base
   belongs_to :user
 
   INITIAL_CARD_COUNT = 5
+  DEALER_DISCARD_CARD_COUNT = INITIAL_CARD_COUNT + 1
 end

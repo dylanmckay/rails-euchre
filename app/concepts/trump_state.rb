@@ -11,9 +11,8 @@ class TrumpState
   end
 
   def pop_new_trump_card
-    @suit = nil
-    card = @deck.pop
-    @selection_card = card
+    @selected = false
+    @selection_card = @deck.pop
   end
 
   def selection_suit

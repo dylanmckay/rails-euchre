@@ -2,7 +2,7 @@ describe FindNextPlayer do
   let(:player_models) { create_player_models(3) }
 
   let(:state) {
-    create_custom_game_state({players: player_models.map{|model| {player_model: model}}, trump_suit: nil })
+    create_custom_game_state({players: player_models.map{|model| {player_model: model} } })
   }
 
   subject(:next_player) { FindNextPlayer.new(state).call }
@@ -102,8 +102,7 @@ describe FindNextPlayer do
         ).call
       }
 
-      it { is_expected.to eq state.players[0] }
+      it { is_expected.to eq state.players.find{ |p| p.scored_cards.any? } }
     end
   end
-
 end

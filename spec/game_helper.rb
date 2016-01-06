@@ -52,7 +52,7 @@ end
 
 def create_custom_game_state(players:,
                              dealer: nil,
-                             trump_suit: :hearts)
+                             trump_suit: nil)
   players = players.each.with_index.map do |player,index|
     hand = player.include?(:hand) ? player[:hand] : create_hand
 
@@ -62,7 +62,7 @@ def create_custom_game_state(players:,
   dealer ||= players.first
 
   state = GameState.new(players: players, dealer: dealer)
-  state.trump_state.select_suit_as_trump trump_suit
+  state.trump_state.select_suit_as_trump(trump_suit) if trump_suit
   state
 end
 
