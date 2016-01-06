@@ -14,10 +14,10 @@ class FindNextPlayer
   private
 
   def next_player_to_play_card
-    if @game_state.start_of_round? || @game_state.end_of_round?
-      left_of_dealer
-    elsif @game_state.end_of_trick?
+    if @game_state.end_of_trick?
       winner_of_last_trick
+    elsif @game_state.start_of_round? || @game_state.end_of_round?
+      left_of_dealer
     else
       left_of_last_player
     end

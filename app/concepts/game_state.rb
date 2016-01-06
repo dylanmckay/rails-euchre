@@ -21,7 +21,7 @@ class GameState
   end
 
   def end_of_trick?
-    (round_count > 0 || trick_count > 0) && pile.empty?
+    pile.length == @players.length
   end
 
   def end_of_round?

@@ -60,6 +60,7 @@ describe FindNextPlayer do
     let(:state) {
       create_custom_game_state({players: player_models.map{|model| {player_model: model}}, trump_suit: nil })
     }
+
     context "at the start of the first round" do
       it { is_expected.to eq first_player }
     end
@@ -77,31 +78,38 @@ describe FindNextPlayer do
       }
 
       it { is_expected.to eq second_player }
+    end
 
-      context "after the trick finishes" do
-        before {
-          card = first_player.hand.first
-          ApplyOperation.new(
-            state,
-            player_models[1].operations.play_card.new(
-              suit: card.suit,
-              rank: card.rank,
-            )
-          ).call
+    context "after the trick finishes" do
+      before {
+        card = state.players[1].hand.first
+        ApplyOperation.new(
+          state,
+          player_models[1].operations.play_card.new(
+            suit: card.suit,
+            rank: card.rank,
+          )
+        ).call
 
-          card = second_player.hand.first
+        puts "a: #{state.pile.length}, b: #{state.players.length}"
+        card = state.players[0].hand.first
 
-          ApplyOperation.new(
-            state,
-            player_models[0].operations.play_card.new(
-              suit: card.suit,
-              rank: card.rank,
-            )
-          ).call
-        }
+        ApplyOperation.new(
+          state,
+          player_models[0].operations.play_card.new(
+            suit: card.suit,
+            rank: card.rank,
+          )
+        ).call
 
-        it { is_expected.to eq state.trick_winners.last }
-      end
+        puts "a: #{state.pile.length}, b: #{state.players.length}"
+      }
+
+      # it "is the end of the trick" do
+      #   expect(state).to be_end_of_trick
+      # end
+
+      it { is_expected.to eq state.players[1] }
     end
   end
 
