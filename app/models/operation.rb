@@ -22,7 +22,6 @@ class Operation < ActiveRecord::Base
     operation_type.to_sym
   end
 
-  #TODO maybe write a validation to confirm presences of both or absensece of both
   def card
     if suit && rank
       Card.new(suit, rank)

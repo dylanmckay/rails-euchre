@@ -5,16 +5,6 @@ class GamePresenter < SimpleDelegator
     operations.last(EVENT_LOG_ENTRIES).map {|op| description(op)}.join("\n")
   end
 
-  #TODO to_query <- look into this, sounds super useful, also in the wrong place
-  def operation_url(operation_type, suit=nil, rank=nil)
-    args = "?operation_type=#{operation_type}"
-
-    args += "&suit=#{suit}" if suit
-    args += "&rank=#{rank}" if rank
-
-    "/games/#{id}/players/#{players.first.id}/operations/new" + args
-  end
-
   def card_link_url(card, operation, read_only: false)
     if read_only
       "javascript:void(0);"
@@ -30,8 +20,23 @@ class GamePresenter < SimpleDelegator
   def accept_trump_operation_url
     operation_url("accept_trump")
   end
-
+  
   private
+
+  #TODO in the wrong place
+  def operation_url(operation_type, suit=nil, rank=nil)
+    args = {}
+    args[:operation_type] = operation_type
+    args[:suit] = suit if suit
+    args[:rank] = rank if rank
+
+    new_operation_url + args.to_query
+  end
+
+  def new_operation_url
+    "/games/#{id}/players/#{players.first.id}/operations/new?"
+  end
+
 
   def description(operation)
     player_name = operation.player.user.name
