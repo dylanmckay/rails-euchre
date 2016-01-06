@@ -19,6 +19,22 @@ describe GameState do
     )
   }
 
+  describe "#trick_count" do
+    subject { state.trick_count }
+
+    context "at the start of the game" do
+      it { is_expected.to be 0 }
+    end
+  end
+
+  describe "#round_count" do
+    subject { state.round_count }
+
+    context "at the start of the game" do
+      it { is_expected.to be 0 }
+    end
+  end
+
   describe "#main_player" do
     it "returns a human player" do
       expect(state.main_player.player.user).to be_human
