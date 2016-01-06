@@ -33,7 +33,7 @@ class GameState
   end
 
   def current_phase
-    if !@trump_state.selected?
+    if !@trump_state.trump_selected?
       :trump_selection
     elsif dealer.hand.length == Player::INITIAL_CARD_COUNT+1
       :discard
@@ -87,7 +87,7 @@ class GameState
   def leading_suit
     if @pile.leading_card
       if is_trump?(@pile.leading_card)
-        @trump_state.suit
+        trump_suit
       else
         @pile.leading_card.suit
       end
@@ -101,7 +101,7 @@ class GameState
   end
 
   def trump_suit
-    @trump_state.suit != nil ? @trump_state.suit : @trump_state.selection_suit
+    @trump_state.trump_selected? ? @trump_state.suit : @trump_state.selection_suit
   end
 
   def player_left_of(player)
@@ -120,7 +120,7 @@ class GameState
   def can_play_card?(card)
     if leading_suit == card.suit
       true
-    elsif leading_suit == @trump_state.suit
+    elsif leading_suit == trump_suit
       is_trump?(card)
     else
       false

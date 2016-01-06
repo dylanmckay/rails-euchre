@@ -69,6 +69,7 @@ RSpec.describe AI::CalculateOperation do
 
     context "In the middle of a trick," do
       before {
+        game_state.trump_state.selection_card = Card.new(:spades, 1)
         deal_specific_cards_to_player(first_ai_player, ai_hand)
         deal_specific_cards_to_player(first_human_player, ai_hand)
         play_card_from_user

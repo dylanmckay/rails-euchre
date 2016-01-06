@@ -7,7 +7,7 @@ class TrumpState
     @suit = nil
     @selection_operations = []
     @trump_selector = nil
-    @thing = false
+    @selected = false
   end
 
   def pop_new_trump_card
@@ -17,23 +17,22 @@ class TrumpState
   end
 
   def selection_suit
-    selected? && @selection_card.suit ? nil : @selection_card.suit
+    @selection_card.suit
   end
 
   def assign_new_selection_card(card)
     @selection_card = card
-    @thing = false
+    @selected = false
   end
 
   def select_suit_as_trump(new_suit = selection_suit)
     @suit = new_suit
-    card = @selection_card
-    @thing = true
-    card
+    @selected = true
+    @selection_card
   end
 
-  def selected?
-    @thing
+  def trump_selected?
+    @selected
   end
 
   def pick_phase?

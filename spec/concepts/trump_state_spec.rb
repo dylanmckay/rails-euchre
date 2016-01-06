@@ -16,12 +16,6 @@ describe TrumpState do
       )
     }
 
-    describe "#selection_suit" do
-      it "is should be nil" do
-        expect(state.selection_suit).to eq nil
-      end
-    end
-
     describe "#pick_phase?" do
       it "should not be in the pick phase" do
         expect(state.pick_phase?).to eq false
