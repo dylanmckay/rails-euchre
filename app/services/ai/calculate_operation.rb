@@ -27,18 +27,18 @@ module AI
       if @ai_state.hand.empty?
         raise Exception, 'cannot decide an AI operation if the AI has no cards'
       end
-      if DECIDE_TRUMP_SYMBOLS.include? last_operation
+      if DECIDE_TRUMP_SYMBOLS.include? last_operation_type
         decide_trump
-      elsif DECIDE_PLAY_SYMBOLS.include? last_operation
+      elsif DECIDE_PLAY_SYMBOLS.include? last_operation_type
         decide_play
-      elsif DISCARD_WORST_CARD_SYMBOLS.include? last_operation
+      elsif DISCARD_WORST_CARD_SYMBOLS.include? last_operation_type
         discard_worst_card
       end
     end
 
     private
 
-    def last_operation
+    def last_operation_type
       @game.operations.last.type
     end
 
