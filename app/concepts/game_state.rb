@@ -100,6 +100,10 @@ class GameState
       !player_has_leading_cards?(player_state)
   end
 
+  def human_can_play_card?(card)
+    valid_play?(main_player, card) && main_player.hand.include?(card) && current_phase != :trump_selection
+  end
+
   def trump_suit
     @trump_state.trump_selected? ? @trump_state.suit : @trump_state.selection_suit
   end
@@ -113,10 +117,6 @@ class GameState
 
   private
 
-  def player_has_leading_cards?(player_state)
-    player_state.hand.any? { |c| c.suit == leading_suit }
-  end
-
   def can_play_card?(card)
     if leading_suit == card.suit
       true
@@ -125,6 +125,10 @@ class GameState
     else
       false
     end
+  end
+
+  def player_has_leading_cards?(player_state)
+    player_state.hand.any? { |c| c.suit == leading_suit }
   end
 
   def best_card_in_pile

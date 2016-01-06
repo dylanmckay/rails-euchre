@@ -1,27 +1,32 @@
 <div class="hand">
-  <% hidden = defined?(hidden) ? hidden : false %>
-  <% read_only = defined?(read_only) ? read_only : hidden %>
-  <% interactive = defined?(interactive) ? interactive : false %>
+   <% face_down = defined?(face_down) ? face_down : false %>
 
   <div class="player_space_header">
     <div class="player_points"><%= player.total_score %> Points</div>
   </div>
 
   <% player.hand.each do |card| %>
-    <% dynamic = !hidden && !read_only && @game_state.valid_play?(player, card) || interactive %>
-    <a class="<%= @game.hand_card_css_class(dynamic: dynamic) %>"
-      href="<%=new_game_player_operation_path(
-        @game.id,
-        player.player.id,
-        {
-          operation_type: 'play_card',
-          suit: card.suit,
-          rank: card.rank
-        }
-      )%>">
 
-       <%= @game.unicode_card(card) if !hidden %>
-       <%= @game.unicode_card_back  if  hidden %>
+        <a class="<%= @game.hand_card_css_class(dynamic: @game_state.human_can_play_card?(card)) %>"
+
+          href="<%=
+          if @game_state.human_can_play_card?(card)
+           new_game_player_operation_path(
+            @game.id,
+            player.player.id,
+            {
+              operation_type: operation_type,
+              suit: card.suit,
+              rank: card.rank
+            }
+          )
+        else
+          @game.id
+        end%>">
+
+
+       <%= @game.unicode_card(card) if !face_down %>
+       <%= @game.unicode_card_back  if  face_down %>
     </a>
   <%end%>
 </div>
