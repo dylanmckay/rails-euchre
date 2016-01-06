@@ -1,53 +1,40 @@
 
 class Pile
-  attr_reader :infos
-  delegate :length, :clear, :empty?, :any?, to: :infos
+  attr_reader :placed_cards
+  delegate :length, :clear, :empty?, :any?, :clear, to: :placed_cards
 
   # Internal helper class to store card and player
-  class CardInfo
-    attr_reader :card, :player
-
-    def initialize(card, player)
-      @card = card
-      @player = player
-    end
-  end
+  PlacedCard = Struct.new(:card, :player)
 
   def initialize
-    @infos = []
+    @placed_cards = []
   end
 
   def add(card, player)
     raise "Cannot add a nil card" if card == nil
-    @infos << CardInfo.new(card, player)
-  end
-
-  def clear
-    infos = @infos
-    @infos = []
-    infos
+    @placed_cards << PlacedCard.new(card, player)
   end
 
   def length
-    @infos.length
+    @placed_cards.length
   end
 
   def cards
-    @infos.each.map { |info| info.card }
+    @placed_cards.each.map { |info| info.card }
   end
 
   def leading_card
-    if @infos.empty?
+    if @placed_cards.empty?
       nil
     else
-      @infos.first.card
+      @placed_cards.first.card
     end
   end
 
   def card_owner(card)
     raise Exception, 'the pile is empty' if empty?
 
-    info = @infos.each.find { |i| i.card == card }
+    info = @placed_cards.each.find { |i| i.card == card }
 
     info.player if info
   end

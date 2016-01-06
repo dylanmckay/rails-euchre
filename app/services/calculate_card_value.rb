@@ -1,6 +1,7 @@
 
 ACE_VALUE = 14
-TRUMP_JACK_VALUE = 16
+RIGHT_BOWER_VALUE = 16
+LEFT_BOWER_VALUE = 15
 
 ADDITIONAL_TRUMP_POINTS = 100
 ADDITIONAL_LEADING_SUIT_POINTS = 50
@@ -30,16 +31,18 @@ class CalculateCardValue
   def card_value
     if @card.jack? && @game_state.is_trump?(@card)
       trump_jack_value
+    elsif @card.ace?
+      ACE_VALUE
     else
-      @card.ace? ? ACE_VALUE : @card.rank
+      @card.rank
     end
   end
 
   def trump_jack_value
-    if @card.suit == @game_state.trump_suit
-      TRUMP_JACK_VALUE
-    else
-      TRUMP_JACK_VALUE - 1
-    end
+    trump_card? ? RIGHT_BOWER_VALUE : LEFT_BOWER_VALUE
+  end
+
+  def trump_card?
+    @card.suit == @game_state.trump_suit
   end
 end

@@ -1,5 +1,5 @@
 module AI
-  class DecideTrump
+  class DecideTrumpResponse
     HAND_VALUE_SELECTION_THRESHOLD = 249
 
     def initialize(game_state, ai_state)

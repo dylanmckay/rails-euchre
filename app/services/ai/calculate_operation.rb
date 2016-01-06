@@ -55,7 +55,7 @@ module AI
     end
 
     def decide_trump
-      case AI::DecideTrump.new(@game_state, @ai_state).call
+      case AI::DecideTrumpResponse.new(@game_state, @ai_state).call
       when :accept then @ai.operations.accept_trump.create!
       when :pass then @ai.operations.pass_trump.create!
       end

@@ -1,10 +1,10 @@
 require 'rails_helper'
 
-RSpec.describe AI::DecideTrump do
+RSpec.describe AI::DecideTrumpResponse do
   player_user = User.new(name: "test", ai: false)
   let(:game)        { CreateGame.new(player_count: 2, user: player_user).call }
   let(:game_state)  { CreateGameState.new(game).call }
-  subject(:test)    {  AI::DecideTrump.new(game_state, first_ai_player_state).call  }
+  subject(:test)    {  AI::DecideTrumpResponse.new(game_state, first_ai_player_state).call  }
 
   describe "call" do
 
