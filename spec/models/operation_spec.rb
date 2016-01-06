@@ -1,5 +1,5 @@
 require 'rails_helper'
-
+require 'spec_helper'
 describe Operation do
   let(:card) { Card.new(:hearts, 10) }
 
@@ -73,13 +73,31 @@ describe Operation do
   describe "#card" do
     context "when the operation is passing a trump suit" do
       let(:operation) {
-        Operation.pass_trump.create!(suit: :diamonds)
+        Operation.pass_trump.create!
       }
 
-      it "should not have an associated card" do
+      it "does not have an associated card" do
         expect { operation.card }.to raise_error(RuntimeError)
       end
+    end
+    context "when an invalid pass_trump operation is created" do
+      let(:operation) {
+        Operation.pass_trump.new(suit: :diamonds)
+      }
 
+      it "when an invalid operation is made" do
+        expect(operation).to_not be_valid
+      end
+    end
+
+    context "when a valid deal_card operation is created" do
+      let(:operation) {
+        Operation.pass_trump.new(suit: :diamonds, rank: 1)
+      }
+
+      it "when an valid operation is made" do
+        expect(operation).to be_valid
+      end
     end
 
     context "when the operation is playing a card" do

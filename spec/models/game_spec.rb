@@ -33,12 +33,4 @@ describe Game do
       end
     end
   end
-
-  xdescribe "#event_log" do
-    it "should give back a list of strings" do
-      game.event_log.each do |log_item|
-        expect(log_item).to be_a String
-      end
-    end
-  end
 end
