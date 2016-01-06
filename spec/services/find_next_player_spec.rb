@@ -105,11 +105,7 @@ describe FindNextPlayer do
         puts "a: #{state.pile.length}, b: #{state.players.length}"
       }
 
-      # it "is the end of the trick" do
-      #   expect(state).to be_end_of_trick
-      # end
-
-      it { is_expected.to eq state.players[1] }
+      it { is_expected.to eq state.players[0] }
     end
   end
 
