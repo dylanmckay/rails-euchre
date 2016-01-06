@@ -7,7 +7,6 @@ RSpec.describe AI::CalculateOperation do
   subject() {
       operation = AI::CalculateOperation.new(game, game_state, first_ai_player_state).call
       ApplyOperation.new(game_state, operation).call
-      puts "APPLIED OPERATION: #{operation.inspect}"
       operation
   }
 
@@ -64,7 +63,6 @@ RSpec.describe AI::CalculateOperation do
 
         it { expect( ->{ subject } ).to change{ game.operations.count }.by 1 }
 
-        # it { expect( subject ).to satisfy{ game.operations.last.discard_card? } }
         it { is_expected.to be_discard_card}
       end
     end
@@ -78,11 +76,8 @@ RSpec.describe AI::CalculateOperation do
       }
 
       it { expect( ->{ subject } ).to change{ Operation.count }.by 1 }
-      #FIXME 'satisfy' doesn't seem like a good idea and should be used sparcely, find an alternative for this situation, maybe?
-      it { is_expected.to be_play_card }
 
-      # xit { is_expected.to satisfy{ Operation.last.player == first_ai_player } }
-      # FIXME For some reason the game that deal_specific_cards_to_player is adding to is not the one the ai player is in???? This means op.last != game.op.last
+      it { is_expected.to be_play_card }
     end
 
     context "when no cards are dealt" do
