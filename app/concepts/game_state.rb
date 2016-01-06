@@ -20,8 +20,8 @@ class GameState
     @players.find { |player_state|  player_state.player == player_model }
   end
 
-  def end_of_trick?
-    pile.length == @players.length
+  def start_of_trick?
+    pile.length == 0
   end
 
   def end_of_round?
