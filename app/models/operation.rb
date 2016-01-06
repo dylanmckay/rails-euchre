@@ -1,10 +1,14 @@
 class Operation < ActiveRecord::Base
   OPERATION_TYPES = %w(deal_card pass_trump accept_trump pick_trump play_card draw_trump discard_card)
+  OPERATION_NAMES = OPERATION_TYPES.map(&:to_s)
 
   belongs_to :player
-  validate :suit_and_rank_are_mutually_existing
   composed_of :card, mapping: [ %w(suit suit), %w(rank rank) ], allow_nil: true
 
+  validates :operation_type, null: false, inclusion: { in: OPERATION_NAMES }
+  validate :suit_and_rank_are_mutually_existing
+  validate :suit_is_null_or_valid
+  validate :rank_is_null_or_allowed_in_euchre
 
   OPERATION_TYPES.each do |type|
     scope type, -> { where(operation_type: type) }
@@ -14,6 +18,7 @@ class Operation < ActiveRecord::Base
     end
   end
 
+  # TODO: remove this, or rename
   def type
     operation_type.to_sym
   end
@@ -30,7 +35,27 @@ class Operation < ActiveRecord::Base
 
   def suit_and_rank_are_mutually_existing
     if !suit || !rank
-      errors.add(:suit, "Suit and rank must be both existing or both nil") unless suit == rank
+      errors.add(:suit, "an operation must set both 'suit' and 'rank' or neither") unless suit == rank
+    end
+  end
+
+  def suit_is_null_or_valid
+    if suit
+      is_valid = Card::SUIT_NAMES.include?(suit)
+
+      if !is_valid
+        errors.add(:suit, "suit must be one of '#{Card::SUIT_NAMES.join(', ')}'")
+      end
+    end
+  end
+
+  def rank_is_null_or_allowed_in_euchre
+    if rank
+      is_valid = rank == 1 || (9..13).include?(rank)
+
+      if !is_valid
+        errors.add(:rank, "card rank must be 1 or between 9 and 13 (inclusive)")
+      end
     end
   end
 end

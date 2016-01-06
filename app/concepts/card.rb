@@ -1,4 +1,3 @@
-
 class Card
   include Comparable
   attr_reader :suit, :rank
@@ -14,6 +13,8 @@ class Card
     :spades,
     :clubs,
   ]
+
+  SUIT_NAMES = SUITS.map(&:to_s)
 
   PARTNER_SUITS = {
     :hearts   => :diamonds,
