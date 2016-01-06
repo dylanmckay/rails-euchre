@@ -19,10 +19,6 @@ describe GameState do
     )
   }
 
-  let(:empty_state) {
-    create_game(players: [], dealer: nil, trump: :hearts)
-  }
-
   describe "#main_player" do
     it "returns a human player" do
       expect(state.main_player.player.user).to be_human

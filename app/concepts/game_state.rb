@@ -127,10 +127,6 @@ class GameState
     end
   end
 
-  def player_index(player_model)
-    @players.index { |player| player.player == player_model }
-  end
-
   def best_card_in_pile
     SortStack.new(self, @pile.cards).call.first
   end
