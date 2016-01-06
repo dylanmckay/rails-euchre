@@ -1,5 +1,6 @@
 require 'rails_helper'
 require 'spec_helper'
+
 describe Operation do
   let(:card) { Card.new(:hearts, 10) }
 
@@ -118,6 +119,66 @@ describe Operation do
       it "should have an associated card" do
         expect(operation.card).to be_a(Card)
       end
+    end
+  end
+
+  describe "#suit_and_rank_are_mutually_existing" do
+    subject { -> { model.save } }
+
+    context "when the suit is set but the rank isn't" do
+      let(:model) { Operation.play_card.new(suit: "hearts", rank: nil) }
+
+      it { is_expected.to change { model.errors.size }.by 1 }
+    end
+
+    context "when the suit and the rank are both set" do
+      let(:model) { Operation.play_card.new(suit: "hearts", rank: 1) }
+
+      it { is_expected.not_to change { model.errors.size } }
+    end
+  end
+
+  describe "#suit_is_null_or_valid" do
+    subject { -> { model.save } }
+
+    context "when the suit is null" do
+      let(:model) { Operation.play_card.new(suit: nil) }
+
+      it { is_expected.not_to change { model.errors.size } }
+    end
+
+    context "when the suit is valid" do
+      let(:model) { Operation.play_card.new(suit: "hearts", rank: 13) }
+
+      it { is_expected.not_to change { model.errors.size } }
+    end
+
+    context "when the suit is invalid" do
+      let(:model) { Operation.play_card.new(suit: "qwerty", rank: 10) }
+
+      it { is_expected.to change { model.errors.size }.by 1 }
+    end
+  end
+
+  describe "#rank_is_null_or_allowed_in_euchre" do
+    subject { -> { model.save } }
+
+    context "when the rank is null" do
+      let(:model) { Operation.play_card.new(suit: nil, rank: nil) }
+
+      it { is_expected.not_to change { model.errors.size } }
+    end
+
+    context "when the rank is valid" do
+      let(:model) { Operation.play_card.new(suit: "hearts", rank: 1) }
+
+      it { is_expected.not_to change { model.errors.size } }
+    end
+
+    context "when the rank is invalid" do
+      let(:model) { Operation.play_card.new(suit: "hearts", rank: 14) }
+
+      it { is_expected.to change { model.errors.size }.by 1 }
     end
   end
 end
