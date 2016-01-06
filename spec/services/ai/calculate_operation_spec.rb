@@ -5,11 +5,10 @@ RSpec.describe AI::CalculateOperation do
   let(:game)        { CreateGame.new(player_count: 2, user: player_user).call }
   let(:game_state)  { CreateGameState.new(game).call }
   subject() {
-    ->{
       operation = AI::CalculateOperation.new(game, game_state, first_ai_player_state).call
       ApplyOperation.new(game_state, operation).call
+      puts "APPLIED OPERATION: #{operation.inspect}"
       operation
-    }
   }
 
   describe "call" do
@@ -26,8 +25,8 @@ RSpec.describe AI::CalculateOperation do
           deal_specific_cards_to_player(first_ai_player, ai_hand)
         }
 
-        it { is_expected.to change{ Operation.count }.by 1 }
-        it { is_expected.to change{ Operation.last.type }.to :pass_trump }
+        it { expect( ->{ subject } ).to change{ Operation.count }.by 1 }
+        it { expect( ->{ subject } ).to change{ Operation.last.type }.to :pass_trump }
       end
 
       context "when the AI has a good hand, it accepts the trump selection" do
@@ -36,8 +35,8 @@ RSpec.describe AI::CalculateOperation do
           deal_specific_cards_to_player(first_ai_player, ai_hand)
         }
 
-        it { is_expected.to change{ Operation.count }.by 1 }
-        it { is_expected.to change{ Operation.last.type }.to :accept_trump }
+        it { expect( ->{ subject } ).to change{ Operation.count }.by 1 }
+        it { expect( ->{ subject } ).to change{ Operation.last.type }.to :accept_trump }
       end
     end
 
@@ -46,11 +45,27 @@ RSpec.describe AI::CalculateOperation do
         before {
           game_state.trump_state.selection_card = Card.new(:spades, 1)
           deal_specific_cards_to_player(first_ai_player, ai_hand)
-          first_human_player.operations.create!( operation_type: "pass_trump" )
+          first_human_player.operations.pass_trump.create!
         }
 
-        it { is_expected.to change{ Operation.count }.by 1 }
-        it { expect( subject ).to satisfy{ Operation.last.pass_trump? } }
+        it { expect( ->{ subject } ).to change{ Operation.count }.by 1 }
+        it { expect( subject ).to be_pass_trump }
+      end
+    end
+
+    context "after an accept_trump operation" do
+      context "when the AI has a good hand, it accepts on trump selection and discards a card" do
+        before {
+          game_state.trump_state.selection_card = Card.new(:spades, 1)
+          deal_specific_cards_to_player(first_ai_player, ai_hand)
+          ai_accept_trump
+          game.operations(reload: true)
+        }
+
+        it { expect( ->{ subject } ).to change{ game.operations.count }.by 1 }
+
+        # it { expect( subject ).to satisfy{ game.operations.last.discard_card? } }
+        it { is_expected.to be_discard_card}
       end
     end
 
@@ -59,23 +74,28 @@ RSpec.describe AI::CalculateOperation do
         deal_specific_cards_to_player(first_ai_player, ai_hand)
         deal_specific_cards_to_player(first_human_player, ai_hand)
         play_card_from_user
-
+        game.operations(reload: true)
       }
 
-      it { is_expected.to change{ Operation.count }.by 1 }
+      it { expect( ->{ subject } ).to change{ Operation.count }.by 1 }
       #FIXME 'satisfy' doesn't seem like a good idea and should be used sparcely, find an alternative for this situation, maybe?
-      it { is_expected.to satisfy{ Operation.last.play_card? } }
+      it { is_expected.to be_play_card }
 
       # xit { is_expected.to satisfy{ Operation.last.player == first_ai_player } }
       # FIXME For some reason the game that deal_specific_cards_to_player is adding to is not the one the ai player is in???? This means op.last != game.op.last
     end
 
     context "when no cards are dealt" do
-      it { is_expected.to raise_error(Exception) }
+      it { expect( ->{ subject } ).to raise_error(Exception) }
     end
   end
 
   private
+
+  def ai_accept_trump
+    operation = first_ai_player.operations.accept_trump.create!
+    ApplyOperation.new(game_state, operation).call
+  end
 
   def deal_specific_cards_to_player(player, cards)
     cards.each do |card|
