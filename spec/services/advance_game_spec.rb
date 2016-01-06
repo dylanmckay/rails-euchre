@@ -1,3 +1,6 @@
+require 'rails_helper'
+require 'spec_helper'
+
 describe AdvanceGame do
   let(:players) {
     create_player_models(2)
@@ -15,9 +18,25 @@ describe AdvanceGame do
       DealCards.new(game, game_state: state).call
     }
 
-    it "should deal everybody cards" do
+    it "will deal everybody cards" do
       expect_any_instance_of(DealCards).to receive(:call).and_call_original
       AdvanceGame.new(game).call
     end
+
+    context "when all players pass in trump_selection" do
+
+      before {
+        players.each do |player|
+          player.operations.pass_trump.create!
+        end
+        game.operations(reload: true)
+      }
+
+      it "will restart the round " do
+        expect( ->{ AdvanceGame.new(game).call } ).to change(game.operations, :length ).by 21
+      end
+    end
   end
+
+
 end
