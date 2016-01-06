@@ -14,10 +14,18 @@
 </div>
 
 <div style="margin: 0 auto 0 auto; display: table">
-  <a href="<%= @game.accept_trump_operation_url %>">
+  <a href="<%= new_game_player_operation_path(
+    @game.id,
+    @game.main_player.id,
+    { operation_type: 'accept_trump' }
+  )%>">
     <button type="button" >Accept</button>
   </a>
-  <a href="<%= @game.pass_trump_operation_url %>">
+  <a href="<%= new_game_player_operation_path(
+    @game.id,
+    @game.main_player.id,
+    { operation_type: 'pass_trump' }
+  )%>">
     <button type="button" >Pass</button>
   </a>
 </div>

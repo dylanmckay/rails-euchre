@@ -10,16 +10,16 @@
   <% player.hand.each do |card| %>
     <% dynamic = !hidden && !read_only && @game_state.valid_play?(player, card) || interactive %>
     <a class="<%= hand_card_css_class(dynamic: dynamic) %>"
-       href="<%=url_for(
-       controller:'operations',
-       action: 'new',
-       game_id: @game.id,
-       player_id: player.player.id,
-       operation_type: 'play_card',
-       suit: card.suit,
-       rank: card.rank,
-       only_path: true)%>">
-       <!-- href="<%= @game.card_link_url(card, operation_type, read_only: !dynamic) %>"> -->
+      href="<%=new_game_player_operation_path(
+        @game.id,
+        player.player.id,
+        {
+          operation_type: 'play_card',
+          suit: card.suit,
+          rank: card.rank
+        }
+      )%>">
+
        <%= unicode_card(card) if !hidden %>
        <%= unicode_card_back  if  hidden %>
     </a>
