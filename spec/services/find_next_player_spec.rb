@@ -91,7 +91,6 @@ describe FindNextPlayer do
           )
         ).call
 
-        puts "a: #{state.pile.length}, b: #{state.players.length}"
         card = state.players[0].hand.first
 
         ApplyOperation.new(
@@ -101,8 +100,6 @@ describe FindNextPlayer do
             rank: card.rank,
           )
         ).call
-
-        puts "a: #{state.pile.length}, b: #{state.players.length}"
       }
 
       it { is_expected.to eq state.players[0] }
