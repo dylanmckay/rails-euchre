@@ -1,11 +1,13 @@
 class GamePresenter < SimpleDelegator
   EVENT_LOG_ENTRIES = 4
+
   UNICODE_SUITS = {
     spades: "♠",
     hearts: "♥",
     diamonds: "♦",
     clubs: "♣",
   }
+
   UNICODE_CARDS = {
     spades: [
       "🂡",
@@ -71,38 +73,6 @@ class GamePresenter < SimpleDelegator
 
   def event_log
     operations.last(EVENT_LOG_ENTRIES).map {|op| description(op)}.join("\n")
-  end
-
-  def hand_card_css_class(dynamic:)
-    if dynamic
-      "dynamic_hand_card"
-    else
-      "hand_card"
-    end
-  end
-
-  def unicode_card(card)
-    UNICODE_CARDS[card.suit][card.rank-1]
-  end
-
-  def unicode_suit(suit)
-    UNICODE_SUITS[suit]
-  end
-
-  def unicode_card_back
-    "🂠"
-  end
-
-  def event_log
-    operations.last(EVENT_LOG_ENTRIES).map {|op| description(op)}.join("\n")
-  end
-
-  def points_string(point_count)
-    if point_count == 1
-      "#{point_count} Point"
-    else
-      "#{point_count} Points"
-    end
   end
 
   def hand_card_css_class(dynamic:)
