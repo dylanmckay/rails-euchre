@@ -4,7 +4,7 @@
   <% interactive = defined?(interactive) ? interactive : false %>
 
   <div class="player_space_header">
-    <div class="player_points"><%= @game.points_string(player.total_score) %></div>
+    <div class="player_points"><%= player.total_score %> Points</div>
   </div>
 
   <% player.hand.each do |card| %>
