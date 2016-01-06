@@ -10,6 +10,7 @@ class AdvanceGame
       @game.operations(reload: true)
       ApplyOperation.new(@game_state, decide_ai_operation).call
     end
+
     restart_round if @game_state.end_of_round? || all_passed_trump?
   end
 
@@ -24,8 +25,6 @@ class AdvanceGame
   end
 
   def restart_round
-    discard_player_hands
-
     @game_state.deck.refresh.shuffle!
     DealCards.new(@game, game_state: @game_state, deck: @game_state.deck).call
 
@@ -40,16 +39,5 @@ class AdvanceGame
 
   def dealer
     @game_state.dealer.player
-  end
-
-  def discard_player_hands
-    discards = @game_state.players.flat_map do |player|
-      player.hand.map do |card|
-        op = player.player.operations.discard_card.create!(card: card)
-      end
-    end
-    discards.each do |op|
-      ApplyOperation.new(@game_state, op).call
-    end
   end
 end
