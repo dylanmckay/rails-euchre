@@ -4,12 +4,12 @@
   <% interactive = defined?(interactive) ? interactive : false %>
 
   <div class="player_space_header">
-    <div class="player_points"><%= points_string(player.total_score) %></div>
+    <div class="player_points"><%= @game.points_string(player.total_score) %></div>
   </div>
 
   <% player.hand.each do |card| %>
     <% dynamic = !hidden && !read_only && @game_state.valid_play?(player, card) || interactive %>
-    <a class="<%= hand_card_css_class(dynamic: dynamic) %>"
+    <a class="<%= @game.hand_card_css_class(dynamic: dynamic) %>"
       href="<%=new_game_player_operation_path(
         @game.id,
         player.player.id,
@@ -20,8 +20,8 @@
         }
       )%>">
 
-       <%= unicode_card(card) if !hidden %>
-       <%= unicode_card_back  if  hidden %>
+       <%= @game.unicode_card(card) if !hidden %>
+       <%= @game.unicode_card_back  if  hidden %>
     </a>
   <%end%>
 </div>
