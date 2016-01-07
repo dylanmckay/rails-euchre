@@ -1,13 +1,13 @@
 <div class="game">
   <div class="opposite_player_space">
     <%= render partial: 'games/table/player',
-      locals: { player: @game_state.ai_players.first, face_down: true } %>
+      locals: { player: @game_state.ai_players.first, face_up: false } %>
   </div>
 
   <%= render partial: "games/table/pile" %>
 
   <div class="own_player_space">
     <%= render partial: 'games/table/player',
-      locals: { player: @game_state.main_player } %>
+      locals: { player: @game_state.main_player, face_up: true } %>
   </div>
 </div>

@@ -1,33 +1,28 @@
 <div class="hand">
-   <% face_down = defined?(face_down) ? face_down : false %>
-
   <div class="player_space_header">
     <div class="player_points"><%= player.total_score %> Points</div>
   </div>
 
   <% player.hand.each do |card| %>
-  <!-- TODO put into a helper -->
-        <a class="<%= @game.hand_card_css_class(dynamic: @game_state.human_can_play_card?(card)) %>"
+    <!-- TODO Clean this up  -->
+    <a class="<%= @game.hand_card_css_class(dynamic: @game_state.human_can_play_card?(card)) %>"
 
-          href="<%=
-          if @game_state.human_can_play_card?(card)
-           new_game_player_operation_path(
-            @game.id,
-            player.player.id,
-            {
-              operation_type: operation_type,
-              suit: card.suit,
-              rank: card.rank
-            }
-          )
-        else
-          @game.id
-        end%>">
-
-
-       <%= @game.unicode_card(card) if !face_down %>
-       <%= @game.unicode_card_back  if  face_down %>
+      href="<%=
+      if @game_state.human_can_play_card?(card)
+        new_game_player_operation_path(
+        @game.id,
+        player.player.id,
+        {
+          operation_type: operation_type,
+          suit: card.suit,
+          rank: card.rank
+         }
+         )
+       else
+         @game.id
+       end%>">
+       <%= face_up ? @game.unicode_card(card) : @game_unicode_card_back %>
     </a>
   <%end%>
 </div>
-<!-- TODO move this stuff into model so there is fewer logical statements in here -->
+

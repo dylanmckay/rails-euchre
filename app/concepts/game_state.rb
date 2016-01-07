@@ -63,7 +63,6 @@ class GameState
   end
 
   def round_leaders
-    # max_score = @players.max_by { |player| player.total_score }.total_score TODO
     max_score = @players.map(&:total_score).max
     leaders = @players.select { |player| player.total_score == max_score }
 
