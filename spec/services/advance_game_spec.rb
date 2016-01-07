@@ -33,7 +33,7 @@ describe AdvanceGame do
       }
 
       it "will restart the round " do
-        expect( ->{ AdvanceGame.new(game).call } ).to change { game.operations.length }.by 17
+        expect( ->{ AdvanceGame.new(game).call } ).to change { game.operations.length }.by 21
       end
     end
   end

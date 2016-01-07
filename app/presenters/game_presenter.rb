@@ -92,11 +92,7 @@ class GamePresenter < SimpleDelegator
   end
 
   def phase_partial_name(game_state)
-    case game_state.current_phase
-    when :trump_selection then 'trump_selection'
-    when :discard then 'discard'
-    else 'table'
-    end
+    game_state.current_phase.to_s
   end
 
 private

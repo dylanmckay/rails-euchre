@@ -11,6 +11,7 @@ class AdvanceGame
         @game.operations(reload: true)
 
         ApplyOperation.new(@game_state, decide_ai_operation).call
+        @game.operations(reload: true)
       end
     end
 
