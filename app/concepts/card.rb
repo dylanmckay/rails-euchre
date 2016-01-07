@@ -2,7 +2,9 @@ class Card
   JACK = 11
   ACE = 1
   EUCHRE_CARD_RANGE = 9..13
+
   include Comparable
+
   attr_reader :suit, :rank
 
   def initialize(suit, rank)
