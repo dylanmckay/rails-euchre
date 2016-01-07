@@ -5,13 +5,15 @@ class AdvanceGame
   end
 
   def call
-    @game.lock do
+    @game.with_lock do
       while find_next_player.player.user.ai?
         restart_round if @game_state.end_of_round? || all_passed_trump?
+        
         @game.operations(reload: true)
         ApplyOperation.new(@game_state, decide_ai_operation).call
       end
     end
+
     restart_round if @game_state.end_of_round? || all_passed_trump?
   end
 
@@ -35,6 +37,7 @@ class AdvanceGame
       new_trump_card = @game_state.trump_state.pop_new_trump_card
       dealer.operations.draw_trump.create!(card: new_trump_card)
     end
+
     @game.operations(reload: true)
   end
 
