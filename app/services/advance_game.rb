@@ -51,8 +51,8 @@ class AdvanceGame
 
   def discard_player_hands
    @game_state.players.each do |player|
-     player.hand.each do |card|
-       operation = player.player.operations.discard_card.create!(card: card)
+     while player.hand.any?
+       operation = player.player.operations.discard_card.create!(card: player.hand.pop)
        ApplyOperation.new(@game_state, operation).call
      end
    end
