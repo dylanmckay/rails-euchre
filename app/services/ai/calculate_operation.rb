@@ -1,13 +1,12 @@
 module AI
   class CalculateOperation
-
-    DECIDE_TRUMP_SYMBOLS = [
+    DECIDE_TRUMP_REPONSE_SYMBOLS = [
       :pass_trump,
       :deal_card,
       :draw_trump
     ]
 
-    DECIDE_PLAY_SYMBOLS = [
+    CALCULATE_PLAY_SYMBOLS = [
       :play_card,
       :discard_card
     ]
@@ -24,14 +23,13 @@ module AI
     end
 
     def call
-      if @ai_state.hand.empty?
-        raise Exception, 'cannot decide an AI operation if the AI has no cards'
-      end
-      if DECIDE_TRUMP_SYMBOLS.include? last_operation_type
-        decide_trump
-      elsif DECIDE_PLAY_SYMBOLS.include? last_operation_type
-        decide_play
-      elsif DISCARD_WORST_CARD_SYMBOLS.include? last_operation_type
+      raise Exception, 'cannot decide an AI operation if the AI has no cards' if @ai_state.hand.empty?
+
+      if DECIDE_TRUMP_REPONSE_SYMBOLS.include?(last_operation_type)
+        decide_trump_response
+      elsif CALCULATE_PLAY_SYMBOLS.include?(last_operation_type)
+        calculate_card_to_play
+      elsif DISCARD_WORST_CARD_SYMBOLS.include?(last_operation_type)
         discard_worst_card
       end
     end
@@ -42,9 +40,8 @@ module AI
       @game.operations.last.type
     end
 
-    def decide_play
+    def calculate_card_to_play
       card_to_play = AI::CalculateCardToPlay.new(@game_state, @ai_state).call
-      return if @ai_state.hand.empty?
       @ai.operations.play_card.create!(card: card_to_play)
     end
 
@@ -54,7 +51,7 @@ module AI
       @ai.operations.discard_card.create!(card: worst_card)
     end
 
-    def decide_trump
+    def decide_trump_response
       case AI::DecideTrumpResponse.new(@game_state, @ai_state).call
       when :accept then @ai.operations.accept_trump.create!
       when :pass then @ai.operations.pass_trump.create!

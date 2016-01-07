@@ -8,8 +8,8 @@ class FinishRound
 
     player_points = CalculateRoundPoints.new(@game_state).call
 
-    @game_state.players.each_with_index do |player, i|
-      player.total_score += player_points[i]
+    @game_state.players.zip(player_points) do |player, points|
+      player.total_score += points
       player.scored_cards.clear
     end
 
@@ -17,7 +17,7 @@ class FinishRound
 
     assign_next_dealer
   end
-  
+
   private
 
   def assign_next_dealer

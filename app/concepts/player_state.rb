@@ -1,7 +1,8 @@
 class PlayerState
   attr_reader :player
   attr_accessor :hand, :scored_cards, :total_score
-
+  alias_attribute :model, :player
+  
   def initialize(player:, hand: [], scored_cards: [])
     @player = player
     @hand = hand

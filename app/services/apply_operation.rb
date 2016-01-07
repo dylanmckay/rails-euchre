@@ -22,10 +22,8 @@ class ApplyOperation
 
   def accept_trump
     @game_state.trump_state.selection_operations << :accept
-    @game_state.trump_state.trump_selector = @operation.player
-    trump_card = @game_state.trump_state.select_suit_as_trump
-    @game_state.last_player = @player_state
-    @game_state.dealer.hand << trump_card
+    @game_state.trump_state.trump_chooser = @operation.player
+    give_trump_chooser_card_to_dealer
   end
 
   def pick_trump
@@ -51,5 +49,11 @@ class ApplyOperation
 
   def every_player_has_played?
     @game_state.pile.length == @game_state.players.length
+  end
+
+  def give_trump_chooser_card_to_dealer
+    trump_card = @game_state.trump_state.select_suit_as_trump
+    @game_state.last_player = @player_state
+    @game_state.dealer.hand << trump_card
   end
 end

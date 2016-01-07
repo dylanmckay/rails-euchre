@@ -5,7 +5,6 @@ class CreateGame
   end
 
   def call
-    #XXX game.build <- look into this
     Game.create!.tap do |game|
       game.with_lock do
         build_human_player(game)

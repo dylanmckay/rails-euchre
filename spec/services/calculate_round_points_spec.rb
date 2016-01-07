@@ -13,7 +13,7 @@ RSpec.describe CalculateRoundPoints do
     before {
       award_player_cards(6, game_state.players.first)
       award_player_cards(4, game_state.players.last)
-      game_state.trump_state.trump_selector = game_state.players.first.player
+      game_state.trump_state.trump_chooser = game_state.players.first.player
     }
 
     it { is_expected.to eq [1,0]}
@@ -22,7 +22,7 @@ RSpec.describe CalculateRoundPoints do
   context "when one player has scored a march and also picked the trump" do
     before {
       award_player_cards(10, game_state.players.first)
-      game_state.trump_state.trump_selector = game_state.players.first.player
+      game_state.trump_state.trump_chooser = game_state.players.first.player
     }
 
     it { is_expected.to eq [2,0]}
@@ -32,7 +32,7 @@ RSpec.describe CalculateRoundPoints do
     before {
       award_player_cards(6, game_state.players.first)
       award_player_cards(4, game_state.players.last)
-      game_state.trump_state.trump_selector = game_state.players.last.player
+      game_state.trump_state.trump_chooser = game_state.players.last.player
     }
 
     it { is_expected.to eq [3,0]}
@@ -41,7 +41,7 @@ RSpec.describe CalculateRoundPoints do
   context "when the one player echured the other by scoring a march (5)" do
     before {
       award_player_cards(10, game_state.players.first)
-      game_state.trump_state.trump_selector = game_state.players.last.player
+      game_state.trump_state.trump_chooser = game_state.players.last.player
     }
 
     it { is_expected.to eq [4,0] }

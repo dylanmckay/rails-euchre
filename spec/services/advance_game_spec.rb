@@ -37,6 +37,4 @@ describe AdvanceGame do
       end
     end
   end
-
-
 end

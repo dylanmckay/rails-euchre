@@ -49,6 +49,7 @@ class AdvanceGame
          op = player.player.operations.discard_card.create!(card: card)
        end
      end
+     
      discards.each do |op|
        ApplyOperation.new(@game_state, op).call
      end

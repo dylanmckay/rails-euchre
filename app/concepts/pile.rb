@@ -1,9 +1,8 @@
 
 class Pile
   attr_reader :placed_cards
-  delegate :length, :clear, :empty?, :any?, :clear, to: :placed_cards
+  delegate :length, :clear, :empty?, :any?, :clear, :pop, to: :placed_cards
 
-  # Internal helper class to store card and player
   PlacedCard = Struct.new(:card, :player)
 
   def initialize
@@ -11,12 +10,8 @@ class Pile
   end
 
   def add(card, player)
-    raise "Cannot add a nil card" if card == nil
+    raise "Cannot add nil" if card == nil
     @placed_cards << PlacedCard.new(card, player)
-  end
-
-  def length
-    @placed_cards.length
   end
 
   def cards

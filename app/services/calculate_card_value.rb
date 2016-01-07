@@ -1,12 +1,11 @@
-
-ACE_VALUE = 14
-RIGHT_BOWER_VALUE = 16
-LEFT_BOWER_VALUE = 15
-
-ADDITIONAL_TRUMP_POINTS = 100
-ADDITIONAL_LEADING_SUIT_POINTS = 50
-
 class CalculateCardValue
+  ACE_VALUE = 14
+  RIGHT_BOWER_VALUE = 16
+  LEFT_BOWER_VALUE = 15
+
+  ADDITIONAL_TRUMP_POINTS = 100
+  ADDITIONAL_LEADING_SUIT_POINTS = 50
+
   def initialize(game_state, card)
     @game_state = game_state
     @card = card

@@ -1,12 +1,12 @@
 class TrumpState
-  attr_accessor :selection_operations, :suit, :selection_card, :trump_selector
+  attr_accessor :selection_operations, :suit, :selection_card, :trump_chooser
 
   def initialize(deck, number_of_players)
     @number_of_players = number_of_players
     @deck = deck
     @suit = nil
     @selection_operations = []
-    @trump_selector = nil
+    @trump_chooser = nil
     @selected = false
   end
 
