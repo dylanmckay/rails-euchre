@@ -23,14 +23,15 @@ describe GamePresenter do
     it { is_expected.to be_a String }
   end
 
-  xdescribe "#event_log" do
+  describe "#event_log" do
     before {
       player = game.players.first
 
-      game.operations.pass_trump.new(player: player)
-      game.operations.accept_trump.new(player: player)
-      game.operations.play_card.new(player: player, suit: :hearts, rank: 10)
-      game.operations.discard_card.new(player: player)
+      player.operations.draw_trump.create!( card: Card.new(:spades, 1) )
+      player.operations.pass_trump.create!
+      player.operations.accept_trump.create!
+      player.operations.discard_card.create!(card: Card.new(:hearts, 10))
+      player.operations.play_card.create!(card: Card.new(:spades, 1))
     }
 
     subject { presenter.event_log }
@@ -38,4 +39,3 @@ describe GamePresenter do
     it { is_expected.to be_a String }
   end
 end
-

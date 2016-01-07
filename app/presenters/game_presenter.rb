@@ -7,7 +7,7 @@ class GamePresenter < Delegator
     @game_state = state
   end
 
-  EVENT_LOG_ENTRIES = 4
+  EVENT_LOG_ENTRIES = 5
 
   UNICODE_SUITS = {
     spades: "♠",
