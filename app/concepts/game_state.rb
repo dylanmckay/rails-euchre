@@ -80,7 +80,7 @@ class GameState
     leaders.first if leaders.length == 1
   end
 
-  def trump?(card) #TODO maybe remove 'is' here
+  def trump?(card)
     card.suit == trump_suit ||
       (card.partner_suit == trump_suit && card.jack?)
   end
