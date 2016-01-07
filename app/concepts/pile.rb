@@ -11,7 +11,7 @@ class Pile
 
   def add(card, player)
     raise "Cannot add nil" if card == nil
-    @placed_cards << PlacedCard.new(card, player)
+    @placed_cards << PlacedCard.new(card, player) if card
   end
 
   def cards
