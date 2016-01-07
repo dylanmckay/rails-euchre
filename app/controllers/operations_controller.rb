@@ -1,5 +1,4 @@
 class OperationsController < ApplicationController
-  #TODO order these
   def new
     player = Player.find(params[:player_id])
 

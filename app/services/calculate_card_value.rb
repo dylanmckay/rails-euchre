@@ -18,7 +18,7 @@ class CalculateCardValue
   private
 
   def additional_points
-    if @game_state.is_trump? @card
+    if @game_state.trump? @card
       ADDITIONAL_TRUMP_POINTS
     elsif @game_state.leading_suit == @card.suit
       ADDITIONAL_LEADING_SUIT_POINTS
@@ -28,7 +28,7 @@ class CalculateCardValue
   end
 
   def card_value
-    if @card.jack? && @game_state.is_trump?(@card)
+    if @card.jack? && @game_state.trump?(@card)
       trump_jack_value
     elsif @card.ace?
       ACE_VALUE

@@ -1,8 +1,11 @@
 class Deck
   attr_reader :cards
-  #TODO magic numbers
+
+  CARD_RANGE = 1..13
+  EUCHRE_CARD_MIN = 9
+  
   DECK = Card::SUITS.flat_map do |suit|
-    (1..13).select { |n| n >= 9 || n == 1 }
+    (CARD_RANGE).select { |n| n >= EUCHRE_CARD_MIN || n == Card::ACE }
            .map { |n| Card.new(suit, n) }
   end
 

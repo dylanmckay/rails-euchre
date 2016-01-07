@@ -51,9 +51,8 @@ class Operation < ActiveRecord::Base
 
   def rank_is_null_or_allowed_in_euchre
     if rank
-      #TODO change to use cosntants
-      is_valid = rank == 1 || (9..13).include?(rank)
-
+      is_valid = rank == Card::ACE || (Card::EUCHRE_CARD_RANGE).include?(rank)
+      
       if !is_valid
         errors.add(:rank, "card rank must be 1 or between 9 and 13 (inclusive)")
       end

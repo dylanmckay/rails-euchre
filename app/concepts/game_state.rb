@@ -80,14 +80,14 @@ class GameState
     leaders.first if leaders.length == 1
   end
 
-  def is_trump?(card) #TODO maybe remove 'is' here
+  def trump?(card) #TODO maybe remove 'is' here
     card.suit == trump_suit ||
       (card.partner_suit == trump_suit && card.jack?)
   end
 
   def leading_suit
     if @pile.leading_card
-      if is_trump?(@pile.leading_card)
+      if trump?(@pile.leading_card)
         trump_suit
       else
         @pile.leading_card.suit
@@ -122,7 +122,7 @@ class GameState
     if leading_suit == card.suit
       true
     elsif leading_suit == trump_suit
-      is_trump?(card)
+      trump?(card)
     else
       false
     end

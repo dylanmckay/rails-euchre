@@ -33,7 +33,7 @@ module AI
     end
 
     def hand_contains_better_trump_without_leading?
-      @game_state.is_trump?(best_card_in_hand) && !hand_contains_any_leading_suit?
+      @game_state.trump?(best_card_in_hand) && !hand_contains_any_leading_suit?
     end
 
     def hand_contains_any_leading_suit?

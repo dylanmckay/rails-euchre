@@ -1,5 +1,4 @@
 class GamesController < ApplicationController
-  #TODO order these
   def create
     user = User.find(params[:user_id])
 
