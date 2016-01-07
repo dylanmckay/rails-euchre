@@ -1,14 +1,12 @@
 describe Pile do
-  let(:player) {
-    create_player_state
-  }
+  let(:player) { create_player_state }
 
-  let(:pile) {
+  let(:pile) do
     pile = Pile.new
     pile.add(Card.new(:hearts, 8), player)
     pile.add(Card.new(:hearts, 9), player)
     pile
-  }
+  end
 
   describe "#add" do
     context "adding a single card" do

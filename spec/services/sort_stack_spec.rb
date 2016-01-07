@@ -1,4 +1,3 @@
-
 RSpec.describe SortStack do
   subject(:state) {
     create_game(
@@ -46,9 +45,9 @@ RSpec.describe SortStack do
           hand[4],
           hand[0]
         ]}
-        before {state.trump_state.suit = :diamonds}
+        before { state.trump_state.suit = :diamonds }
 
-        it { is_expected.to eq sorted_hand}
+        it { is_expected.to eq sorted_hand }
       end
     end
   end

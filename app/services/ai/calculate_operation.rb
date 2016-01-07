@@ -11,7 +11,7 @@ module AI
       :discard_card
     ]
 
-    DISCARD_WORST_CARD_SYMBOLS =[
+    DISCARD_WORST_CARD_SYMBOLS = [
       :accept_trump
     ]
 
@@ -23,7 +23,7 @@ module AI
     end
 
     def call
-      raise Exception, 'cannot decide an AI operation if the AI has no cards' if @ai_state.hand.empty?
+      raise 'cannot decide an AI operation if the AI has no cards' if @ai_state.hand.empty?
 
       if DECIDE_TRUMP_REPONSE_SYMBOLS.include?(last_operation_type)
         decide_trump_response

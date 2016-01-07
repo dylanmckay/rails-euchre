@@ -2,7 +2,7 @@ describe TrumpState do
   context "at the start of a game" do
     let(:state) { TrumpState.new(game, deck) }
     let(:deck) { Deck.new }
-    let(:player_models){ create_player_models(2) }
+    let(:player_models) { create_player_models(2) }
     let(:players) {[
         PlayerState.new(player: player_models[0], hand: create_hand),
         PlayerState.new(player: player_models[1])
@@ -17,8 +17,8 @@ describe TrumpState do
     }
 
     describe "#pick_phase?" do
-      it "should not be in the pick phase" do
-        expect(state.pick_phase?).to eq false
+      it "is not in the pick phase" do
+        expect(state).to_not be_pick_phase
       end
     end
   end

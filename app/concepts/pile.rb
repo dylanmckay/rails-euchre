@@ -19,9 +19,7 @@ class Pile
   end
 
   def leading_card
-    if @placed_cards.empty?
-      nil
-    else
+    if @placed_cards.present?
       @placed_cards.first.card
     end
   end
@@ -29,7 +27,7 @@ class Pile
   def card_owner(card)
     raise Exception, 'the pile is empty' if empty?
 
-    info = @placed_cards.each.find { |i| i.card == card }
+    info = @placed_cards.each.find { |placed_card| placed_card.card == card }
 
     info.player if info
   end

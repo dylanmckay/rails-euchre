@@ -51,7 +51,7 @@ class GameState
   end
 
   def main_player
-    @players.find{ |p| p.player.user.human? }
+    @players.find { |p| p.player.user.human? }
   end
 
   def ai_players
@@ -63,7 +63,8 @@ class GameState
   end
 
   def round_leaders
-    max_score = @players.max_by { |player| player.total_score }.total_score
+    # max_score = @players.max_by { |player| player.total_score }.total_score TODO
+    max_score = @players.map(&:total_score).max
     leaders = @players.select { |player| player.total_score == max_score }
 
     if leaders.length != @players.length
@@ -79,9 +80,9 @@ class GameState
     leaders.first if leaders.length == 1
   end
 
-  def is_trump?(card)
-    (card.suit == trump_suit ||
-      (card.partner_suit == trump_suit && card.jack?))
+  def is_trump?(card) #TODO maybe remove 'is' here
+    card.suit == trump_suit ||
+      (card.partner_suit == trump_suit && card.jack?)
   end
 
   def leading_suit

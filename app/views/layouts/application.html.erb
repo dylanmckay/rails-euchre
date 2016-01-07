@@ -8,36 +8,19 @@
 </head>
 <body>
 
-<% is_tana = %x{ whoami }.chomp == "tanatanoi" %>
-<% admin_mode  = is_tana && (rand(0..30) == -1) %>
-
-<% if admin_mode %>
-  <style>body { font-family: Comic Sans MS; }</style>
-  <% system("say my name is tana and i don't like marcel") %>
-<% end %>
-
 <div id="header">
   <ul>
+    <!-- TODO link_to -->
     <li><a href="/users">View Users</a></li>
     <li><a href="/users/new">New User</a></li>
   </ul>
 </div>
 
-<div id="content">
-
-<% if admin_mode %>
-<marquee><blink>
-<% end %>
-
-  <%= yield %>
-<% if admin_mode %>
-</blink></marquee>
-<% end %>
-</div>
-
-<div id="footer">
-  hello
-</div>
-
+  <div id="content">
+    <%= yield %>
+  </div>
+  <div id="footer">
+    hello
+  </div>
 </body>
 </html>

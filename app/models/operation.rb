@@ -51,6 +51,7 @@ class Operation < ActiveRecord::Base
 
   def rank_is_null_or_allowed_in_euchre
     if rank
+      #TODO change to use cosntants
       is_valid = rank == 1 || (9..13).include?(rank)
 
       if !is_valid

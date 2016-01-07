@@ -6,7 +6,7 @@
   </div>
 
   <% player.hand.each do |card| %>
-
+  <!-- TODO put into a helper -->
         <a class="<%= @game.hand_card_css_class(dynamic: @game_state.human_can_play_card?(card)) %>"
 
           href="<%=

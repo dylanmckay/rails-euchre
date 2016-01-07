@@ -3,10 +3,10 @@ class Game < ActiveRecord::Base
   has_many :operations, through: :players
   belongs_to :initial_dealer, class_name: 'Player'
 
-  validates :initial_dealer, null: false
+  validates :initial_dealer, presence: true
 
   def main_player
-    players.find{ |p| p.user.human? }
+    players.find { |p| p.user.human? }
   end
 
   def ai_players

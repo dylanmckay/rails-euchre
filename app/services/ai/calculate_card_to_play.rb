@@ -53,7 +53,7 @@ module AI
     end
 
     def leading_cards_in_hand
-      @ai_state.hand.select{ |card| card.suit == leading_suit }
+      @ai_state.hand.select { |card| card.suit == leading_suit }
     end
 
     def worst_leading_card_in_hand

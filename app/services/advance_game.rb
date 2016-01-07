@@ -36,22 +36,23 @@ class AdvanceGame
   end
 
   def find_next_player
-     FindNextPlayer.new(@game_state).call
+    FindNextPlayer.new(@game_state).call
   end
 
   def dealer
     @game_state.dealer.player
   end
 
+  #TODO merge these with a transaction because of multiple things
   def discard_player_hands
-     discards = @game_state.players.flat_map do |player|
-       player.hand.map do |card|
-         op = player.player.operations.discard_card.create!(card: card)
-       end
-     end
-     
-     discards.each do |op|
-       ApplyOperation.new(@game_state, op).call
+   discards = @game_state.players.flat_map do |player|
+     player.hand.map do |card|
+       player.player.operations.discard_card.create!(card: card)
      end
    end
+
+   discards.each do |op|
+     ApplyOperation.new(@game_state, op).call
+   end
+ end
 end

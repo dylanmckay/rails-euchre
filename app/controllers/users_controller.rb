@@ -1,4 +1,7 @@
 class UsersController < ApplicationController
+  def index
+  end
+  #TODO order these correctly
   def new
   end
 
@@ -6,8 +9,6 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
   end
 
-  def index
-  end
 
   def create
     user = User.create!(user_params)

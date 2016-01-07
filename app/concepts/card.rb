@@ -44,7 +44,7 @@ class Card
   def ace?
     rank == 1
   end
-
+  #TODO numbers
   def jack?
     rank == 11
   end

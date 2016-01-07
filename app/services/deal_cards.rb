@@ -12,12 +12,11 @@ class DealCards
   end
 
   private
-
+  #TODO transaction with multiple creates
   def deal_cards_to_player(player)
     @deck.pop(Player::INITIAL_CARD_COUNT).each do |card|
       operation = player.operations.deal_card.create!(card: card)
       ApplyOperation.new(@game_state, operation).call
     end
   end
-
 end

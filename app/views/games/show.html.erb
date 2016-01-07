@@ -4,7 +4,7 @@
 <a href="<%= user_path(@user) %>">
 <button type="button" class="restart_button">Restart Game</button>
 </a>
-
+<!-- TODO Helper method for this, try use link_to when possible -->
 <% case @game_state.current_phase
    when :trump_selection %><%= render partial: 'trump_selection' %>
 <% when :discard %><%= render partial: 'discard' %>

@@ -2,7 +2,7 @@ describe FindNextPlayer do
   let(:player_models) { create_player_models(3) }
 
   let(:state) {
-    create_custom_game_state({players: player_models.map{|model| {player_model: model} } })
+    create_custom_game_state({ players: player_models.map{|model| {player_model: model} } })
   }
 
   subject(:next_player) { FindNextPlayer.new(state).call }
