@@ -1,5 +1,8 @@
 class CalculateRoundPoints
   TRICK_WON_AMOUNT = (Player::INITIAL_CARD_COUNT/2.0).ceil
+  MARCH_POINTS = 2
+  TRICK_WON_POINTS = 1
+  EUCHRED_BONUS_POINTS = 2
 
   def initialize(game_state)
     @game_state = game_state
@@ -19,16 +22,16 @@ class CalculateRoundPoints
 
   def standard_points(player)
     if player_won_trick_with_march?(player)
-      2
+      MARCH_POINTS
     elsif player_won_trick?(player)
-      1
+      TRICK_WON_POINTS
     else
       0
     end
   end
 
   def bonus_points(player)
-    euchred_other_player?(player) ? 2 : 0
+    euchred_other_player?(player) ? EUCHRED_BONUS_POINTS : 0
   end
 
   def euchred_other_player?(player)
