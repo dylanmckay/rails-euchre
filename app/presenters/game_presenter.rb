@@ -83,7 +83,7 @@ class GamePresenter < Delegator
     operations.last(EVENT_LOG_ENTRIES).map {|op| description(op)}.join("\n")
   end
 
-  def hand_card_css_class(interactive:)
+  def card_css_class(interactive:)
     interactive ? "interactive_hand_card" : "hand_card"
   end
 
@@ -122,7 +122,7 @@ class GamePresenter < Delegator
     ActionController::Base.helpers.link_to(
       card_text,
       path,
-      class: hand_card_css_class(interactive: interactive),
+      class: card_css_class(interactive: interactive),
     )
   end
 

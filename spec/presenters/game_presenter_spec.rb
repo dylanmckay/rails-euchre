@@ -3,9 +3,9 @@ describe GamePresenter do
   let(:state) { CreateGameState.new(game).call }
   let(:presenter) { GamePresenter.new(game, state) }
 
-  describe "#hand_card_css_class" do
+  describe "#card_css_class" do
     context "when it's dynamic" do
-      subject { presenter.hand_card_css_class(dynamic: true) }
+      subject { presenter.card_css_class(interactive: true) }
 
       it { is_expected.to be_a String }
     end
