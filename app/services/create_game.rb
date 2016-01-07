@@ -5,7 +5,7 @@ class CreateGame
   end
 
   def call
-    Game.create!.tap do |game|
+    Game.new.tap do |game|
       game.with_lock do
         build_human_player(game)
         ai_count.times { build_ai_player(game) }
@@ -24,11 +24,11 @@ class CreateGame
 
   def build_ai_player(game)
     user = find_ai_user
-    game.players.create!(user: user)
+    game.players.new(user: user)
   end
 
   def build_human_player(game)
-    game.players.create!(user: @user)
+    game.players.new(user: @user)
   end
 
   def ai_count

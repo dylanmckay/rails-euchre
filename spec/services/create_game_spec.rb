@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 describe CreateGame do
-
   let(:user) {
     User.create!(name: "Bob")
   }

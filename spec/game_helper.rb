@@ -13,7 +13,7 @@ def create_game(players: [], dealer: players.first, trump: :hearts)
   state
 end
 
-def create_game_model(players: [],
+def create_game_model(players: [create_player_model],
                       dealer: players.first)
   Game.create!(
     players: players,

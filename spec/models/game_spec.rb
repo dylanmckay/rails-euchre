@@ -16,6 +16,8 @@ describe Game do
     g.players[2].operations.discard_card.new(suit: "hearts", rank: 11)
     g.main_player.operations.deal_card.new(suit: "diamonds", rank: 13)
 
+    g.initial_dealer = g.players.first
+
     g.save!
     g
   }

@@ -1,3 +1,5 @@
+require 'rails_helper'
+
 describe Card do
   let(:card1) { Card.new(:diamonds, 10) }
   let(:card2) { Card.new(:diamonds, 10) }
