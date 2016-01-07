@@ -103,19 +103,25 @@ class GamePresenter < Delegator
     game_state.current_phase.to_s
   end
 
-  def link_to_card(card, player:, operation_type:, face_up:)
+  def link_to_card(card, player:, operation_type:, face_up:, interactive:)
     operation_values = {
       operation_type: operation_type,
       suit: card.suit,
       rank: card.rank,
     }
 
-    interactive = @game_state.human_can_play_card?(card)
+    interactive &&= @game_state.human_can_play_card?(card) && operation_type
     card_text = face_up ? unicode_card(card) : unicode_card_back
+
+    path = new_game_player_operation_path(@game, player.model, operation_values)
+
+    if !interactive
+      path = ""
+    end
 
     ActionController::Base.helpers.link_to(
       card_text,
-      new_game_player_operation_path(@game, player.model, operation_values),
+      path,
       class: hand_card_css_class(interactive: interactive),
     )
   end
