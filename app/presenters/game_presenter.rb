@@ -103,7 +103,7 @@ private
 
   def description(operation)
     player_name = operation.player.user.name
-    case operation.type
+    case operation.symbol
     when :deal_card     then "#{player_name} was dealt a card"
     when :pass_trump    then "#{player_name} passed on the trump"
     when :accept_trump  then "#{player_name} accepted the trump"

@@ -25,7 +25,7 @@ RSpec.describe AI::CalculateOperation do
         }
 
         it { expect( ->{ subject } ).to change{ Operation.count }.by 1 }
-        it { expect( ->{ subject } ).to change{ Operation.last.type }.to :pass_trump }
+        it { expect( ->{ subject } ).to change{ Operation.last.symbol }.to :pass_trump }
       end
 
       context "when the AI has a good hand, it accepts the trump selection" do
@@ -35,7 +35,7 @@ RSpec.describe AI::CalculateOperation do
         }
 
         it { expect( ->{ subject } ).to change{ Operation.count }.by 1 }
-        it { expect( ->{ subject } ).to change{ Operation.last.type }.to :accept_trump }
+        it { expect( ->{ subject } ).to change{ Operation.last.symbol }.to :accept_trump }
       end
     end
 

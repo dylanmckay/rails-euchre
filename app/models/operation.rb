@@ -18,8 +18,7 @@ class Operation < ActiveRecord::Base
     end
   end
 
-  # TODO: remove this, or rename
-  def type
+  def symbol
     operation_type.to_sym
   end
 

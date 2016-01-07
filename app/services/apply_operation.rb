@@ -6,7 +6,7 @@ class ApplyOperation
   end
 
   def call
-    send(@operation.type)
+    send(@operation.symbol)
   end
 
   private

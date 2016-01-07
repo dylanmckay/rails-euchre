@@ -37,7 +37,7 @@ module AI
     private
 
     def last_operation_type
-      @game.operations.last.type
+      @game.operations.last.symbol
     end
 
     def calculate_card_to_play
