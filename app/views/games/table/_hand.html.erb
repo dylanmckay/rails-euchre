@@ -4,25 +4,7 @@
   </div>
 
   <% player.hand.each do |card| %>
-    <!-- TODO Clean this up  -->
-    <a class="<%= @game.hand_card_css_class(dynamic: @game_state.human_can_play_card?(card)) %>"
-
-      href="<%=
-      if @game_state.human_can_play_card?(card)
-        new_game_player_operation_path(
-        @game.id,
-        player.player.id,
-        {
-          operation_type: operation_type,
-          suit: card.suit,
-          rank: card.rank
-         }
-         )
-       else
-         @game.id
-       end%>">
-       <%= face_up ? @game.unicode_card(card) : @game_unicode_card_back %>
-    </a>
-  <%end%>
+    <%= @game.link_to_card(card, player: player, operation_type: "play_card") %>
+  <% end %>
 </div>
 

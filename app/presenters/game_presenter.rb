@@ -1,4 +1,12 @@
-class GamePresenter < SimpleDelegator
+class GamePresenter < Delegator
+  include Rails.application.routes.url_helpers
+
+  def initialize(game, state)
+    super(game)
+    @game = game
+    @game_state = state
+  end
+
   EVENT_LOG_ENTRIES = 4
 
   UNICODE_SUITS = {
@@ -93,6 +101,31 @@ class GamePresenter < SimpleDelegator
 
   def phase_partial_name(game_state)
     game_state.current_phase.to_s
+  end
+
+  def link_to_card(card, player:, operation_type:)
+    operation_values = {
+      operation_type: operation_type,
+      suit: card.suit,
+      rank: card.rank,
+    }
+
+    face_up = @game_state.human_can_play_card?(card)
+    card_text = face_up ? unicode_card(card) : unicode_card_back
+
+    ActionController::Base.helpers.link_to(
+      card_text,
+      new_game_player_operation_path(@game, player.model, operation_values),
+      class: hand_card_css_class(dynamic: true),
+    )
+  end
+
+  def __getobj__
+    @game
+  end
+
+  def __setobj__(obj)
+    @game = obj
   end
 
 private
