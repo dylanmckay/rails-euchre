@@ -1,4 +1,3 @@
-
 <h4>Trump Selection</h4>
 
 <% if @game_state.trump_state.pick_phase? %>
@@ -14,26 +13,15 @@
 </div>
 
 <div style="margin: 0 auto 0 auto; display: table">
-  <a href="<%= new_game_player_operation_path(
-    @game.id,
-    @game.main_player.id,
-    { operation_type: 'accept_trump' }
-  )%>">
-    <button type="button" >Accept</button>
-  </a>
-  <!--TODO use link_to  -->
-  <a href="<%= new_game_player_operation_path(
-    @game.id,
-    @game.main_player.id,
-    { operation_type: 'pass_trump' }
-  )%>">
-    <button type="button" >Pass</button>
-  </a>
+  <%= link_to "Accept", new_game_player_operation_path(@game, @game.main_player,
+        { operation_type: 'accept_trump' }), class: "trump_button" %>
+  <%= link_to "Pass", new_game_player_operation_path(@game, @game.main_player,
+        { operation_type: 'pass_trump' }), class: "trump_button" %>
 </div>
 
 <h5>Hand</h5>
 
-<div style="width: 350px; margin: 0 auto 0 auto">
+<div class="hand_container">
   <%= render partial: 'games/table/hand',
     locals: { player: @game_state.main_player} %>
 </div>

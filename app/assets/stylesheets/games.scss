@@ -191,3 +191,18 @@ table{
   border: 0px;
   padding: 0px;
 }
+
+.hand_container {
+  width: 380px;
+  margin: 0 auto 0 auto;
+}
+
+.trump_button {
+  padding: 10px;
+  margin: 10px;
+  background-color: grey;
+}
+
+.trump_button:hover {
+  background-color: green;
+}

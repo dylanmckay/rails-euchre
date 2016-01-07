@@ -10,17 +10,18 @@
 
 <div id="header">
   <ul>
-    <!-- TODO link_to -->
-    <li><a href="/users">View Users</a></li>
-    <li><a href="/users/new">New User</a></li>
+    <li><%= link_to "View Users", users_path %></li>
+    <li><%= link_to "New User", new_user_path %></li>
   </ul>
 </div>
 
-  <div id="content">
-    <%= yield %>
-  </div>
-  <div id="footer">
-    hello
-  </div>
+<div id="content">
+  <%= yield %>
+</div>
+
+<div id="footer">
+  hello
+</div>
+
 </body>
 </html>
