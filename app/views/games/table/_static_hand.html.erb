@@ -1,9 +1,9 @@
 <div class="hand">
   <div class="player_space_header">
-    <div class="player_points"><%=  %> Points</div>
+    <div class="player_points">Points</div>
   </div>
 
   <% player.hand.each do |card| %>
-    <%= unicode_card(card) %>
+    <%= @game.unicode_card(card) %>
   <% end %>
 </div>
