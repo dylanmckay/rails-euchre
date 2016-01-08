@@ -4,6 +4,6 @@
   </div>
 
   <% player.hand.each do |card| %>
-    <%= @game.link_to_card(card, player: player, operation_type: operation_type, face_up: player == @game_state.main_player, interactive: player == @game_state.main_player) %>
+    <%= @game.link_to_card(card, player: player, operation_type: operation_type) %>
   <% end %>
 </div>

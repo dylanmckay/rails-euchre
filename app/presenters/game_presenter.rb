@@ -103,19 +103,18 @@ class GamePresenter < Delegator
     game_state.current_phase.to_s
   end
 
-  def link_to_card(card, player:, operation_type:, face_up:, interactive:)
+  def link_to_card(card, player:, operation_type:)
     operation_values = {
       operation_type: operation_type,
       suit: card.suit,
       rank: card.rank,
     }
 
-    interactive &&= @game_state.human_can_play_card?(card) && operation_type
-    card_text = face_up ? unicode_card(card) : unicode_card_back
-
-    path = new_game_player_operation_path(@game, player.model, operation_values)
-
-    if !interactive
+    card_text = main_player?(player) ? unicode_card(card) : unicode_card_back
+    interactive = interactive_card?(operation_type, card, player)
+    if interactive
+      path = new_game_player_operation_path(@game, player.model, operation_values)
+    else
       path = ""
     end
 
@@ -124,6 +123,16 @@ class GamePresenter < Delegator
       path,
       class: card_css_class(interactive: interactive),
     )
+  end
+
+  def interactive_card?(operation_type, card, player)
+    (operation_type == "play_card"  && @game_state.human_can_play_card?(card)) ||
+      (operation_type == "discard_card") &&
+      main_player?(player)
+  end
+
+  def main_player?(player)
+    @game_state.main_player == player
   end
 
   def __getobj__
