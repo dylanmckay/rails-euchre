@@ -22,6 +22,6 @@
 <h5>Hand</h5>
 
 <div class="hand_container">
-  <%= render partial: 'games/table/hand',
-    locals: { player: @game_state.main_player, operation_type: nil, face_up: true, interactive: false } %>
+  <%= render partial: 'games/table/static_hand',
+    locals: { player: @game_state.main_player } %>
 </div>

@@ -112,11 +112,8 @@ class GamePresenter < Delegator
 
     card_text = main_player?(player) ? unicode_card(card) : unicode_card_back
     interactive = interactive_card?(operation_type, card, player)
-    if interactive
-      path = new_game_player_operation_path(@game, player.model, operation_values)
-    else
-      path = ""
-    end
+
+    path = interactive ? new_game_player_operation_path(@game, player.model, operation_values) : ""
 
     ActionController::Base.helpers.link_to(
       card_text,

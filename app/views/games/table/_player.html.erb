@@ -1,8 +1,7 @@
 <div class="player_space">
-  <% hidden = defined?(hidden) ? hidden : false %>
 
   <%= render partial: 'games/table/hand',
-      locals: {  player: player, operation_type: "play_card", face_up: !hidden } %>
+      locals: {  player: player, operation_type: "play_card"} %>
 
   <div class="won_cards">
     <% player.scored_cards.each do |card| %>
