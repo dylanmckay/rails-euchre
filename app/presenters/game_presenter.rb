@@ -10,81 +10,81 @@ class GamePresenter < Delegator
   EVENT_LOG_ENTRIES = 5
 
   UNICODE_SUITS = {
-    spades: "♠",
-    hearts: "♥",
-    diamonds: "♦",
-    clubs: "♣",
+    spades: '♠',
+    hearts: '♥',
+    diamonds: '♦',
+    clubs: '♣'
   }
 
   UNICODE_CARDS = {
     spades: [
-      "🂡",
-      "🂢",
-      "🂣",
-      "🂤",
-      "🂥",
-      "🂦",
-      "🂧",
-      "🂨",
-      "🂩",
-      "🂪",
-      "🂫",
-      "🂭",
-      "🂮"
+      '🂡',
+      '🂢',
+      '🂣',
+      '🂤',
+      '🂥',
+      '🂦',
+      '🂧',
+      '🂨',
+      '🂩',
+      '🂪',
+      '🂫',
+      '🂭',
+      '🂮'
     ],
     hearts: [
-      "🂱",
-      "🂲",
-      "🂳",
-      "🂴",
-      "🂵",
-      "🂶",
-      "🂷",
-      "🂸",
-      "🂹",
-      "🂺",
-      "🂻",
-      "🂽",
-      "🂾"
+      '🂱',
+      '🂲',
+      '🂳',
+      '🂴',
+      '🂵',
+      '🂶',
+      '🂷',
+      '🂸',
+      '🂹',
+      '🂺',
+      '🂻',
+      '🂽',
+      '🂾'
     ],
     diamonds: [
-      "🃁",
-      "🃂",
-      "🃃",
-      "🃄",
-      "🃅",
-      "🃆",
-      "🃇",
-      "🃈",
-      "🃉",
-      "🃊",
-      "🃋",
-      "🃍",
-      "🃎",
+      '🃁',
+      '🃂',
+      '🃃',
+      '🃄',
+      '🃅',
+      '🃆',
+      '🃇',
+      '🃈',
+      '🃉',
+      '🃊',
+      '🃋',
+      '🃍',
+      '🃎',
     ],
     clubs: [
-      "🃑",
-      "🃒",
-      "🃓",
-      "🃔",
-      "🃕",
-      "🃖",
-      "🃗",
-      "🃘",
-      "🃙",
-      "🃚",
-      "🃛",
-      "🃝",
-      "🃞",
-    ],
+      '🃑',
+      '🃒',
+      '🃓',
+      '🃔',
+      '🃕',
+      '🃖',
+      '🃗',
+      '🃘',
+      '🃙',
+      '🃚',
+      '🃛',
+      '🃝',
+      '🃞'
+    ]
   }
 
   def event_log
-    operations.last(EVENT_LOG_ENTRIES).map {|op| description(op)}.join("\n")
+    operations.last(EVENT_LOG_ENTRIES).map {|op| description(op)}.join('\n')
   end
 
   def card_css_class(interactive:)
-    interactive ? "interactive_hand_card" : "hand_card"
+    interactive ? 'interactive_hand_card' : 'hand_card'
   end
 
   def unicode_card(card)
@@ -96,7 +96,7 @@ class GamePresenter < Delegator
   end
 
   def unicode_card_back
-    "🂠"
+    '🂠'
   end
 
   def phase_partial_name(game_state)
@@ -123,8 +123,8 @@ class GamePresenter < Delegator
   end
 
   def interactive_card?(operation_type, card, player)
-    (operation_type == "play_card"  && @game_state.human_can_play_card?(card)) ||
-      (operation_type == "discard_card") &&
+    (operation_type == 'play_card'  && @game_state.human_can_play_card?(card)) ||
+      (operation_type == 'discard_card') &&
       main_player?(player)
   end
 
@@ -150,7 +150,7 @@ private
     when :accept_trump  then "#{player_name} accepted the trump"
     when :play_card     then "#{player_name} played #{operation.card}"
     when :discard_card  then "#{player_name} discard a card"
-    when :draw_trump    then "Drew a new trump card"
+    when :draw_trump    then 'Drew a new trump card'
     end
   end
 end
