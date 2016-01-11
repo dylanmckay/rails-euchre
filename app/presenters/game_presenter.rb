@@ -103,33 +103,12 @@ class GamePresenter < Delegator
     game_state.current_phase.to_s
   end
 
-  def card_text(card, player)
-    main_player?(player) ? unicode_card(card) : unicode_card_back
-  end
-
-  def card_path(operation_type, card, player)
-    operation_values = {
-      operation_type: operation_type,
-      suit: card.suit,
-      rank: card.rank,
-    }
-
-    interactive = interactive_card?(operation_type, card, player)
-    interactive ? new_game_player_operation_path(@game, player.model, operation_values) : ''
-  end
-
   def link_to_card(card, player:, operation_type:)
     ActionController::Base.helpers.link_to(
       card_text(card, player),
       card_path(operation_type, card, player),
-      class: card_css_class(interactive: interactive_card?(operation_type, card, player)),
+      class: card_css_class(interactive: interactive_card?(operation_type, card, player))
     )
-  end
-
-  def interactive_card?(operation_type, card, player)
-    (operation_type == 'play_card'  && @game_state.human_can_play_card?(card)) ||
-      (operation_type == 'discard_card') &&
-      main_player?(player)
   end
 
   def main_player?(player)
@@ -144,7 +123,31 @@ class GamePresenter < Delegator
     @game = obj
   end
 
-private
+  private
+
+  def interactive_card?(operation_type, card, player)
+    (operation_type == 'play_card'  && @game_state.human_can_play_card?(card)) ||
+      (operation_type == 'discard_card') &&
+      main_player?(player)
+  end
+
+  def card_text(card, player)
+    main_player?(player) ? unicode_card(card) : unicode_card_back
+  end
+
+  def card_path(operation_type, card, player)
+    operation_values = {
+      operation_type: operation_type,
+      suit: card.suit,
+      rank: card.rank,
+    }
+
+    if interactive_card?(operation_type, card, player)
+      new_game_player_operation_path(@game, player.model, operation_values)
+    else
+      ''
+    end
+  end
 
   def description(operation)
     player_name = operation.player.user.name
