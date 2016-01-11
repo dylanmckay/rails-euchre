@@ -80,7 +80,7 @@ class GamePresenter < Delegator
   }
 
   def event_log
-    operations.last(EVENT_LOG_ENTRIES).map {|op| description(op)}.join('\n')
+    operations.last(EVENT_LOG_ENTRIES).map {|op| description(op)}.join("\n")
   end
 
   def card_css_class(interactive:)
@@ -103,22 +103,26 @@ class GamePresenter < Delegator
     game_state.current_phase.to_s
   end
 
-  def link_to_card(card, player:, operation_type:)
+  def card_text(card, player)
+    main_player?(player) ? unicode_card(card) : unicode_card_back
+  end
+
+  def card_path(operation_type, card, player)
     operation_values = {
       operation_type: operation_type,
       suit: card.suit,
       rank: card.rank,
     }
 
-    card_text = main_player?(player) ? unicode_card(card) : unicode_card_back
     interactive = interactive_card?(operation_type, card, player)
+    interactive ? new_game_player_operation_path(@game, player.model, operation_values) : ''
+  end
 
-    path = interactive ? new_game_player_operation_path(@game, player.model, operation_values) : ""
-
+  def link_to_card(card, player:, operation_type:)
     ActionController::Base.helpers.link_to(
-      card_text,
-      path,
-      class: card_css_class(interactive: interactive),
+      card_text(card, player),
+      card_path(operation_type, card, player),
+      class: card_css_class(interactive: interactive_card?(operation_type, card, player)),
     )
   end
 
@@ -145,12 +149,12 @@ private
   def description(operation)
     player_name = operation.player.user.name
     case operation.symbol
-    when :deal_card     then "#{player_name} was dealt a card"
-    when :pass_trump    then "#{player_name} passed on the trump"
-    when :accept_trump  then "#{player_name} accepted the trump"
-    when :play_card     then "#{player_name} played #{operation.card}"
-    when :discard_card  then "#{player_name} discard a card"
-    when :draw_trump    then 'Drew a new trump card'
+    when :deal_card     then " #{player_name} was dealt a card"
+    when :pass_trump    then " #{player_name} passed on the trump"
+    when :accept_trump  then " #{player_name} accepted the trump"
+    when :play_card     then " #{player_name} played #{operation.card}"
+    when :discard_card  then " #{player_name} discard a card"
+    when :draw_trump    then ' Drew a new trump card'
     end
   end
 end
