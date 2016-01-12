@@ -126,8 +126,8 @@ class GamePresenter < Delegator
   private
 
   def interactive_card?(operation_type, card, player)
-    (operation_type == 'play_card'  && @game_state.human_can_play_card?(card)) ||
-      (operation_type == 'discard_card') &&
+    ((operation_type == 'play_card'  && @game_state.human_can_play_card?(card)) ||
+      operation_type == 'discard_card') &&
       main_player?(player)
   end
 

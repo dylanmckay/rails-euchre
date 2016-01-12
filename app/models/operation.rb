@@ -33,8 +33,8 @@ class Operation < ActiveRecord::Base
   private
 
   def suit_and_rank_are_mutually_existing
-    if !suit || !rank
-      errors.add(:suit, "an operation must set both 'suit' and 'rank' or neither") unless suit == rank
+    if suit.nil? != rank.nil?
+      errors.add(:suit, "an operation must set both 'suit' and 'rank' or neither")
     end
   end
 
@@ -50,8 +50,8 @@ class Operation < ActiveRecord::Base
 
   def rank_is_null_or_allowed_in_euchre
     if rank
-      is_valid = rank == Card::ACE || (Card::EUCHRE_CARD_RANGE).include?(rank)
-      
+      is_valid = rank == Card::ACE || Card::EUCHRE_CARD_RANGE.include?(rank)
+
       if !is_valid
         errors.add(:rank, "card rank must be 1 or between 9 and 13 (inclusive)")
       end

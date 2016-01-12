@@ -25,11 +25,14 @@ module AI
 
     def hand_contains_better_leading_suit?
       if hand_contains_any_leading_suit?
-        best_leading = best_leading_card_in_hand
-        best_leading == SortStack.new(@game_state, @game_state.pile.cards + [best_leading]).call.first
+        card_is_better_than_pile?(best_leading_card_in_hand)
       else
         false
       end
+    end
+
+    def card_is_better_than_pile?(card)
+      card == SortStack.new(@game_state, @game_state.pile.cards + [card]).call.first
     end
 
     def hand_contains_better_trump_without_leading?
